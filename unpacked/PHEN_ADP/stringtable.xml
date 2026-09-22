@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="Air Defenses PLUS">
+	<Package name="PHEN_ADP">
+		<Container name="Categories">
+			<Key ID="STR_PHEN_ADP_Cat_General">
+				<English>1 | General</English>
+				<Czech>1 | Obecné</Czech>
+				<French>1 | Général</French>
+				<Spanish>1 | General</Spanish>
+				<Italian>1 | Generale</Italian>
+				<Polish>1 | Ogólne</Polish>
+				<Russian>1 | Общие</Russian>
+				<German>1 | Allgemein</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Cat_Threats">
+				<English>2 | Threat types</English>
+				<Czech>2 | Typy hrozeb</Czech>
+				<French>2 | Types de menaces</French>
+				<Spanish>2 | Tipos de amenaza</Spanish>
+				<Italian>2 | Tipi di minaccia</Italian>
+				<Polish>2 | Typy zagrożeń</Polish>
+				<Russian>2 | Типы угроз</Russian>
+				<German>2 | Bedrohungsarten</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Cat_Tuning">
+				<English>3 | Tuning</English>
+				<Czech>3 | Ladění</Czech>
+				<French>3 | Réglages</French>
+				<Spanish>3 | Ajustes</Spanish>
+				<Italian>3 | Regolazioni</Italian>
+				<Polish>3 | Dostrajanie</Polish>
+				<Russian>3 | Настройка</Russian>
+				<German>3 | Feinabstimmung</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Cat_Alarm">
+				<English>4 | Alarm</English>
+				<Czech>4 | Poplach</Czech>
+				<French>4 | Alarme</French>
+				<Spanish>4 | Alarma</Spanish>
+				<Italian>4 | Allarme</Italian>
+				<Polish>4 | Alarm</Polish>
+				<Russian>4 | Тревога</Russian>
+				<German>4 | Alarm</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Cat_Interface">
+				<English>5 | Interface</English>
+				<Czech>5 | Rozhraní</Czech>
+				<French>5 | Interface</French>
+				<Spanish>5 | Interfaz</Spanish>
+				<Italian>5 | Interfaccia</Italian>
+				<Polish>5 | Interfejs</Polish>
+				<Russian>5 | Интерфейс</Russian>
+				<German>5 | Benutzeroberfläche</German>
+			</Key>
+		</Container>
+		<Container name="Settings">
+			<Key ID="STR_PHEN_ADP_Enabled">
+				<English>Enable Air Defenses PLUS</English>
+				<Czech>Zapnout Air Defenses PLUS</Czech>
+				<French>Activer Air Defenses PLUS</French>
+				<Spanish>Activar Air Defenses PLUS</Spanish>
+				<Italian>Attiva Air Defenses PLUS</Italian>
+				<Polish>Włącz Air Defenses PLUS</Polish>
+				<Russian>Включить Air Defenses PLUS</Russian>
+				<German>Air Defenses PLUS aktivieren</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Enabled_Desc">
+				<English>Off and nothing registers, not a single script runs. Costs you NOTHING to leave the mod loaded.</English>
+				<Czech>Vypnuto a nic se nezaregistruje, neběží ani jediný skript. Nechat mod načtený vás nestojí NIC.</Czech>
+				<French>Désactivé et rien ne s'enregistre, pas un seul script ne tourne. Laisser le mod chargé ne vous coûte RIEN.</French>
+				<Spanish>Desactivado y no se registra nada, no corre ni un solo script. Dejar el mod cargado no te cuesta NADA.</Spanish>
+				<Italian>Disattivato e non si registra nulla, non gira nemmeno uno script. Lasciare la mod caricata non ti costa NIENTE.</Italian>
+				<Polish>Wyłączone i nic się nie rejestruje, nie działa ani jeden skrypt. Zostawienie moda wczytanego nie kosztuje CIĘ NIC.</Polish>
+				<Russian>Выключено, и ничего не регистрируется, не работает ни один скрипт. Оставить мод загруженным не стоит вам НИЧЕГО.</Russian>
+				<German>Aus, und nichts registriert sich, kein einziges Skript läuft. Den Mod geladen zu lassen kostet Sie NICHTS.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_DefaultModeGun">
+				<English>Default Targeting Mode, guns</English>
+				<Czech>Výchozí režim zaměřování, kanony</Czech>
+				<French>Mode de ciblage par défaut, canons</French>
+				<Spanish>Modo de puntería por defecto, cañones</Spanish>
+				<Italian>Modalità di puntamento predefinita, cannoni</Italian>
+				<Polish>Domyślny tryb celowania, działa</Polish>
+				<Russian>Режим наведения по умолчанию, пушки</Russian>
+				<German>Standard-Zielmodus, Kanonen</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_DefaultModeGun_Desc">
+				<English>What every gun air defense starts on, the Phalanx and anything else that shoots shells. You can still change it per emplacement with the scroll action.</English>
+				<Czech>Na čem začíná každá kanonová protivzdušná obrana, Phalanx a všechno ostatní, co střílí náboje. Pořád to můžete změnit u jednotlivého postavení přes scroll akci.</Czech>
+				<French>Le mode sur lequel démarre chaque défense antiaérienne à canon, le Phalanx et tout ce qui tire des obus. Vous pouvez toujours le changer emplacement par emplacement avec l'action de la molette.</French>
+				<Spanish>El modo con el que arranca cada defensa antiaérea de cañón, el Phalanx y cualquier cosa que dispare proyectiles. Aún puedes cambiarlo en cada emplazamiento con la acción de la rueda.</Spanish>
+				<Italian>La modalità con cui parte ogni difesa antiaerea a cannone, il Phalanx e tutto il resto che spara proiettili. Puoi comunque cambiarla su ogni postazione con l'azione della rotellina.</Italian>
+				<Polish>Tryb, od którego startuje każda działowa obrona przeciwlotnicza, Phalanx i wszystko inne, co strzela pociskami. Nadal możesz go zmienić na każdym stanowisku akcją scrolla.</Polish>
+				<Russian>Режим, с которого стартует каждая пушечная система ПВО, Phalanx и всё остальное, что стреляет снарядами. Вы всё равно можете сменить его на каждой позиции через действие колёсика.</Russian>
+				<German>Der Modus, mit dem jede Kanonen-Flugabwehr startet, die Phalanx und alles andere, was Geschosse verschießt. Sie können ihn weiterhin pro Stellung über die Mausrad-Aktion ändern.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_DefaultModeMissile">
+				<English>Default Targeting Mode, missiles</English>
+				<Czech>Výchozí režim zaměřování, rakety</Czech>
+				<French>Mode de ciblage par défaut, missiles</French>
+				<Spanish>Modo de puntería por defecto, misiles</Spanish>
+				<Italian>Modalità di puntamento predefinita, missili</Italian>
+				<Polish>Domyślny tryb celowania, rakiety</Polish>
+				<Russian>Режим наведения по умолчанию, ракеты</Russian>
+				<German>Standard-Zielmodus, Raketen</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_DefaultModeMissile_Desc">
+				<English>What every launcher starts on, the Spartan, Centurion, Praetorian and S-750. They reach a lot further than a gun does, so taking the worst threat first suits them better. You can still change it per emplacement with the scroll action.</English>
+				<Czech>Na čem začíná každý odpalovač, Spartan, Centurion, Praetorian a S-750. Dosahují mnohem dál než kanon, takže jim lépe sedí brát nejhorší hrozbu jako první. Pořád to můžete změnit u jednotlivého postavení přes scroll akci.</Czech>
+				<French>Le mode sur lequel démarre chaque lanceur, le Spartan, le Centurion, le Praetorian et le S-750. Ils portent bien plus loin qu'un canon, donc prendre la pire menace en premier leur convient mieux. Vous pouvez toujours le changer emplacement par emplacement avec l'action de la molette.</French>
+				<Spanish>El modo con el que arranca cada lanzador, el Spartan, el Centurion, el Praetorian y el S-750. Llegan mucho más lejos que un cañón, así que les va mejor coger primero la peor amenaza. Aún puedes cambiarlo en cada emplazamiento con la acción de la rueda.</Spanish>
+				<Italian>La modalità con cui parte ogni lanciatore, lo Spartan, il Centurion, il Praetorian e l'S-750. Arrivano molto più lontano di un cannone, quindi gli conviene prendere prima la minaccia peggiore. Puoi comunque cambiarla su ogni postazione con l'azione della rotellina.</Italian>
+				<Polish>Tryb, od którego startuje każda wyrzutnia, Spartan, Centurion, Praetorian i S-750. Sięgają o wiele dalej niż działo, więc lepiej im pasuje branie najgorszego zagrożenia jako pierwszego. Nadal możesz go zmienić na każdym stanowisku akcją scrolla.</Polish>
+				<Russian>Режим, с которого стартует каждая пусковая установка, Spartan, Centurion, Praetorian и С-750. Они бьют намного дальше пушки, так что им больше подходит брать сначала самую опасную угрозу. Вы всё равно можете сменить его на каждой позиции через действие колёсика.</Russian>
+				<German>Der Modus, mit dem jeder Werfer startet, der Spartan, Centurion, Praetorian und die S-750. Sie reichen deutlich weiter als eine Kanone, also passt es besser zu ihnen, zuerst die schlimmste Bedrohung zu nehmen. Sie können ihn weiterhin pro Stellung über die Mausrad-Aktion ändern.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_PauseWhenCrewed">
+				<English>Pause when crewed?</English>
+				<Czech>Pozastavit, když je obsazeno?</Czech>
+				<French>Mettre en pause si occupé ?</French>
+				<Spanish>¿Pausar si está tripulada?</Spanish>
+				<Italian>Sospendere se occupata?</Italian>
+				<Polish>Wstrzymać, gdy obsadzone?</Polish>
+				<Russian>Приостанавливать, когда занято?</Russian>
+				<German>Bei Besatzung aussetzen?</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_PauseWhenCrewed_Desc">
+				<English>An emplacement with someone in the turret stops intercepting by itself, so the mod never fights you for the gun.</English>
+				<Czech>Postavení, ve kterém někdo sedí ve věži, samo přestane zachytávat, takže se s vámi mod nikdy nepere o zbraň.</Czech>
+				<French>Un emplacement avec quelqu'un dans la tourelle arrête d'intercepter tout seul, le mod ne vous dispute donc jamais le canon.</French>
+				<Spanish>Un emplazamiento con alguien en la torreta deja de interceptar por sí solo, así el mod nunca te pelea el cañón.</Spanish>
+				<Italian>Una postazione con qualcuno nella torretta smette di intercettare da sola, così la mod non ti contende mai il cannone.</Italian>
+				<Polish>Stanowisko z kimś w wieżyczce samo przestaje przechwytywać, więc mod nigdy nie walczy z tobą o działo.</Polish>
+				<Russian>Позиция, в башне которой кто-то сидит, сама перестаёт перехватывать, так что мод никогда не отбирает у вас орудие.</Russian>
+				<German>Eine Stellung mit jemandem im Turm hört von selbst auf abzufangen, so streitet der Mod nie mit Ihnen um die Waffe.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_FriendlyFire">
+				<English>Ignore sides?</English>
+				<Czech>Ignorovat strany?</Czech>
+				<French>Ignorer les camps ?</French>
+				<Spanish>¿Ignorar los bandos?</Spanish>
+				<Italian>Ignorare le fazioni?</Italian>
+				<Polish>Ignorować strony?</Polish>
+				<Russian>Игнорировать стороны?</Russian>
+				<German>Seiten ignorieren?</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_FriendlyFire_Desc">
+				<English>On and every emplacement shoots at EVERYTHING in the air, your own artillery included. Off keeps the side check.</English>
+				<Czech>Zapnuto a každé postavení střílí po VŠEM ve vzduchu, včetně vaší vlastní artilerie. Vypnuto zachová kontrolu stran.</Czech>
+				<French>Activé et chaque emplacement tire sur TOUT ce qui vole, votre propre artillerie comprise. Désactivé garde la vérification des camps.</French>
+				<Spanish>Activado y cada emplazamiento dispara a TODO lo que vuela, incluida tu propia artillería. Desactivado mantiene la comprobación de bandos.</Spanish>
+				<Italian>Attivo e ogni postazione spara a TUTTO ciò che vola, compresa la tua artiglieria. Disattivo mantiene il controllo delle fazioni.</Italian>
+				<Polish>Włączone i każde stanowisko strzela do WSZYSTKIEGO w powietrzu, łącznie z twoją własną artylerią. Wyłączone zostawia sprawdzanie stron.</Polish>
+				<Russian>Включено, и каждая позиция стреляет по ВСЕМУ в воздухе, включая вашу собственную артиллерию. Выключено оставляет проверку сторон.</Russian>
+				<German>An, und jede Stellung schießt auf ALLES in der Luft, Ihre eigene Artillerie eingeschlossen. Aus behält die Seitenprüfung bei.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_ExtraClasses">
+				<English>Extra Air Defense Classnames</English>
+				<Czech>Další classnames protivzdušné obrany</Czech>
+				<French>Classnames de défense antiaérienne supplémentaires</French>
+				<Spanish>Classnames extra de defensa antiaérea</Spanish>
+				<Italian>Classname aggiuntivi di difesa antiaerea</Italian>
+				<Polish>Dodatkowe classname obrony przeciwlotniczej</Polish>
+				<Russian>Дополнительные classname систем ПВО</Russian>
+				<German>Zusätzliche Flugabwehr-Classnames</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_ExtraClasses_Desc">
+				<English>For modded air defenses that do not inherit from a base-game one. Array of strings (e.g. ['MOD_SomeAAA_F','MOD_SomeSAM_F']) &lt;- keep the quotes!</English>
+				<Czech>Pro moddované protivzdušné obrany, které nedědí ze základní hry. Pole stringů (např. ['MOD_SomeAAA_F','MOD_SomeSAM_F']) &lt;- uvozovky nechte!</Czech>
+				<French>Pour les défenses antiaériennes moddées qui n'héritent pas d'une du jeu de base. Tableau de chaînes (p. ex. ['MOD_SomeAAA_F','MOD_SomeSAM_F']) &lt;- gardez les guillemets !</French>
+				<Spanish>Para defensas antiaéreas modeadas que no heredan de una del juego base. Array de cadenas (p. ej. ['MOD_SomeAAA_F','MOD_SomeSAM_F']) &lt;- ¡deja las comillas!</Spanish>
+				<Italian>Per difese antiaeree moddate che non ereditano da una del gioco base. Array di stringhe (es. ['MOD_SomeAAA_F','MOD_SomeSAM_F']) &lt;- lascia le virgolette!</Italian>
+				<Polish>Dla moddowanych obron przeciwlotniczych, które nie dziedziczą po tych z podstawki. Tablica stringów (np. ['MOD_SomeAAA_F','MOD_SomeSAM_F']) &lt;- zostaw cudzysłowy!</Polish>
+				<Russian>Для модовых систем ПВО, которые не наследуются от базовых. Массив строк (напр. ['MOD_SomeAAA_F','MOD_SomeSAM_F']) &lt;- кавычки оставьте!</Russian>
+				<German>Für gemoddete Flugabwehr, die nicht von einer aus dem Basisspiel erbt. Array aus Strings (z. B. ['MOD_SomeAAA_F','MOD_SomeSAM_F']) &lt;- Anführungszeichen drinlassen!</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_TrackBallistic">
+				<English>Intercept artillery and mortars?</English>
+				<Czech>Zachytávat artilerii a minomety?</Czech>
+				<French>Intercepter l'artillerie et les mortiers ?</French>
+				<Spanish>¿Interceptar artillería y morteros?</Spanish>
+				<Italian>Intercettare artiglieria e mortai?</Italian>
+				<Polish>Przechwytywać artylerię i moździerze?</Polish>
+				<Russian>Перехватывать артиллерию и миномёты?</Russian>
+				<German>Artillerie und Mörser abfangen?</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_TrackBallistic_Desc">
+				<English>Anything on ShellCore that is actually arcing, so flat tank rounds never enter the tracker.</English>
+				<Czech>Cokoli na ShellCore, co opravdu letí obloukem, takže ploché tankové granáty se do trackeru nikdy nedostanou.</Czech>
+				<French>Tout ce qui est basé sur ShellCore et suit réellement une trajectoire courbe, les obus de char tendus n'entrent donc jamais dans le tracker.</French>
+				<Spanish>Cualquier cosa sobre ShellCore que realmente describa un arco, así los proyectiles tensos de carro nunca entran al tracker.</Spanish>
+				<Italian>Qualsiasi cosa su ShellCore che descrive davvero un arco, così i colpi tesi dei carri non entrano mai nel tracker.</Italian>
+				<Polish>Wszystko na ShellCore, co faktycznie leci łukiem, więc płaskie pociski czołgowe nigdy nie trafiają do trackera.</Polish>
+				<Russian>Всё на ShellCore, что действительно идёт по дуге, поэтому настильные танковые снаряды в трекер не попадают.</Russian>
+				<German>Alles auf ShellCore, das tatsächlich einen Bogen fliegt, flache Panzergranaten landen also nie im Tracker.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_TrackSubmunition">
+				<English>Intercept rocket artillery?</English>
+				<Czech>Zachytávat raketomety?</Czech>
+				<French>Intercepter l'artillerie à roquettes ?</French>
+				<Spanish>¿Interceptar artillería de cohetes?</Spanish>
+				<Italian>Intercettare l'artiglieria a razzo?</Italian>
+				<Polish>Przechwytywać artylerię rakietową?</Polish>
+				<Russian>Перехватывать реактивную артиллерию?</Russian>
+				<German>Raketenartillerie abfangen?</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_TrackSubmunition_Desc">
+				<English>MLRS submunitions, they come in BIG salvos. First one to turn off if your server is struggling.</English>
+				<Czech>Submunice MLRS, chodí ve VELKÝCH salvách. První, co vypnout, když váš server nestíhá.</Czech>
+				<French>Sous-munitions MLRS, elles arrivent par GROSSES salves. La première à couper si votre serveur peine.</French>
+				<Spanish>Submuniciones MLRS, llegan en salvas GRANDES. La primera que apagar si tu servidor sufre.</Spanish>
+				<Italian>Submunizioni MLRS, arrivano in salve GROSSE. La prima da spegnere se il tuo server arranca.</Italian>
+				<Polish>Submunicja MLRS, leci WIELKIMI salwami. Pierwsze do wyłączenia, jeśli twój serwer nie wyrabia.</Polish>
+				<Russian>Суббоеприпасы MLRS, летят БОЛЬШИМИ залпами. Первое, что стоит выключить, если ваш сервер не тянет.</Russian>
+				<German>MLRS-Submunition, kommt in GROSSEN Salven. Das Erste, was Sie abschalten, wenn Ihr Server schwächelt.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_TrackMissile">
+				<English>Intercept missiles?</English>
+				<Czech>Zachytávat řízené střely?</Czech>
+				<French>Intercepter les missiles ?</French>
+				<Spanish>¿Interceptar misiles?</Spanish>
+				<Italian>Intercettare i missili?</Italian>
+				<Polish>Przechwytywać pociski kierowane?</Polish>
+				<Russian>Перехватывать ракеты?</Russian>
+				<German>Raketen abfangen?</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_TrackMissile_Desc">
+				<English>Cruise missiles, anti radiation missiles, air launched AT.</English>
+				<Czech>Řízené střely, protiradarové střely, vzdušné protitankové.</Czech>
+				<French>Missiles de croisière, missiles antiradar, AC lancés depuis les airs.</French>
+				<Spanish>Misiles de crucero, misiles antirradar, AC lanzados desde el aire.</Spanish>
+				<Italian>Missili da crociera, missili antiradar, AC lanciati dall'aria.</Italian>
+				<Polish>Pociski manewrujące, przeciwradiolokacyjne, przeciwpancerne odpalane z powietrza.</Polish>
+				<Russian>Крылатые ракеты, противорадиолокационные ракеты, авиационные ПТУР.</Russian>
+				<German>Marschflugkörper, Antiradarraketen, luftgestützte PAL.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_TrackRocket">
+				<English>Intercept unguided rockets?</English>
+				<Czech>Zachytávat neřízené rakety?</Czech>
+				<French>Intercepter les roquettes non guidées ?</French>
+				<Spanish>¿Interceptar cohetes no guiados?</Spanish>
+				<Italian>Intercettare i razzi non guidati?</Italian>
+				<Polish>Przechwytywać rakiety niekierowane?</Polish>
+				<Russian>Перехватывать неуправляемые ракеты?</Russian>
+				<German>Ungelenkte Raketen abfangen?</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_TrackRocket_Desc">
+				<English>Rocket artillery and anything else lobbed on an arc. A rocket fired flat is ignored whatever this is set to.</English>
+				<Czech>Raketové dělostřelectvo a cokoli dalšího vystřeleného obloukem. Raketa vystřelená přímou palbou se ignoruje bez ohledu na toto nastavení.</Czech>
+				<French>L'artillerie à roquettes et tout ce qui est tiré en cloche. Une roquette tirée à plat est ignorée quel que soit ce réglage.</French>
+				<Spanish>Artillería de cohetes y cualquier cosa lanzada en arco. Un cohete disparado en horizontal se ignora sea cual sea este ajuste.</Spanish>
+				<Italian>Artiglieria a razzo e qualsiasi cosa lanciata ad arco. Un razzo sparato in orizzontale viene ignorato comunque.</Italian>
+				<Polish>Artyleria rakietowa i wszystko inne wystrzelone łukiem. Rakieta wystrzelona na płasko jest ignorowana niezależnie od tego ustawienia.</Polish>
+				<Russian>Реактивная артиллерия и всё остальное, что летит по дуге. Ракета, выпущенная настильно, игнорируется при любом значении.</Russian>
+				<German>Raketenartillerie und alles andere, was im Bogen abgefeuert wird. Eine flach abgefeuerte Rakete wird unabhängig von dieser Einstellung ignoriert.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_TrackDrones">
+				<English>Intercept drones?</English>
+				<Czech>Zachytávat drony?</Czech>
+				<French>Intercepter les drones ?</French>
+				<Spanish>¿Interceptar drones?</Spanish>
+				<Italian>Intercettare i droni?</Italian>
+				<Polish>Przechwytywać drony?</Polish>
+				<Russian>Перехватывать дроны?</Russian>
+				<German>Drohnen abfangen?</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_TrackDrones_Desc">
+				<English>Hostile UAVs get engaged like any other air target. Friendly and landed ones are skipped.</English>
+				<Czech>Nepřátelské UAV se řeší jako každý jiný vzdušný cíl. Spřátelené a přistálé se přeskakují.</Czech>
+				<French>Les UAV hostiles sont traités comme n'importe quelle autre cible aérienne. Les alliés et ceux posés au sol sont ignorés.</French>
+				<Spanish>Los UAV hostiles se atacan como cualquier otro blanco aéreo. Los aliados y los posados se saltan.</Spanish>
+				<Italian>Gli UAV ostili vengono ingaggiati come qualsiasi altro bersaglio aereo. Quelli alleati e atterrati vengono saltati.</Italian>
+				<Polish>Wrogie UAV są zwalczane jak każdy inny cel powietrzny. Sojusznicze i te na ziemi są pomijane.</Polish>
+				<Russian>Вражеские БПЛА обстреливаются как любая другая воздушная цель. Союзные и севшие пропускаются.</Russian>
+				<German>Feindliche UAVs werden wie jedes andere Luftziel bekämpft. Verbündete und gelandete werden übersprungen.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_RangeMultiplier">
+				<English>Engagement Range Multiplier</English>
+				<Czech>Násobič dostřelu</Czech>
+				<French>Multiplicateur de portée d'engagement</French>
+				<Spanish>Multiplicador de alcance de combate</Spanish>
+				<Italian>Moltiplicatore di portata d'ingaggio</Italian>
+				<Polish>Mnożnik zasięgu zwalczania</Polish>
+				<Russian>Множитель дальности поражения</Russian>
+				<German>Multiplikator der Bekämpfungsreichweite</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_RangeMultiplier_Desc">
+				<English>Scales every emplacement's range. 1 is base-game range.</English>
+				<Czech>Škáluje dostřel každého postavení. 1 je dostřel základní hry.</Czech>
+				<French>Met à l'échelle la portée de chaque emplacement. 1 correspond à la portée du jeu de base.</French>
+				<Spanish>Escala el alcance de cada emplazamiento. 1 es el alcance del juego base.</Spanish>
+				<Italian>Scala la portata di ogni postazione. 1 è la portata del gioco base.</Italian>
+				<Polish>Skaluje zasięg każdego stanowiska. 1 to zasięg z podstawki.</Polish>
+				<Russian>Масштабирует дальность каждой позиции. 1, это дальность базовой игры.</Russian>
+				<German>Skaliert die Reichweite jeder Stellung. 1 ist die Reichweite des Basisspiels.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Accuracy">
+				<English>Intercept Success Chance</English>
+				<Czech>Šance na úspěšné zachycení</Czech>
+				<French>Chance de réussite de l'interception</French>
+				<Spanish>Probabilidad de interceptación con éxito</Spanish>
+				<Italian>Probabilità di intercettazione riuscita</Italian>
+				<Polish>Szansa na udane przechwycenie</Polish>
+				<Russian>Шанс успешного перехвата</Russian>
+				<German>Erfolgschance beim Abfangen</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Accuracy_Desc">
+				<English>Chance an interceptor that reaches its target actually kills it. Below 1 the shell survives and keeps coming at you.</English>
+				<Czech>Šance, že interceptor, který dolétne k cíli, ho opravdu zničí. Pod 1 granát přežije a letí dál na vás.</Czech>
+				<French>Chance qu'un intercepteur qui atteint sa cible la détruise réellement. En dessous de 1, l'obus survit et continue vers vous.</French>
+				<Spanish>Probabilidad de que un interceptor que alcanza su blanco lo destruya de verdad. Por debajo de 1 el proyectil sobrevive y sigue viniendo hacia ti.</Spanish>
+				<Italian>Probabilità che un intercettore che raggiunge il bersaglio lo distrugga davvero. Sotto 1 il proiettile sopravvive e continua ad arrivarti addosso.</Italian>
+				<Polish>Szansa, że przechwytywacz, który doleci do celu, faktycznie go zniszczy. Poniżej 1 pocisk przeżywa i leci dalej na ciebie.</Polish>
+				<Russian>Шанс, что перехватчик, дошедший до цели, действительно её уничтожит. Ниже 1 снаряд выживает и продолжает лететь на вас.</Russian>
+				<German>Chance, dass ein Abfangflugkörper, der sein Ziel erreicht, es auch wirklich zerstört. Unter 1 überlebt die Granate und kommt weiter auf Sie zu.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_AlarmEnabled">
+				<English>Incoming alarm?</English>
+				<Czech>Poplach při náletu?</Czech>
+				<French>Alarme d'attaque imminente ?</French>
+				<Spanish>¿Alarma de ataque entrante?</Spanish>
+				<Italian>Allarme in arrivo?</Italian>
+				<Polish>Alarm o nadlatującym ataku?</Polish>
+				<Russian>Тревога о подлёте?</Russian>
+				<German>Alarm bei Anflug?</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_AlarmEnabled_Desc">
+				<English>Siren on the emplacement and on any loudspeaker nearby, goes off when it starts engaging.</English>
+				<Czech>Siréna na postavení a na každém reproduktoru v okolí, spustí se, jakmile začne pálit.</Czech>
+				<French>Sirène sur l'emplacement et sur tout haut-parleur à proximité, elle se déclenche dès qu'il ouvre le feu.</French>
+				<Spanish>Sirena en el emplazamiento y en cualquier altavoz cercano, suena en cuanto empieza a disparar.</Spanish>
+				<Italian>Sirena sulla postazione e su ogni altoparlante vicino, parte appena inizia a ingaggiare.</Italian>
+				<Polish>Syrena na stanowisku i na każdym głośniku w pobliżu, odpala się, gdy zaczyna zwalczać.</Polish>
+				<Russian>Сирена на позиции и на любом громкоговорителе рядом, срабатывает, как только начинается обстрел.</Russian>
+				<German>Sirene an der Stellung und an jedem Lautsprecher in der Nähe, geht los, sobald sie das Feuer eröffnet.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_ScrollActions">
+				<English>Scroll actions?</English>
+				<Czech>Scroll akce?</Czech>
+				<French>Actions de la molette ?</French>
+				<Spanish>¿Acciones de la rueda?</Spanish>
+				<Italian>Azioni della rotellina?</Italian>
+				<Polish>Akcje scrolla?</Polish>
+				<Russian>Действия колёсика?</Russian>
+				<German>Mausrad-Aktionen?</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_ScrollActions_Desc">
+				<English>Adds the air defense scroll actions to every emplacement. ACE interaction entries are separate and always on.</English>
+				<Czech>Přidá scroll akce protivzdušné obrany na každé postavení. Položky v ACE interakci jsou zvlášť a jsou vždy zapnuté.</Czech>
+				<French>Ajoute les actions de molette de défense antiaérienne à chaque emplacement. Les entrées d'interaction ACE sont séparées et toujours actives.</French>
+				<Spanish>Añade las acciones de rueda de defensa antiaérea a cada emplazamiento. Las entradas de interacción ACE van aparte y están siempre activas.</Spanish>
+				<Italian>Aggiunge le azioni della rotellina di difesa antiaerea a ogni postazione. Le voci di interazione ACE sono separate e sempre attive.</Italian>
+				<Polish>Dodaje akcje scrolla obrony przeciwlotniczej do każdego stanowiska. Wpisy interakcji ACE są osobne i zawsze włączone.</Polish>
+				<Russian>Добавляет действия колёсика ПВО на каждую позицию. Пункты взаимодействия ACE отдельные и всегда включены.</Russian>
+				<German>Fügt jeder Stellung die Flugabwehr-Mausradaktionen hinzu. ACE-Interaktionseinträge sind davon getrennt und immer aktiv.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Debug">
+				<English>Debug Markers</English>
+				<Czech>Debug značky</Czech>
+				<French>Marqueurs de debug</French>
+				<Spanish>Marcadores de depuración</Spanish>
+				<Italian>Marcatori di debug</Italian>
+				<Polish>Znaczniki debugowania</Polish>
+				<Russian>Отладочные метки</Russian>
+				<German>Debug-Marker</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Debug_Desc">
+				<English>Draws a seeker lock icon and INCOMING over anything being tracked. Yours alone, the server does not force this one.</English>
+				<Czech>Kreslí ikonu zaměřovače a INCOMING nad vším, co je sledováno. Jen pro vás, server tohle nevynucuje.</Czech>
+				<French>Affiche une icône de verrouillage et INCOMING au-dessus de tout ce qui est suivi. Réglage local, le serveur ne l'impose pas.</French>
+				<Spanish>Dibuja un icono de bloqueo y INCOMING sobre todo lo que se está rastreando. Solo para ti, el servidor no lo fuerza.</Spanish>
+				<Italian>Disegna un'icona di agganciamento e INCOMING sopra tutto ciò che viene tracciato. Solo per te, il server non lo forza.</Italian>
+				<Polish>Rysuje ikonę namiaru i INCOMING nad wszystkim, co jest śledzone. Tylko dla ciebie, serwer tego nie wymusza.</Polish>
+				<Russian>Рисует значок захвата и INCOMING над всем, что отслеживается. Только для вас, сервер это не навязывает.</Russian>
+				<German>Zeichnet ein Lock-Symbol und INCOMING über allem, was verfolgt wird. Nur für Sie, der Server erzwingt das nicht.</German>
+			</Key>
+		</Container>
+		<Container name="Interface">
+			<Key ID="STR_PHEN_ADP_Action_AirDefense">
+				<English>Air Defense</English>
+				<Czech>Protivzdušná obrana</Czech>
+				<French>Défense antiaérienne</French>
+				<Spanish>Defensa antiaérea</Spanish>
+				<Italian>Difesa antiaerea</Italian>
+				<Polish>Obrona przeciwlotnicza</Polish>
+				<Russian>ПВО</Russian>
+				<German>Flugabwehr</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Action_Alarm">
+				<English>Incoming Alarm</English>
+				<Czech>Poplach při náletu</Czech>
+				<French>Alarme d'attaque</French>
+				<Spanish>Alarma de ataque</Spanish>
+				<Italian>Allarme in arrivo</Italian>
+				<Polish>Alarm o nalocie</Polish>
+				<Russian>Тревога о подлёте</Russian>
+				<German>Anflugalarm</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_State_On">
+				<English>ON</English>
+				<Czech>ZAP</Czech>
+				<French>ACTIVÉ</French>
+				<Spanish>ACTIVO</Spanish>
+				<Italian>ATTIVO</Italian>
+				<Polish>WŁ</Polish>
+				<Russian>ВКЛ</Russian>
+				<German>AN</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_State_Off">
+				<English>OFF</English>
+				<Czech>VYP</Czech>
+				<French>DÉSACTIVÉ</French>
+				<Spanish>INACTIVO</Spanish>
+				<Italian>SPENTO</Italian>
+				<Polish>WYŁ</Polish>
+				<Russian>ВЫКЛ</Russian>
+				<German>AUS</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Mode_Off">
+				<English>Off</English>
+				<Czech>Vypnuto</Czech>
+				<French>Désactivé</French>
+				<Spanish>Apagado</Spanish>
+				<Italian>Spento</Italian>
+				<Polish>Wyłączony</Polish>
+				<Russian>Выкл</Russian>
+				<German>Aus</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Mode_Random">
+				<English>Random</English>
+				<Czech>Náhodně</Czech>
+				<French>Aléatoire</French>
+				<Spanish>Aleatorio</Spanish>
+				<Italian>Casuale</Italian>
+				<Polish>Losowo</Polish>
+				<Russian>Случайно</Russian>
+				<German>Zufällig</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Mode_Closest">
+				<English>Closest threat</English>
+				<Czech>Nejbližší hrozba</Czech>
+				<French>Menace la plus proche</French>
+				<Spanish>Amenaza más cercana</Spanish>
+				<Italian>Minaccia più vicina</Italian>
+				<Polish>Najbliższe zagrożenie</Polish>
+				<Russian>Ближайшая угроза</Russian>
+				<German>Nächste Bedrohung</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Mode_Highest">
+				<English>Highest threat</English>
+				<Czech>Nejvyšší hrozba</Czech>
+				<French>Menace la plus élevée</French>
+				<Spanish>Amenaza mayor</Spanish>
+				<Italian>Minaccia maggiore</Italian>
+				<Polish>Największe zagrożenie</Polish>
+				<Russian>Наибольшая угроза</Russian>
+				<German>Größte Bedrohung</German>
+			</Key>
+		</Container>
+		<Container name="Cfg">
+			<Key ID="STR_PHEN_ADP_TargetProxy">
+				<English>Air Defenses PLUS Target Proxy</English>
+				<Czech>Air Defenses PLUS cílový proxy</Czech>
+				<French>Proxy de cible Air Defenses PLUS</French>
+				<Spanish>Proxy de objetivo de Air Defenses PLUS</Spanish>
+				<Italian>Proxy bersaglio Air Defenses PLUS</Italian>
+				<Polish>Proxy celu Air Defenses PLUS</Polish>
+				<Russian>Прокси-цель Air Defenses PLUS</Russian>
+				<German>Air Defenses PLUS Ziel-Proxy</German>
+			</Key>
+		</Container>
+	</Package>
+</Project>

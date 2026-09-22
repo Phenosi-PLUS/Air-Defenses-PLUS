@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="Air Defenses PLUS">
+	<Package name="PHEN_ADP_ACE">
+		<Container name="Interaction">
+			<Key ID="STR_PHEN_ADP_ACE_Root">
+				<English>Air Defense</English>
+				<Czech>Protivzdušná obrana</Czech>
+				<French>Défense antiaérienne</French>
+				<Spanish>Defensa antiaérea</Spanish>
+				<Italian>Difesa antiaerea</Italian>
+				<Polish>Obrona przeciwlotnicza</Polish>
+				<Russian>ПВО</Russian>
+				<German>Flugabwehr</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_ACE_ModeOff">
+				<English>Mode, Off</English>
+				<Czech>Režim, vypnuto</Czech>
+				<French>Mode, désactivé</French>
+				<Spanish>Modo, apagado</Spanish>
+				<Italian>Modalità, spento</Italian>
+				<Polish>Tryb, wyłączony</Polish>
+				<Russian>Режим, выкл</Russian>
+				<German>Modus, aus</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_ACE_ModeRandom">
+				<English>Mode, Random</English>
+				<Czech>Režim, náhodně</Czech>
+				<French>Mode, aléatoire</French>
+				<Spanish>Modo, aleatorio</Spanish>
+				<Italian>Modalità, casuale</Italian>
+				<Polish>Tryb, losowo</Polish>
+				<Russian>Режим, случайно</Russian>
+				<German>Modus, zufällig</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_ACE_ModeClosest">
+				<English>Mode, Closest threat</English>
+				<Czech>Režim, nejbližší hrozba</Czech>
+				<French>Mode, menace la plus proche</French>
+				<Spanish>Modo, amenaza más cercana</Spanish>
+				<Italian>Modalità, minaccia più vicina</Italian>
+				<Polish>Tryb, najbliższe zagrożenie</Polish>
+				<Russian>Режим, ближайшая угроза</Russian>
+				<German>Modus, nächste Bedrohung</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_ACE_ModeHighest">
+				<English>Mode, Highest threat</English>
+				<Czech>Režim, nejvyšší hrozba</Czech>
+				<French>Mode, menace la plus élevée</French>
+				<Spanish>Modo, amenaza mayor</Spanish>
+				<Italian>Modalità, minaccia maggiore</Italian>
+				<Polish>Tryb, największe zagrożenie</Polish>
+				<Russian>Режим, наибольшая угроза</Russian>
+				<German>Modus, größte Bedrohung</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_ACE_AlarmToggle">
+				<English>Toggle incoming alarm</English>
+				<Czech>Přepnout poplach</Czech>
+				<French>Basculer l'alarme d'attaque</French>
+				<Spanish>Alternar alarma de ataque</Spanish>
+				<Italian>Attiva/disattiva allarme</Italian>
+				<Polish>Przełącz alarm</Polish>
+				<Russian>Переключить тревогу</Russian>
+				<German>Anflugalarm umschalten</German>
+			</Key>
+		</Container>
+	</Package>
+</Project>
