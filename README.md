@@ -41,8 +41,7 @@ If it does not, like the `StaticMGWeapon` example above, they get worked out fro
 The only cosmetic key and you almost never need it. Leave it out and the scroll action uses the vehicle's own `icon` from CfgVehicles, so the emplacement shows its map silhouette. A `CfgVehicleIcons` shorthand like `iconStaticAA` works as well as a full path.
 
 ### General Explainer on 'guiding' projectiles
-The 'intercepting' projectile gets given its target with `setMissileTarget` and the base-game engine mechanics fly it from there.
-This is the main meoth and it is the one you want to use, but when you ACE3 (they enforce their missileguidance PBO with their own PfH) or have unguided munitions this breaks/won't ever work.
+The 'intercepting' projectile gets given its target with `setMissileTarget` and the base-game engine mechanics fly it from there. This is the main method and the best one to use, HOWEVER when you ACE3 _(they enforce their missileguidance PBO with their own PfH)_ or ya got unguided munitions this breaks/won't ever work.
 
 The scripted path is the fallback for when the base-game method is not accesiable (see reason above!), but also applies to ammo with `maneuvrability = 0` that can't not steer/manouver at all. Additionaly there is a fail `cond` when the lock does not stick three 'ticks' in a row the round gets flown by script instead, going to the target and accelerating up to its own `maxSpeed` from CfgAmmo.
 
