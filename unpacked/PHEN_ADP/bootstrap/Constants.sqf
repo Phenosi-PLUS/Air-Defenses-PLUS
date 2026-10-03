@@ -38,7 +38,6 @@ PHEN_ADP_PROXY_BY_SIDE = [
 PHEN_ADP_PROXY_FALLBACK = "PHEN_ADP_TargetProxy_O";
 
 PHEN_ADP_SPEAKER_CLASSES = ["Land_Loudspeakers_F", "Land_PortableSpeakers_01_F"]; //loudspeakers the alarm goes to first
-PHEN_ADP_ALARM_LENGTH = 8;
 
 //one random picked per intercept just so a burst doesnt have the same boring effect.
 //all based on PHEN_ADP_InterceptBurst, so the one blacklist classname entry catches all
@@ -74,5 +73,5 @@ PHEN_ADP_threats = [];
 PHEN_ADP_trackerHandle = -1;
 PHEN_ADP_projectileEH = -1;
 
-//[posASL, Expiration] per siren currently howling, pruned on every alarm request
+//[posASL, Expiration] per siren still on cooldown, pruned on every alarm request
 PHEN_ADP_alarmsSounding = [];

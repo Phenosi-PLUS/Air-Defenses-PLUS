@@ -334,6 +334,26 @@
 				<Russian>Сирена на позиции и на любом громкоговорителе рядом, срабатывает, как только начинается обстрел.</Russian>
 				<German>Sirene an der Stellung und an jedem Lautsprecher in der Nähe, geht los, sobald sie das Feuer eröffnet.</German>
 			</Key>
+			<Key ID="STR_PHEN_ADP_AlarmCooldown">
+				<English>Alarm Cooldown</English>
+				<Czech>Prodleva poplachu</Czech>
+				<French>Délai entre alarmes</French>
+				<Spanish>Espera entre alarmas</Spanish>
+				<Italian>Intervallo tra allarmi</Italian>
+				<Polish>Odstęp między alarmami</Polish>
+				<Russian>Интервал тревоги</Russian>
+				<German>Pause zwischen Alarmen</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_AlarmCooldown_Desc">
+				<English>Time before another siren can go off. Shared by every emplacement within 600m, so a group of batteries only sounds ONE siren.</English>
+				<Czech>Doba, než se může spustit další siréna. Platí pro všechna postavení do 600 m, takže skupina baterií spustí jen JEDNU sirénu.</Czech>
+				<French>Temps avant qu'une autre sirène puisse se déclencher. Partagé par tous les emplacements dans un rayon de 600 m, un groupe de batteries ne déclenche donc qu'UNE seule sirène.</French>
+				<Spanish>Tiempo antes de que pueda sonar otra sirena. Lo comparten todos los emplazamientos en 600 m, así que un grupo de baterías solo hace sonar UNA sirena.</Spanish>
+				<Italian>Tempo prima che un'altra sirena possa suonare. Condiviso da tutte le postazioni entro 600 m, quindi un gruppo di batterie fa suonare UNA sola sirena.</Italian>
+				<Polish>Czas, zanim może zawyć kolejna syrena. Wspólny dla wszystkich stanowisk w promieniu 600 m, więc grupa baterii włącza tylko JEDNĄ syrenę.</Polish>
+				<Russian>Время, через которое снова может включиться сирена. Общее для всех позиций в радиусе 600 м, так что группа батарей включает только ОДНУ сирену.</Russian>
+				<German>Zeit, bevor eine weitere Sirene losgehen kann. Gilt für alle Stellungen im Umkreis von 600 m, eine Gruppe von Batterien löst also nur EINE Sirene aus.</German>
+			</Key>
 			<Key ID="STR_PHEN_ADP_ScrollActions">
 				<English>Scroll actions?</English>
 				<Czech>Scroll akce?</Czech>

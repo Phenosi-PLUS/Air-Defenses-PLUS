@@ -146,6 +146,16 @@
 ] call CBA_fnc_addSetting;
 
 [
+    "PHEN_ADP_alarmCooldown",
+    "TIME",
+    [localize "STR_PHEN_ADP_AlarmCooldown", localize "STR_PHEN_ADP_AlarmCooldown_Desc"],
+    ["Air Defenses PLUS", localize "STR_PHEN_ADP_Cat_Alarm"],
+    [10, 600, 120],
+    1,
+    {}
+] call CBA_fnc_addSetting;
+
+[
     "PHEN_ADP_scrollActions",
     "CHECKBOX",
     [localize "STR_PHEN_ADP_ScrollActions", localize "STR_PHEN_ADP_ScrollActions_Desc"],

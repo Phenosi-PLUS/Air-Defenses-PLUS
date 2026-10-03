@@ -984,16 +984,12 @@ PHEN_ADP_fnc_alarm = {
     if !(_turret getVariable ["PHEN_ADP_alarm", true]) exitWith {};
 
     private _now = CBA_missionTime;
-    private _last = _turret getVariable ["PHEN_ADP_alarmTime", -100000];
-    if ((_now - _last) < 60) exitWith {};
-
     PHEN_ADP_alarmsSounding = PHEN_ADP_alarmsSounding select {(_x select 1) > _now};
     private _pos = getPosASL _turret;
     private _heard = PHEN_ADP_alarmsSounding findIf {(_x select 0) distance _pos < 600};
     if (_heard isNotEqualTo -1) exitWith {};
 
-    _turret setVariable ["PHEN_ADP_alarmTime", _now];
-    PHEN_ADP_alarmsSounding pushBack [_pos, _now + PHEN_ADP_ALARM_LENGTH];
+    PHEN_ADP_alarmsSounding pushBack [_pos, _now + PHEN_ADP_alarmCooldown];
 
     private _speakers = [];
     {
