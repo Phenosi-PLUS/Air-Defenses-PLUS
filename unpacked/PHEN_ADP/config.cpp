@@ -4,7 +4,7 @@ class CfgPatches {
 
 		author = "Phenosi";
 		url = "https://discord.gg/7zSXScbRCQ";
-		requiredVersion = 1.0;
+		requiredVersion = 2.10;
 
 		version = 1.0.0;
 		versionStr = "1.0.0";

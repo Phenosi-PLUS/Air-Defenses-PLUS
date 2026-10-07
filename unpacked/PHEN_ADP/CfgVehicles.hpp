@@ -38,9 +38,7 @@ class CfgVehicles {
 	class PHEN_ADP_TargetProxy_O: CBA_O_InvisibleTargetAir {
 		author = "Phenosi";
 		displayName = "$STR_PHEN_ADP_TargetProxy";
-		scope = 1;
-		scopeCurator = 0;
-		scopeArsenal = 0;
+
 		vehicleClass = "Air";
 		type = 2;
 		scope = 1;
@@ -72,9 +70,7 @@ class CfgVehicles {
 	class PHEN_ADP_TargetProxy_I: CBA_I_InvisibleTargetAir {
 		author = "Phenosi";
 		displayName = "$STR_PHEN_ADP_TargetProxy";
-		scope = 1;
-		scopeCurator = 0;
-		scopeArsenal = 0;
+
 		vehicleClass = "Air";
 		type = 2;
 		scope = 1;

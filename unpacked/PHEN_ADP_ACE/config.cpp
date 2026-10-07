@@ -4,7 +4,7 @@ class CfgPatches {
 		author = "Phenosi";
 		units[] = {};
 		weapons[] = {};
-		requiredVersion = 0.1;
+		requiredVersion = 2.10;
 		requiredAddons[] = {"PHEN_ADP", "ace_interaction"};
 		// skip if not loaded etc, OPTIONAL PBO, can stay in an aux finee
 		skipWhenMissingDependencies = 1;
@@ -18,11 +18,13 @@ class Extended_PreInit_EventHandlers {
 };
 
 class CfgVehicles {
-	class StaticMGWeapon {
+	class LandVehicle;
+	class StaticWeapon: LandVehicle {
 		class ACE_Actions {
 			class ACE_MainActions;
 		};
 	};
+	class StaticMGWeapon: StaticWeapon {};
 
 	class AAA_System_01_base_F: StaticMGWeapon {
 		class ACE_Actions: ACE_Actions {

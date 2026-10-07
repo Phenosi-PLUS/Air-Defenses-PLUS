@@ -127,8 +127,8 @@ PHEN_ADP_fnc_classifyAmmo = {
     _cat
 };
 
-// tank rounds and RPGs share the same base classes as artillery, the ARc is the only difference
-// artilleryLock gets it for every base-game shell, submunition and artillery rocket, and it is inherited so it just works for mods that build off those
+// tank rounds and RPGs share artillery base classes, the ARc is the only difference
+// artilleryLock covers every base-game shell and artillery rocket, inherited by mods too
 PHEN_ADP_fnc_isArcing = {
     params [["_projectile", objNull, [objNull]]];
 
@@ -142,7 +142,7 @@ PHEN_ADP_fnc_isArcing = {
     };
     if (_lock) exitWith {true};
 
-    //ANGLE and not climb rate, a sabot at 1550m/s only needs a fifth of a degree to climb 5m/s
+    //ANGLE and not climb rate, a sabot at 1550m/s climbs 5m/s with a fifth of a degree
     //15 degrees, a tank round needs about 2 and a mortar never goes under 45
     private _velocity = velocity _projectile;
     private _speed = vectorMagnitude _velocity;
@@ -309,7 +309,7 @@ PHEN_ADP_fnc_addThreat = {
     if (!isServer) exitWith {};
     if (isNull _threat) exitWith {};
     if (_threat in PHEN_ADP_threats) exitWith {};
-    if (count PHEN_ADP_threats >= 120) exitWith {}; //HARD CAP, I doubt anyone would go over 120 at once in their mission tho..?
+    if (count PHEN_ADP_threats >= 120) exitWith {}; //max 120 at once, I doubt anyone goes over that tho..?
 
     private _inReach = PHEN_ADP_batteries findIf {
         private _configSetup = _x getVariable ["PHEN_ADP_configSetup", createHashMap];
@@ -341,7 +341,7 @@ PHEN_ADP_fnc_stopTracker = {
     PHEN_ADP_trackerHandle = -1;
     PHEN_ADP_threats = [];
 
-    //tick is what takes proxies back, so it cannot stop with one still attached to a shell
+    //tick takes proxies back, so it cannot stop with one still on a shell
     {[_x] call PHEN_ADP_fnc_endEngage} forEach PHEN_ADP_batteries;
 };
 
@@ -571,7 +571,7 @@ PHEN_ADP_fnc_engageGun = {
     _proxy attachTo [_target, [0, 5, 0]];
     [_turret, _proxy] call PHEN_ADP_fnc_shareProxy;
 
-    //a gunner in a group set to safe or yellow will not shoot at anything, so we fix that
+    //a gunner in a safe or yellow group will not shoot at anything, so we fix that
     private _gunner = gunner _turret;
     if (!isNull _gunner) then {
         _gunner enableAI "TARGET";
@@ -660,7 +660,7 @@ PHEN_ADP_fnc_fireInterceptor = {
         _turret doTarget _proxy;
     };
 
-    //ACE grabs any AI fired round onto its own IR seeker, which cannot see an invisible proxy, so it needs this down for the shot
+    //ACE puts its IR seeker on any AI fired round and that cannot see an invisible proxy, so off for the shot
     private _aceWas = missionNamespace getVariable ["ace_missileguidance_enabled", -1];
     if (_aceWas > 1) then {
         ace_missileguidance_enabled = 1;
@@ -792,7 +792,7 @@ PHEN_ADP_fnc_getProxy = {
     _proxy
 };
 
-// engagement done; give the gun back and save the proxy under the turret for the next one
+// engagement done; give the gun back, save the proxy under the turret
 PHEN_ADP_fnc_pauseProxy = {
     params [["_turret", objNull, [objNull]], ["_proxy", objNull, [objNull]]];
 
@@ -821,7 +821,7 @@ PHEN_ADP_fnc_pauseProxy = {
     };
 };
 
-// setMissileTarget is the main way, unguided/or ACE missileguide overwrite wont work with base-game so use scripted as fallback
+// setMissileTarget is the main way, unguided/ACE missileguide overwrite wont work with base-game so scripted fallback
 PHEN_ADP_fnc_guideMissile = {
     params [["_missile", objNull, [objNull]], ["_target", objNull, [objNull]], ["_configSetup", createHashMap, [createHashMap]], ["_turret", objNull, [objNull]]];
 
@@ -983,13 +983,22 @@ PHEN_ADP_fnc_alarm = {
     if (isNull _turret) exitWith {};
     if !(_turret getVariable ["PHEN_ADP_alarm", true]) exitWith {};
 
+    _soundClass = switch (side _turret) do {
+        case west:       { PHEN_ADP_alarmSound_BLUFOR };
+        case east:       { PHEN_ADP_alarmSound_OPFOR };
+        case resistance: { PHEN_ADP_alarmSound_INDFOR };
+        default          { PHEN_ADP_alarmSound_CIV };
+    };
+    if (_soundClass isEqualTo "") exitWith {};
+
     private _now = CBA_missionTime;
     PHEN_ADP_alarmsSounding = PHEN_ADP_alarmsSounding select {(_x select 1) > _now};
     private _pos = getPosASL _turret;
     private _heard = PHEN_ADP_alarmsSounding findIf {(_x select 0) distance _pos < 600};
     if (_heard isNotEqualTo -1) exitWith {};
 
-    PHEN_ADP_alarmsSounding pushBack [_pos, _now + PHEN_ADP_alarmCooldown];
+    _duration = (getNumber (configFile >> "CfgSounds" >> _soundClass >> "duration"));
+    PHEN_ADP_alarmsSounding pushBack [_pos, _now + _duration + PHEN_ADP_alarmCooldown];
 
     private _speakers = [];
     {
@@ -997,24 +1006,29 @@ PHEN_ADP_fnc_alarm = {
         _speakers append (_found select {alive _x});
     } forEach PHEN_ADP_SPEAKER_CLASSES;
 
-    ["PHEN_ADP_alarm", [_turret, _speakers]] call CBA_fnc_globalEvent;
+    ["PHEN_ADP_alarm", [_turret, _speakers, _soundClass]] call CBA_fnc_globalEvent;
 };
 
 PHEN_ADP_fnc_playAlarm = {
-    params [["_turret", objNull, [objNull]], ["_speakers", [], [[]]]];
+    params [["_turret", objNull, [objNull]], ["_speakers", [], [[]]], ["_soundClass", "", [""]]];
 
     if (!hasInterface) exitWith {};
     if (isNull _turret) exitWith {};
+    if (PHEN_ADP_alarmVolume <= 0) exitWith {};
 
-    private _file = "\PHEN_ADP\sounds\PHEN_ADP_alarm.ogg";
+    _sound = (getArray (configFile >> "CfgSounds" >> _soundClass >> "sound"));
+    if (_sound isEqualTo []) exitWith {};
+    _sound params [["_file", "", [""]], ["_volume", 1, [0]], ["_pitch", 1, [0]], ["_range", 1200, [0]]];
+    _range = _range * PHEN_ADP_alarmVolume;
+
     private _live = _speakers select {!isNull _x && {alive _x}};
 
     if (_live isEqualTo []) exitWith {
-        playSound3D [_file, _turret, false, getPosASL _turret, 2, 1, 1200];
+        playSound3D [_file, _turret, false, (getPosASL _turret), _volume, _pitch, _range, 0, true];
     };
 
     {
-        playSound3D [_file, _x, false, getPosASL _x, 2, 1, 1200];
+        playSound3D [_file, _x, false, (getPosASL _x), _volume, _pitch, _range, 0, true];
     } forEach _live;
 };
 

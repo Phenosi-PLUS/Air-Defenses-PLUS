@@ -345,14 +345,284 @@
 				<German>Pause zwischen Alarmen</German>
 			</Key>
 			<Key ID="STR_PHEN_ADP_AlarmCooldown_Desc">
-				<English>Time before another siren can go off. Shared by every emplacement within 600m, so a group of batteries only sounds ONE siren.</English>
-				<Czech>Doba, než se může spustit další siréna. Platí pro všechna postavení do 600 m, takže skupina baterií spustí jen JEDNU sirénu.</Czech>
-				<French>Temps avant qu'une autre sirène puisse se déclencher. Partagé par tous les emplacements dans un rayon de 600 m, un groupe de batteries ne déclenche donc qu'UNE seule sirène.</French>
-				<Spanish>Tiempo antes de que pueda sonar otra sirena. Lo comparten todos los emplazamientos en 600 m, así que un grupo de baterías solo hace sonar UNA sirena.</Spanish>
-				<Italian>Tempo prima che un'altra sirena possa suonare. Condiviso da tutte le postazioni entro 600 m, quindi un gruppo di batterie fa suonare UNA sola sirena.</Italian>
-				<Polish>Czas, zanim może zawyć kolejna syrena. Wspólny dla wszystkich stanowisk w promieniu 600 m, więc grupa baterii włącza tylko JEDNĄ syrenę.</Polish>
-				<Russian>Время, через которое снова может включиться сирена. Общее для всех позиций в радиусе 600 м, так что группа батарей включает только ОДНУ сирену.</Russian>
-				<German>Zeit, bevor eine weitere Sirene losgehen kann. Gilt für alle Stellungen im Umkreis von 600 m, eine Gruppe von Batterien löst also nur EINE Sirene aus.</German>
+				<English>Time after a siren finishes before another one can go off. Shared by every emplacement within 600m, so a group of batteries only sounds ONE siren.</English>
+				<Czech>Doba po dohrání sirény, než se může spustit další. Platí pro všechna postavení do 600 m, takže skupina baterií spustí jen JEDNU sirénu.</Czech>
+				<French>Temps après la fin d'une sirène avant qu'une autre puisse se déclencher. Partagé par tous les emplacements dans un rayon de 600 m, un groupe de batteries ne déclenche donc qu'UNE seule sirène.</French>
+				<Spanish>Tiempo desde que termina una sirena hasta que puede sonar otra. Lo comparten todos los emplazamientos en 600 m, así que un grupo de baterías solo hace sonar UNA sirena.</Spanish>
+				<Italian>Tempo dalla fine di una sirena prima che un'altra possa suonare. Condiviso da tutte le postazioni entro 600 m, quindi un gruppo di batterie fa suonare UNA sola sirena.</Italian>
+				<Polish>Czas od końca syreny, zanim może zawyć kolejna. Wspólny dla wszystkich stanowisk w promieniu 600 m, więc grupa baterii włącza tylko JEDNĄ syrenę.</Polish>
+				<Russian>Время после окончания сирены, через которое может включиться следующая. Общее для всех позиций в радиусе 600 м, так что группа батарей включает только ОДНУ сирену.</Russian>
+				<German>Zeit nach dem Ende einer Sirene, bevor eine weitere losgehen kann. Gilt für alle Stellungen im Umkreis von 600 m, eine Gruppe von Batterien löst also nur EINE Sirene aus.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_AlarmVolume">
+				<English>Alarm Volume</English>
+				<Czech>Hlasitost poplachu</Czech>
+				<French>Volume de l'alarme</French>
+				<Spanish>Volumen de la alarma</Spanish>
+				<Italian>Volume dell'allarme</Italian>
+				<Polish>Głośność alarmu</Polish>
+				<Russian>Громкость тревоги</Russian>
+				<German>Alarmlautstärke</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_AlarmVolume_Desc">
+				<English>Multiplies how far the siren carries, so it also sounds louder from further away. 0 mutes it, only for you.</English>
+				<Czech>Násobí, jak daleko je siréna slyšet, takže z dálky zní i hlasitěji. 0 ji ztlumí, jen pro vás.</Czech>
+				<French>Multiplie la portée de la sirène, elle paraît donc aussi plus forte de loin. 0 la coupe, pour vous uniquement.</French>
+				<Spanish>Multiplica hasta dónde se oye la sirena, así que también suena más fuerte de lejos. 0 la silencia, solo para ti.</Spanish>
+				<Italian>Moltiplica fin dove si sente la sirena, quindi suona anche più forte da lontano. 0 la silenzia, solo per te.</Italian>
+				<Polish>Mnoży, jak daleko słychać syrenę, więc z daleka brzmi też głośniej. 0 ją wycisza, tylko dla ciebie.</Polish>
+				<Russian>Умножает дальность, на которой слышна сирена, поэтому издалека она звучит и громче. 0 отключает её, только для вас.</Russian>
+				<German>Multipliziert, wie weit die Sirene zu hören ist, aus der Ferne klingt sie dadurch auch lauter. 0 schaltet sie stumm, nur für Sie.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_AlarmSound_BLUFOR">
+				<English>BLUFOR Alarm</English>
+				<Czech>Poplach BLUFOR</Czech>
+				<French>Alarme BLUFOR</French>
+				<Spanish>Alarma BLUFOR</Spanish>
+				<Italian>Allarme BLUFOR</Italian>
+				<Polish>Alarm BLUFOR</Polish>
+				<Russian>Тревога BLUFOR</Russian>
+				<German>BLUFOR-Alarm</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_AlarmSound_OPFOR">
+				<English>OPFOR Alarm</English>
+				<Czech>Poplach OPFOR</Czech>
+				<French>Alarme OPFOR</French>
+				<Spanish>Alarma OPFOR</Spanish>
+				<Italian>Allarme OPFOR</Italian>
+				<Polish>Alarm OPFOR</Polish>
+				<Russian>Тревога OPFOR</Russian>
+				<German>OPFOR-Alarm</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_AlarmSound_INDFOR">
+				<English>INDFOR Alarm</English>
+				<Czech>Poplach INDFOR</Czech>
+				<French>Alarme INDFOR</French>
+				<Spanish>Alarma INDFOR</Spanish>
+				<Italian>Allarme INDFOR</Italian>
+				<Polish>Alarm INDFOR</Polish>
+				<Russian>Тревога INDFOR</Russian>
+				<German>INDFOR-Alarm</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_AlarmSound_CIV">
+				<English>Civilian Alarm</English>
+				<Czech>Poplach civilistů</Czech>
+				<French>Alarme civile</French>
+				<Spanish>Alarma civil</Spanish>
+				<Italian>Allarme civile</Italian>
+				<Polish>Alarm cywilów</Polish>
+				<Russian>Тревога гражданских</Russian>
+				<German>Zivil-Alarm</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_AlarmSound_Desc">
+				<English>Which siren goes off for this side's emplacements. Off keeps that side quiet.</English>
+				<Czech>Která siréna se spustí u postavení této strany. Vypnuto = tato strana zůstane potichu.</Czech>
+				<French>Quelle sirène se déclenche pour les emplacements de ce camp. Désactivé = ce camp reste silencieux.</French>
+				<Spanish>Qué sirena suena en los emplazamientos de este bando. Apagado = ese bando se queda en silencio.</Spanish>
+				<Italian>Quale sirena suona per le postazioni di questa fazione. Spento = quella fazione resta in silenzio.</Italian>
+				<Polish>Która syrena wyje przy stanowiskach tej strony. Wyłączony = ta strona milczy.</Polish>
+				<Russian>Какая сирена включается у позиций этой стороны. Выкл = эта сторона молчит.</Russian>
+				<German>Welche Sirene bei den Stellungen dieser Seite losgeht. Aus = diese Seite bleibt still.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_CRAM">
+				<English>C-RAM</English>
+				<Czech>C-RAM</Czech>
+				<French>C-RAM</French>
+				<Spanish>C-RAM</Spanish>
+				<Italian>C-RAM</Italian>
+				<Polish>C-RAM</Polish>
+				<Russian>C-RAM</Russian>
+				<German>C-RAM</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_GeneralQuarters">
+				<English>General Quarters (US Navy)</English>
+				<Czech>Bojový poplach (US Navy)</Czech>
+				<French>Postes de combat (US Navy)</French>
+				<Spanish>Zafarrancho de combate (US Navy)</Spanish>
+				<Italian>Posti di combattimento (US Navy)</Italian>
+				<Polish>Alarm bojowy (US Navy)</Polish>
+				<Russian>Боевая тревога (ВМС США)</Russian>
+				<German>Gefechtsstationen (US Navy)</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_Thunderbolt">
+				<English>Cold War Siren (US Thunderbolt)</English>
+				<Czech>Siréna studené války (US Thunderbolt)</Czech>
+				<French>Sirène de la guerre froide (US Thunderbolt)</French>
+				<Spanish>Sirena de la Guerra Fría (US Thunderbolt)</Spanish>
+				<Italian>Sirena della Guerra Fredda (US Thunderbolt)</Italian>
+				<Polish>Syrena z zimnej wojny (US Thunderbolt)</Polish>
+				<Russian>Сирена холодной войны (US Thunderbolt)</Russian>
+				<German>Kalter-Krieg-Sirene (US Thunderbolt)</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_S40">
+				<English>Soviet S-40 Siren</English>
+				<Czech>Sovětská siréna S-40</Czech>
+				<French>Sirène soviétique S-40</French>
+				<Spanish>Sirena soviética S-40</Spanish>
+				<Italian>Sirena sovietica S-40</Italian>
+				<Polish>Radziecka syrena S-40</Polish>
+				<Russian>Советская сирена С-40</Russian>
+				<German>Sowjetische S-40-Sirene</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_RusNaval">
+				<English>Russian Naval Alarm</English>
+				<Czech>Ruský lodní poplach</Czech>
+				<French>Alarme navale russe</French>
+				<Spanish>Alarma naval rusa</Spanish>
+				<Italian>Allarme navale russo</Italian>
+				<Polish>Rosyjski alarm okrętowy</Polish>
+				<Russian>Корабельная тревога</Russian>
+				<German>Russischer Schiffsalarm</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_E57">
+				<English>German E57 Siren</English>
+				<Czech>Německá siréna E57</Czech>
+				<French>Sirène allemande E57</French>
+				<Spanish>Sirena alemana E57</Spanish>
+				<Italian>Sirena tedesca E57</Italian>
+				<Polish>Niemiecka syrena E57</Polish>
+				<Russian>Немецкая сирена E57</Russian>
+				<German>E57-Sirene</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_WW2_1">
+				<English>WW2 Air Raid Siren 1</English>
+				<Czech>Protiletecká siréna WW2 1</Czech>
+				<French>Sirène d'alerte aérienne WW2 1</French>
+				<Spanish>Sirena antiaérea WW2 1</Spanish>
+				<Italian>Sirena antiaerea WW2 1</Italian>
+				<Polish>Syrena przeciwlotnicza WW2 1</Polish>
+				<Russian>Сирена воздушной тревоги WW2 1</Russian>
+				<German>Luftschutzsirene WW2 1</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_WW2_2">
+				<English>WW2 Air Raid Siren 2</English>
+				<Czech>Protiletecká siréna WW2 2</Czech>
+				<French>Sirène d'alerte aérienne WW2 2</French>
+				<Spanish>Sirena antiaérea WW2 2</Spanish>
+				<Italian>Sirena antiaerea WW2 2</Italian>
+				<Polish>Syrena przeciwlotnicza WW2 2</Polish>
+				<Russian>Сирена воздушной тревоги WW2 2</Russian>
+				<German>Luftschutzsirene WW2 2</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_Singapore">
+				<English>Singapore Public Warning Siren</English>
+				<Czech>Singapurská varovná siréna</Czech>
+				<French>Sirène d'alerte de Singapour</French>
+				<Spanish>Sirena de alerta de Singapur</Spanish>
+				<Italian>Sirena d'allarme di Singapore</Italian>
+				<Polish>Singapurska syrena alarmowa</Polish>
+				<Russian>Сирена оповещения Сингапура</Russian>
+				<German>Singapurer Warnsirene</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_Evacuation">
+				<English>Evacuation Tone (AUS)</English>
+				<Czech>Evakuační tón (AUS)</Czech>
+				<French>Signal d'évacuation (AUS)</French>
+				<Spanish>Tono de evacuación (AUS)</Spanish>
+				<Italian>Segnale di evacuazione (AUS)</Italian>
+				<Polish>Sygnał ewakuacyjny (AUS)</Polish>
+				<Russian>Сигнал эвакуации (AUS)</Russian>
+				<German>Evakuierungston (AUS)</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_IndustrialKlaxon">
+				<English>Industrial Klaxon</English>
+				<Czech>Průmyslová houkačka</Czech>
+				<French>Klaxon industriel</French>
+				<Spanish>Klaxon industrial</Spanish>
+				<Italian>Klaxon industriale</Italian>
+				<Polish>Klakson przemysłowy</Polish>
+				<Russian>Промышленный ревун</Russian>
+				<German>Industrie-Signalhorn</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_DiveKlaxon">
+				<English>Submarine Dive Klaxon</English>
+				<Czech>Ponorková houkačka</Czech>
+				<French>Klaxon de plongée</French>
+				<Spanish>Klaxon de inmersión</Spanish>
+				<Italian>Klaxon d'immersione</Italian>
+				<Polish>Klakson zanurzenia</Polish>
+				<Russian>Ревун погружения</Russian>
+				<German>Tauchalarm (U-Boot)</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_Bell">
+				<English>Mechanical Alarm Bell</English>
+				<Czech>Mechanický poplachový zvonek</Czech>
+				<French>Sonnerie mécanique</French>
+				<Spanish>Timbre mecánico</Spanish>
+				<Italian>Campanella meccanica</Italian>
+				<Polish>Dzwonek mechaniczny</Polish>
+				<Russian>Механический звонок</Russian>
+				<German>Mechanische Alarmglocke</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_SciFi_Blaring">
+				<English>Sci-fi Alarm, Blaring</English>
+				<Czech>Sci-fi poplach, řvoucí</Czech>
+				<French>Alarme sci-fi, hurlante</French>
+				<Spanish>Alarma sci-fi, estridente</Spanish>
+				<Italian>Allarme sci-fi, assordante</Italian>
+				<Polish>Alarm sci-fi, ryczący</Polish>
+				<Russian>Фантастическая тревога, ревущая</Russian>
+				<German>Sci-Fi-Alarm, dröhnend</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_SciFi_Screeching">
+				<English>Sci-fi Alarm, Screeching</English>
+				<Czech>Sci-fi poplach, ječivý</Czech>
+				<French>Alarme sci-fi, stridente</French>
+				<Spanish>Alarma sci-fi, chirriante</Spanish>
+				<Italian>Allarme sci-fi, stridulo</Italian>
+				<Polish>Alarm sci-fi, piszczący</Polish>
+				<Russian>Фантастическая тревога, визжащая</Russian>
+				<German>Sci-Fi-Alarm, kreischend</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_SciFi_Panic">
+				<English>Sci-fi Alarm, Panic</English>
+				<Czech>Sci-fi poplach, panika</Czech>
+				<French>Alarme sci-fi, panique</French>
+				<Spanish>Alarma sci-fi, pánico</Spanish>
+				<Italian>Allarme sci-fi, panico</Italian>
+				<Polish>Alarm sci-fi, panika</Polish>
+				<Russian>Фантастическая тревога, паника</Russian>
+				<German>Sci-Fi-Alarm, Panik</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_SciFi_DeepSiren">
+				<English>Sci-fi Alarm, Deep Siren</English>
+				<Czech>Sci-fi poplach, hluboká siréna</Czech>
+				<French>Alarme sci-fi, sirène grave</French>
+				<Spanish>Alarma sci-fi, sirena grave</Spanish>
+				<Italian>Allarme sci-fi, sirena profonda</Italian>
+				<Polish>Alarm sci-fi, głęboka syrena</Polish>
+				<Russian>Фантастическая тревога, низкая сирена</Russian>
+				<German>Sci-Fi-Alarm, tiefe Sirene</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_SciFi_Industrial">
+				<English>Sci-fi Alarm, Industrial</English>
+				<Czech>Sci-fi poplach, průmyslový</Czech>
+				<French>Alarme sci-fi, industrielle</French>
+				<Spanish>Alarma sci-fi, industrial</Spanish>
+				<Italian>Allarme sci-fi, industriale</Italian>
+				<Polish>Alarm sci-fi, przemysłowy</Polish>
+				<Russian>Фантастическая тревога, промышленная</Russian>
+				<German>Sci-Fi-Alarm, industriell</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_SciFi_ReactorUnstable">
+				<English>Sci-fi Alarm, Reactor Unstable</English>
+				<Czech>Sci-fi poplach, nestabilní reaktor</Czech>
+				<French>Alarme sci-fi, réacteur instable</French>
+				<Spanish>Alarma sci-fi, reactor inestable</Spanish>
+				<Italian>Allarme sci-fi, reattore instabile</Italian>
+				<Polish>Alarm sci-fi, niestabilny reaktor</Polish>
+				<Russian>Фантастическая тревога, реактор нестабилен</Russian>
+				<German>Sci-Fi-Alarm, Reaktor instabil</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Alarm_SciFi_Attention">
+				<English>Sci-fi Alarm, Attention</English>
+				<Czech>Sci-fi poplach, pozor</Czech>
+				<French>Alarme sci-fi, attention</French>
+				<Spanish>Alarma sci-fi, atención</Spanish>
+				<Italian>Allarme sci-fi, attenzione</Italian>
+				<Polish>Alarm sci-fi, uwaga</Polish>
+				<Russian>Фантастическая тревога, внимание</Russian>
+				<German>Sci-Fi-Alarm, Achtung</German>
 			</Key>
 			<Key ID="STR_PHEN_ADP_ScrollActions">
 				<English>Scroll actions?</English>

@@ -1,6 +1,6 @@
 // Constant Variables
 // preInit pre-definedvars in easy to find place / constants 
-//(IK very GDscript coated of me xd) and the two needed caches for performance sys.
+//(IK very GDscript coated of me xd) and the two needed caches for performance sys
 
 
 PHEN_ADP_AMMO_BLACKLIST = [
@@ -39,7 +39,15 @@ PHEN_ADP_PROXY_FALLBACK = "PHEN_ADP_TargetProxy_O";
 
 PHEN_ADP_SPEAKER_CLASSES = ["Land_Loudspeakers_F", "Land_PortableSpeakers_01_F"]; //loudspeakers the alarm goes to first
 
-//one random picked per intercept just so a burst doesnt have the same boring effect.
+//side alarm lists, "" is Off then every CfgSounds class with PHEN_ADP_alarm = 1
+PHEN_ADP_ALARM_CLASSES = [""];
+PHEN_ADP_ALARM_NAMES = [localize "STR_PHEN_ADP_Mode_Off"];
+{
+    PHEN_ADP_ALARM_CLASSES pushBack (configName _x);
+    PHEN_ADP_ALARM_NAMES pushBack (getText (_x >> "displayName"));
+} forEach ("getNumber (_x >> 'PHEN_ADP_alarm') isEqualTo 1" configClasses (configFile >> "CfgSounds"));
+
+//one random picked per intercept just so a burst doesnt have the same boring effect
 //all based on PHEN_ADP_InterceptBurst, so the one blacklist classname entry catches all
 PHEN_ADP_BURST_CLASSES = [
     "PHEN_ADP_InterceptBurst",

@@ -1,5 +1,5 @@
 //MOD SETINGS / Settings.sqf
-    // CBA settings for Air Defenses PLUS. 
+    // CBA settings for Air Defenses PLUS 
     // EVERY SETINGS is server forced, kepp that in mind
 // except PHEN_ADP_debug, that one is client-side
 
@@ -150,7 +150,57 @@
     "TIME",
     [localize "STR_PHEN_ADP_AlarmCooldown", localize "STR_PHEN_ADP_AlarmCooldown_Desc"],
     ["Air Defenses PLUS", localize "STR_PHEN_ADP_Cat_Alarm"],
-    [10, 600, 120],
+    [0, 360, 15],
+    1,
+    {}
+] call CBA_fnc_addSetting;
+
+[
+    "PHEN_ADP_alarmVolume",
+    "SLIDER",
+    [localize "STR_PHEN_ADP_AlarmVolume", localize "STR_PHEN_ADP_AlarmVolume_Desc"],
+    ["Air Defenses PLUS", localize "STR_PHEN_ADP_Cat_Alarm"],
+    [0, 3, 1, 2],
+    0,
+    {}
+] call CBA_fnc_addSetting;
+
+[
+    "PHEN_ADP_alarmSound_BLUFOR",
+    "LIST",
+    [localize "STR_PHEN_ADP_AlarmSound_BLUFOR", localize "STR_PHEN_ADP_AlarmSound_Desc"],
+    ["Air Defenses PLUS", localize "STR_PHEN_ADP_Cat_Alarm"],
+    [PHEN_ADP_ALARM_CLASSES, PHEN_ADP_ALARM_NAMES, (PHEN_ADP_ALARM_CLASSES find "PHEN_ADP_Alarm_CRAM") max 0],
+    1,
+    {}
+] call CBA_fnc_addSetting;
+
+[
+    "PHEN_ADP_alarmSound_OPFOR",
+    "LIST",
+    [localize "STR_PHEN_ADP_AlarmSound_OPFOR", localize "STR_PHEN_ADP_AlarmSound_Desc"],
+    ["Air Defenses PLUS", localize "STR_PHEN_ADP_Cat_Alarm"],
+    [PHEN_ADP_ALARM_CLASSES, PHEN_ADP_ALARM_NAMES, (PHEN_ADP_ALARM_CLASSES find "PHEN_ADP_Alarm_S40") max 0],
+    1,
+    {}
+] call CBA_fnc_addSetting;
+
+[
+    "PHEN_ADP_alarmSound_INDFOR",
+    "LIST",
+    [localize "STR_PHEN_ADP_AlarmSound_INDFOR", localize "STR_PHEN_ADP_AlarmSound_Desc"],
+    ["Air Defenses PLUS", localize "STR_PHEN_ADP_Cat_Alarm"],
+    [PHEN_ADP_ALARM_CLASSES, PHEN_ADP_ALARM_NAMES, (PHEN_ADP_ALARM_CLASSES find "PHEN_ADP_Alarm_E57") max 0],
+    1,
+    {}
+] call CBA_fnc_addSetting;
+
+[
+    "PHEN_ADP_alarmSound_CIV",
+    "LIST",
+    [localize "STR_PHEN_ADP_AlarmSound_CIV", localize "STR_PHEN_ADP_AlarmSound_Desc"],
+    ["Air Defenses PLUS", localize "STR_PHEN_ADP_Cat_Alarm"],
+    [PHEN_ADP_ALARM_CLASSES, PHEN_ADP_ALARM_NAMES, (PHEN_ADP_ALARM_CLASSES find "PHEN_ADP_Alarm_Thunderbolt") max 0],
     1,
     {}
 ] call CBA_fnc_addSetting;

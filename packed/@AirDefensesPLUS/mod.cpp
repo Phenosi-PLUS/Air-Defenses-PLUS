@@ -1,12 +1,13 @@
 name = "Air Defenses PLUS";
-picture = "PHEN_ADP_Icon_512.paa";
+picture = "\PHEN_ADP\data\ADP_Logo.paa";
 actionName = "Discord";
 action = "https://discord.gg/7zSXScbRCQ";
 description = "Base-game air defenses actually shoot down artillery, rockets, missiles and drones. Built to sit in a preset and cost nothing until something is in the air.";
-logo = "PHEN_ADP_Icon_512.paa";
-logoOver = "PHEN_ADP_Icon_512.paa";
+logo = "\PHEN_ADP\data\ADP_Logo_512.paa";
+logoOver = "\PHEN_ADP\data\ADP_Logo_512.paa";
+logoSmall = "\PHEN_ADP\data\ADP_logoSmall_256.paa";
 tooltip = "Air Defenses PLUS";
 tooltipOwned = "";
 overview = "Air Defenses PLUS<br/>Phalanx, Mk49 Spartan, Mk21 Centurion and the two long range SAM systems intercept incoming fire on their own. Nothing runs until an air defense is on the map, and nothing tracks until something is in the air.<br/><br/><a href='https://www.bohemia.net/community/licenses/arma-public-license-share-alike'><t underline='true'>This content is under APL-SA license.</t><br/></a><br/><t size='1.5'><img image='\PHEN_ADP\data\APL-SA_Custom_ca.paa' /></t><br/><br/><t size='1.1' color='#11115'>Modification of the content present or Re-uploading to the Steam Workshop is Allowed if credited!</t>";
 author = "Phenosi";
-overviewPicture = "";
+overviewPicture = "\PHEN_ADP\data\ADP_Logo.paa";
