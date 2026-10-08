@@ -1040,14 +1040,14 @@ PHEN_ADP_fnc_previewAlarm = {
     if (_soundClass isEqualTo "") exitWith {};
 
     _soundId = (playSoundUI [_soundClass, 1, 1, false, PHEN_ADP_ALARM_PREVIEW_OFFSET]);
-    systemChat "[PHEN_ADP] Previewing alarm sound";
+    // systemChat "[PHEN_ADP] Previewing alarm sound";
     PHEN_ADP_previewSoundId = _soundId;
 
     _soundId spawn {
         uiSleep PHEN_ADP_ALARM_PREVIEW_TIME;
         //another one got picked in the meantime and already stopped this one
         if (PHEN_ADP_previewSoundId isNotEqualTo _this) exitWith {};
-        systemChat "[PHEN_ADP] stopping alarm sound";
+        // systemChat "[PHEN_ADP] stopping alarm sound";
         stopSound _this;
     };
 };
