@@ -1031,6 +1031,69 @@ PHEN_ADP_fnc_playAlarm = {
         playSound3D [_file, _x, false, (getPosASL _x), _volume, _pitch, _range, 0, true];
     } forEach _live;
 };
+//short alarm sfx play for CBA alarm setting previewing
+PHEN_ADP_fnc_previewAlarm = {
+    params [["_soundClass", "", [""]]];
+
+    _playing = (missionNamespace getVariable "PHEN_ADP_previewSoundId");
+    if (!isNil "_playing") then { stopSound _playing };
+    if (_soundClass isEqualTo "") exitWith {};
+
+    _soundId = (playSoundUI [_soundClass, 1, 1, false, PHEN_ADP_ALARM_PREVIEW_OFFSET]);
+    systemChat "[PHEN_ADP] Previewing alarm sound";
+    PHEN_ADP_previewSoundId = _soundId;
+
+    _soundId spawn {
+        uiSleep PHEN_ADP_ALARM_PREVIEW_TIME;
+        //another one got picked in the meantime and already stopped this one
+        if (PHEN_ADP_previewSoundId isNotEqualTo _this) exitWith {};
+        systemChat "[PHEN_ADP] stopping alarm sound";
+        stopSound _this;
+    };
+};
+//CBA settings menu PREVIEW eh stuff
+PHEN_ADP_fnc_settingsMenuLoaded = {
+    params [["_display", displayNull, [displayNull]]];
+
+    //spawn, CBA builds menu at displayload
+    [_display] spawn {
+        params ["_display"];
+        _ctrlAddonList = (_display displayCtrl 4312); //IDC_ADDONS_LIST
+        if (isNull _ctrlAddonList) exitWith {};
+
+        //A cat only builds its rows after it is selected, wait until CBA create em.
+        _ctrlAddonList ctrlAddEventHandler ["LBSelChanged", {
+            [(ctrlParent (_this select 0))] spawn PHEN_ADP_fnc_hookAlarmPreview;
+        }];
+        [_display] call PHEN_ADP_fnc_hookAlarmPreview;
+    };
+};
+
+//LBSelChanged fnc
+PHEN_ADP_fnc_hookAlarmPreview = {
+    params [["_display", displayNull, [displayNull]]];
+    if (isNull _display) exitWith {};
+
+    _optionsGroups = (_display getVariable ["cba_settings_optionsGroups", createHashMap]);
+    {
+        _optionsGroup = _x;
+        if !(_optionsGroup getVariable ["PHEN_ADP_previewHooked", false]) then {
+            _optionsGroup setVariable ["PHEN_ADP_previewHooked", true];
+            {
+                _setting = (_x getVariable ["cba_settings_setting", ""]);
+                if (_setting in PHEN_ADP_ALARM_SETTINGS) then { //FILTER setting to alarm dropdown ones
+                    (_x controlsGroupCtrl 5110) ctrlAddEventHandler ["LBSelChanged", { //IDC_SETTING_LIST
+                        params ["_ctrlList", "_index"];
+                        //CBA locks this when it sets the dropdown itself
+                        if (!isNil "cba_settings_lock") exitWith {};
+                        _soundClass = ((_ctrlList getVariable ["cba_settings_lbData", []]) param [_index, ""]);
+                        [_soundClass] call PHEN_ADP_fnc_previewAlarm;
+                    }];
+                };
+            } forEach (_optionsGroup getVariable ["cba_settings_rows", []]);
+        };
+    } forEach (values _optionsGroups);
+};
 
 PHEN_ADP_fnc_setState = {
     params [["_turret", objNull, [objNull]], ["_key", "", [""]], ["_value", 0]];

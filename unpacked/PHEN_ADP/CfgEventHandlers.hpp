@@ -1,3 +1,9 @@
+class Extended_PreStart_EventHandlers {
+	class PHEN_ADP_PreStart {
+		init = "call compile preprocessFileLineNumbers '\PHEN_ADP\bootstrap\XEH_preStart.sqf'";
+	};
+};
+
 class Extended_PreInit_EventHandlers {
 	class PHEN_ADP_PreInit_Constants {
 		init = "call compile preprocessFileLineNumbers '\PHEN_ADP\bootstrap\Constants.sqf'";
@@ -17,4 +23,10 @@ class Extended_PostInit_EventHandlers {
 	class PHEN_ADP_PostInit_Debug {
 		Init = "if (PHEN_ADP_enabled) then { call compile preprocessFileLineNumbers '\PHEN_ADP\bootstrap\Debug.sqf' }";
 	}; //runs once start/restart + setting ON; has a manual start/restart on CBA changed addsetting code param tho
+};
+//CBA settings  alarm previeW
+class Extended_DisplayLoad_EventHandlers {
+	class RscDisplayGameOptions {
+		PHEN_ADP = "call (missionNamespace getVariable ['PHEN_ADP_fnc_settingsMenuLoaded', {}])";
+	};
 };

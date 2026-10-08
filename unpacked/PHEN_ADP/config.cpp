@@ -3,7 +3,7 @@ class CfgPatches {
 		name = "Air Defenses PLUS";
 
 		author = "Phenosi";
-		url = "https://discord.gg/7zSXScbRCQ";
+		url = "https://discord.gg/UnQAQMKGdS";
 		requiredVersion = 2.10;
 
 		version = 1.0.0;

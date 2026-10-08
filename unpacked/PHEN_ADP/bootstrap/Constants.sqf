@@ -14,7 +14,8 @@ PHEN_ADP_AMMO_BLACKLIST = [
     "SmokeShellCore"
 ];
 
-//base classes the register EHs go off of, subclasses inherit
+//base turet classes the register EHs go off of, subclasses inherit
+//fallback/leftover ONLY, XEH_preStart finds and adds them
 PHEN_ADP_BASE_CLASSES = [
     "AAA_System_01_base_F",
     "SAM_System_01_base_F",
@@ -46,6 +47,9 @@ PHEN_ADP_ALARM_NAMES = [localize "STR_PHEN_ADP_Mode_Off"];
     PHEN_ADP_ALARM_CLASSES pushBack (configName _x);
     PHEN_ADP_ALARM_NAMES pushBack (getText (_x >> "displayName"));
 } forEach ("getNumber (_x >> 'PHEN_ADP_alarm') isEqualTo 1" configClasses (configFile >> "CfgSounds"));
+PHEN_ADP_ALARM_PREVIEW_TIME = 3;
+PHEN_ADP_ALARM_PREVIEW_OFFSET = 1;
+PHEN_ADP_ALARM_SETTINGS = ["PHEN_ADP_alarmSound_BLUFOR", "PHEN_ADP_alarmSound_OPFOR", "PHEN_ADP_alarmSound_INDFOR", "PHEN_ADP_alarmSound_CIV"];
 
 //one random picked per intercept just so a burst doesnt have the same boring effect
 //all based on PHEN_ADP_InterceptBurst, so the one blacklist classname entry catches all

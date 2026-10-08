@@ -113,5 +113,7 @@ private _mode = _turret getVariable ["PHEN_ADP_mode", 0];
 - Two emplacements will not both target the same threat, that is on purpose! _(Conserving Ammo is better imo given you dont have player or AI logi restocking AAA/SAM sites like ever)_
 - All of it runs on the server. There is no local path, a client changing a mode goes through the
   event like everything else.
+- The ACE interaction entries only exist on the base-game classes and everything under them. A class
+  with its own block like the section 2 example gets the scroll actions, but no ACE menu (yet).
 
 If something is not working, turn the debug setting on first! It puts an INCOMING or FRIENDLY marker on every round the mod classifies as a threat, on its own, whether or not an turret ever registered. No marker means the ammo side is the problem; a marker with an emplacement that does not react means the registration is. Either way I would like to hear about it :))

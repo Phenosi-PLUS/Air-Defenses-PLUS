@@ -9,13 +9,15 @@ if (_parsed isEqualType []) then {
     PHEN_ADP_extraClassList = _parsed select {_x isEqualType ""};
 };
 
+_configClasses = (uiNamespace getVariable ["PHEN_ADP_configClasses", PHEN_ADP_BASE_CLASSES]);
+
 {
     [_x, "initPost", {
         params ["_turret"];
         if (isServer) then {[_turret] call PHEN_ADP_fnc_registerTurret};
         [_turret] call PHEN_ADP_fnc_addActions;
     }, true, [], true] call CBA_fnc_addClassEventHandler;
-} forEach (PHEN_ADP_BASE_CLASSES + PHEN_ADP_extraClassList);
+} forEach (_configClasses + PHEN_ADP_extraClassList);
 
 if (isServer) then {
     ["Air", "initPost", {
