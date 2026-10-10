@@ -66,6 +66,12 @@ PHEN_ADP_COLOR_OFF = "#E87C5E";
 PHEN_ADP_ICON        = "\A3\ui_f\data\IGUI\Cfg\Targeting\SeekerLocked_ca.paa";
 PHEN_ADP_ACTION_DISTANCE = 10;
 
+//Tracker variables (test tweaking still)
+PHEN_ADP_TRACKER_DELAY_MIN = 0.1;
+PHEN_ADP_TRACKER_DELAY_MAX = 1;
+PHEN_ADP_TRACKER_MAX_THREATS = 240; // ~12 shells per battery over a 35s arty flighttime x 20 batteries
+PHEN_ADP_TRACKER_LOAD_FULL = (PHEN_ADP_TRACKER_MAX_THREATS * 20);  // threats x batteries where it hits max, full list on 20 batteries
+
 //DEBUG stuff
 PHEN_ADP_DEBUG_ICON = "\A3\ui_f\data\IGUI\Cfg\Targeting\SeekerLocked_ca.paa";
 PHEN_ADP_DEBUG_COLOR = [1, 0.35, 0.2, 1];
@@ -82,7 +88,8 @@ PHEN_ADP_configSetupCache = createHashMap;
 PHEN_ADP_extraClassList = [];
 PHEN_ADP_batteries = [];
 PHEN_ADP_threats = [];
-PHEN_ADP_trackerHandle = -1;
+PHEN_ADP_trackerActive = false;
+PHEN_ADP_trackerRun = 0; //< goes up per 'start'' and is used for existing later
 PHEN_ADP_projectileEH = -1;
 
 //[posASL, Expiration] per siren still on cooldown, pruned on every alarm request

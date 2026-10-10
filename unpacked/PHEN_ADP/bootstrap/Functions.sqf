@@ -309,7 +309,7 @@ PHEN_ADP_fnc_addThreat = {
     if (!isServer) exitWith {};
     if (isNull _threat) exitWith {};
     if (_threat in PHEN_ADP_threats) exitWith {};
-    if (count PHEN_ADP_threats >= 120) exitWith {}; //max 120 at once, I doubt anyone goes over that tho..?
+    if (count PHEN_ADP_threats >= PHEN_ADP_TRACKER_MAX_THREATS) exitWith {}; //max at once, I doubt anyone goes over that tho..?
 
     private _inReach = PHEN_ADP_batteries findIf {
         private _configSetup = _x getVariable ["PHEN_ADP_configSetup", createHashMap];
@@ -327,21 +327,22 @@ PHEN_ADP_fnc_addThreat = {
 
 PHEN_ADP_fnc_startTracker = {
     if (!isServer) exitWith {};
-    if (PHEN_ADP_trackerHandle isNotEqualTo -1) exitWith {};
+    if (PHEN_ADP_trackerActive) exitWith {};
 
-    PHEN_ADP_trackerHandle = [PHEN_ADP_fnc_trackerTick, 0.1, []] call CBA_fnc_addPerFrameHandler;
+    PHEN_ADP_trackerActive = true;
+    PHEN_ADP_trackerRun = PHEN_ADP_trackerRun + 1;
+    [PHEN_ADP_fnc_trackerTick, [PHEN_ADP_trackerRun], PHEN_ADP_TRACKER_DELAY_MIN] call CBA_fnc_waitAndExecute;
 };
 
 // OPPOSITE of above, also cleans threat list
 PHEN_ADP_fnc_stopTracker = {
     if (!isServer) exitWith {};
-    if (PHEN_ADP_trackerHandle isEqualTo -1) exitWith {};
+    if (!PHEN_ADP_trackerActive) exitWith {};
 
-    PHEN_ADP_trackerHandle call CBA_fnc_removePerFrameHandler;
-    PHEN_ADP_trackerHandle = -1;
+    PHEN_ADP_trackerActive = false;
     PHEN_ADP_threats = [];
 
-    //tick takes proxies back, so it cannot stop with one still on a shell
+    // running PHEN_ADP_fnc_stopTracker here takes proxies back aswell otherwise leaves a random proxytarget on a shell
     {[_x] call PHEN_ADP_fnc_endEngage} forEach PHEN_ADP_batteries;
 };
 
@@ -401,8 +402,16 @@ PHEN_ADP_fnc_pickForTurret = {
     _target
 };
 
-//only perframe handler this mod runs
+//tracker loop, one wae that queues its own next tick
 PHEN_ADP_fnc_trackerTick = {
+    params [["_run", 0, [0]]];
+    if (!PHEN_ADP_trackerActive || {_run isNotEqualTo PHEN_ADP_trackerRun}) exitWith {};
+
+    //next delay calc before any exit statement; bc always needs to updated properly
+    _load = ((count PHEN_ADP_threats) * (count PHEN_ADP_batteries));
+    _delay = linearConversion [0, PHEN_ADP_TRACKER_LOAD_FULL, _load, PHEN_ADP_TRACKER_DELAY_MIN, PHEN_ADP_TRACKER_DELAY_MAX, true];
+    [PHEN_ADP_fnc_trackerTick, [_run], _delay] call CBA_fnc_waitAndExecute; //call itself again on a dynamic delay
+
     PHEN_ADP_threats = PHEN_ADP_threats select {
         !isNull _x
         && {alive _x}
@@ -708,17 +717,17 @@ PHEN_ADP_ZeusEditableObject = {
     [_object, _action] call _apply;
 
     if (_persistent) then {
-        [_object, _action, _apply] spawn {
-            params ["_object","_action","_apply"];
-
-            while {(!isNil "_object" && {alive _object} && {!(isNull _object)})} do {
-                sleep 10;
-                if (!isNil "_object" && {alive _object} && {!(isNull _object)}) then {
-                    [_object, _action] call _apply;
-                };
-            };
-        };
+        [PHEN_ADP_fnc_zeusEditableLoop, [_object, _action, _apply], 10] call CBA_fnc_waitAndExecute;
     };
+};
+
+//re-applies until the object is dead
+PHEN_ADP_fnc_zeusEditableLoop = {
+    params [["_object", objNull, [objNull]], ["_action", 1, [0]], ["_apply", {}, [{}]]];
+    if (isNull _object || {!alive _object}) exitWith {};
+
+    [_object, _action] call _apply;
+    [PHEN_ADP_fnc_zeusEditableLoop, _this, 10] call CBA_fnc_waitAndExecute;
 };
 
 
