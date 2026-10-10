@@ -254,6 +254,26 @@
 				<Russian>Реактивная артиллерия и всё остальное, что летит по дуге. Ракета, выпущенная настильно, игнорируется при любом значении.</Russian>
 				<German>Raketenartillerie und alles andere, was im Bogen abgefeuert wird. Eine flach abgefeuerte Rakete wird unabhängig von dieser Einstellung ignoriert.</German>
 			</Key>
+			<Key ID="STR_PHEN_ADP_TrackBombs">
+				<English>Intercept bombs?</English>
+				<Czech>Zachytávat bomby?</Czech>
+				<French>Intercepter les bombes ?</French>
+				<Spanish>¿Interceptar bombas?</Spanish>
+				<Italian>Intercettare le bombe?</Italian>
+				<Polish>Przechwytywać bomby?</Polish>
+				<Russian>Перехватывать бомбы?</Russian>
+				<German>Bomben abfangen?</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_TrackBombs_Desc">
+				<English>Dumb and guided bombs dropped by aircraft. Only short and mid range air defenses go after them.</English>
+				<Czech>Neřízené i řízené bomby shozené letadly. Bojuje s nimi jen protivzdušná obrana krátkého a středního dosahu.</Czech>
+				<French>Bombes lisses et guidées larguées par les avions. Seules les défenses aériennes de courte et moyenne portée s'en occupent.</French>
+				<Spanish>Bombas no guiadas y guiadas lanzadas por aviones. Solo las defensas antiaéreas de corto y medio alcance van a por ellas.</Spanish>
+				<Italian>Bombe non guidate e guidate sganciate dagli aerei. Solo le difese aeree a corto e medio raggio le ingaggiano.</Italian>
+				<Polish>Bomby niekierowane i kierowane zrzucane przez samoloty. Zajmuje się nimi tylko obrona powietrzna krótkiego i średniego zasięgu.</Polish>
+				<Russian>Неуправляемые и управляемые бомбы, сброшенные с самолётов. По ним работает только ПВО ближнего и среднего радиуса.</Russian>
+				<German>Ungelenkte und gelenkte Bomben, die von Flugzeugen abgeworfen werden. Nur Flugabwehr mit kurzer und mittlerer Reichweite bekämpft sie.</German>
+			</Key>
 			<Key ID="STR_PHEN_ADP_TrackDrones">
 				<English>Intercept drones?</English>
 				<Czech>Zachytávat drony?</Czech>

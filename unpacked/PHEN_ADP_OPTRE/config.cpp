@@ -44,6 +44,7 @@ class CfgVehicles {
 		class PHEN_ADP: PHEN_ADP {
 			range = 4000;
 			fuzeRadius = 20;
+			bombs = 1;
 		};
 	};
 

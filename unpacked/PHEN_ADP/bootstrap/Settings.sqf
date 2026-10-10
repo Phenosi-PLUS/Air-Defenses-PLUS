@@ -106,6 +106,16 @@
 ] call CBA_fnc_addSetting;
 
 [
+    "PHEN_ADP_trackBombs",
+    "CHECKBOX",
+    [localize "STR_PHEN_ADP_TrackBombs", localize "STR_PHEN_ADP_TrackBombs_Desc"],
+    ["Air Defenses PLUS", localize "STR_PHEN_ADP_Cat_Threats"],
+    true,
+    1,
+    {}
+] call CBA_fnc_addSetting;
+
+[
     "PHEN_ADP_trackDrones",
     "CHECKBOX",
     [localize "STR_PHEN_ADP_TrackDrones", localize "STR_PHEN_ADP_TrackDrones_Desc"],

@@ -8,7 +8,7 @@ PHEN_ADP_AMMO_BLACKLIST = [
     "BulletCore",
     "GrenadeCore",
     "TimeBombCore",
-    "LaserBombCore",
+    "Bo_Leaflets",
     "ShotDeployCore",
     "FlareCore",
     "SmokeShellCore"

@@ -67,6 +67,7 @@ PHEN_ADP_fnc_getConfigSetup = {
         ["needsAiming", _minRange >= 500],
         ["shotDelay", 2],
         ["fuzeRadius", 12],
+        ["bombs", false],
         ["muzzleSpeed", _muzzleSpeed],
         ["weapon", _weapon],
         ["ammo", _ammo],
@@ -81,6 +82,7 @@ PHEN_ADP_fnc_getConfigSetup = {
         if (isNumber (_block >> "needsAiming")) then {_configSetup set ["needsAiming", (getNumber (_block >> "needsAiming")) > 0]};
         if (isNumber (_block >> "shotDelay")) then {_configSetup set ["shotDelay", getNumber (_block >> "shotDelay")]};
         if (isNumber (_block >> "fuzeRadius")) then {_configSetup set ["fuzeRadius", getNumber (_block >> "fuzeRadius")]};
+        if (isNumber (_block >> "bombs")) then { _configSetup set ["bombs", ((getNumber (_block >> "bombs")) > 0)] };
         if (isText (_block >> "icon")) then {_configSetup set ["icon", getText (_block >> "icon")]};
     } else {
         private _extra = PHEN_ADP_extraClassList findIf {_type isKindOf _x};
@@ -100,6 +102,7 @@ PHEN_ADP_CAT_SUB = 2;     // SubmunitionCore, MLRS bomblets
 PHEN_ADP_CAT_MISSILE = 3;   // MissileCore, cruise and AT
 PHEN_ADP_CAT_ROCKET = 4;  // RocketCore, rocket artillery and RPGs
 PHEN_ADP_CAT_DRONE = 5;      // not ammo, comes in through the Air class eventhandler
+PHEN_ADP_CAT_BOMB = 6;    // BombCore, dumb and guided bombs
 
 // sorts an ammo classname into a PHEN_ADP_CAT_ category and caches it
 // ONLY once per classname per session
@@ -119,6 +122,7 @@ PHEN_ADP_fnc_classifyAmmo = {
             case (_ammo isKindOf ["SubmunitionCore", _root]): {_cat = PHEN_ADP_CAT_SUB};
             case (_ammo isKindOf ["ShellCore", _root]): {_cat = PHEN_ADP_CAT_BALLISTIC};
             case (_ammo isKindOf ["RocketCore", _root]): {_cat = PHEN_ADP_CAT_ROCKET};
+            case (_ammo isKindOf ["BombCore", _root]): { _cat = PHEN_ADP_CAT_BOMB };
             default {};
         };
     };
@@ -285,11 +289,12 @@ PHEN_ADP_fnc_onProjectile = {
         case PHEN_ADP_CAT_SUB: {PHEN_ADP_trackSubmunition};
         case PHEN_ADP_CAT_BALLISTIC: {PHEN_ADP_trackBallistic};
         case PHEN_ADP_CAT_ROCKET: {PHEN_ADP_trackRocket};
+        case PHEN_ADP_CAT_BOMB: { PHEN_ADP_trackBombs };
         default {false};
     };
     if (!_wanted) exitWith {};
 
-    private _isArcing = _cat isEqualTo PHEN_ADP_CAT_MISSILE || {_projectile call PHEN_ADP_fnc_isArcing};
+    private _isArcing = ((_cat in [PHEN_ADP_CAT_MISSILE, PHEN_ADP_CAT_BOMB]) || { (_projectile call PHEN_ADP_fnc_isArcing) });
     if (!_isArcing) exitWith {}; //a missile moves itself around, so where it is pointed at launch means nothing
 
     private _side = sideUnknown;
@@ -314,7 +319,8 @@ PHEN_ADP_fnc_addThreat = {
     private _inReach = PHEN_ADP_batteries findIf {
         private _configSetup = _x getVariable ["PHEN_ADP_configSetup", createHashMap];
         private _range = (_configSetup getOrDefault ["range", 0]) * PHEN_ADP_rangeMultiplier;
-        (_x distance2D _threat) < (_range + 3000)
+        _takesIt = ((_cat isNotEqualTo PHEN_ADP_CAT_BOMB) || { (_configSetup getOrDefault ["bombs", false]) });
+        ((_takesIt) && { ((_x distance2D _threat) < (_range + 3000)) })
     };
     if (_inReach isEqualTo -1) exitWith {};
 
@@ -378,9 +384,11 @@ PHEN_ADP_fnc_pickForTurret = {
 
     private _now = CBA_missionTime;
     private _turretSide = side _turret;
+    _takesBombs = ((_turret getVariable ["PHEN_ADP_configSetup", createHashMap]) getOrDefault ["bombs", false]);
 
     private _candidates = PHEN_ADP_threats select {
         (_x distance _turret) <= _range
+        && { ((_takesBombs) || { ((_x getVariable ["PHEN_ADP_cat", 0]) isNotEqualTo PHEN_ADP_CAT_BOMB) }) }
         && {(_x getVariable ["PHEN_ADP_lockedUntil", 0]) <= _now}
         && {
             PHEN_ADP_friendlyFire

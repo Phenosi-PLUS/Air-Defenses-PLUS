@@ -1,5 +1,5 @@
 # Air Defenses PLUS
-Base-game air defenses actually shoot down artillery, rockets, missiles and drones. Built to sit in a preset and cost nothing until something is in the air.
+Base-game air defenses actually shoot down artillery, rockets, missiles, bombs and drones. Built to sit in a preset and cost nothing until something is in the air.
 
 # for mod authors
 Two ways to get your own air defense picked up, plus a fallback for when the config is not yours to touch. This assumes you already know how to make a mod. Nothing here needs a compat pbo or an init line.
@@ -20,12 +20,13 @@ class CfgVehicles {
             needsAiming = 1;  // 1 when the launcher has to be aiming in the correct direction before it fires
             shotDelay = 3;        // seconds between shots
             fuzeRadius = 15;   // proximity/distance fuze radius in meters(M)
+            bombs = 0;         // 1 when it also goes after bombs dropped by aircraft
             icon = "\MyMod\data\ui\mySAM_icon_ca.paa";  // scroll action and ACE menu icon
         };
     };
 };
 ```
-Those are all seven config values, there are no others. `enabled = 0` opts a vehicle out, which is how you kill one variant that would otherwise inherit it.
+Those are all eight config values, there are no others. `enabled = 0` opts a vehicle out, which is how you kill one variant that would otherwise inherit it.
 
 ### Tweaking exisiting config values
 If your vehicle inherits from something that already has a `PHEN_ADP` block, the missing keys come from that block, normal config inheritance. 
@@ -36,6 +37,7 @@ If it does not, like the `StaticMGWeapon` example above, they get worked out fro
 - **needsAiming**, true when the weapon's `minRange` is 500 or higher
 - **shotDelay**, 2
 - **fuzeRadius**, 12
+- **bombs**, 0, the short and mid range base-game ones have it on, the Defender/Rhea for example do not.
 
 ### icon
 The only cosmetic key and you almost never need it. Leave it out and the scroll action uses the vehicle's own `icon` from CfgVehicles, so the emplacement shows its map silhouette. A `CfgVehicleIcons` shorthand like `iconStaticAA` works as well as a full path.
@@ -75,7 +77,7 @@ so keep the brackets and the quotes:
 ["MOD_SomeAAA_F","MOD_SomeSAM_F"]
 ```
 
-The check is `isKindOf`, so a parent classname covers everything under it. Registration runs once at postInit, so this one needs a mission restart. What it gets is the gotten from the setup in section 2, and only `mode`, `range` and `needsAiming` read anything off the weapon; the other two are the flat defaults.
+The check is `isKindOf`, so a parent classname covers everything under it. Registration runs once at postInit, so this one needs a mission restart. What it gets is the gotten from the setup in section 2, and only `mode`, `range` and `needsAiming` read anything off the weapon; the rest are the flat defaults.
 ## Will it shoot my custom ammo down
 Threats are sorted by what the ammo inherits from (again; only checked once at game start!).
 A shell made off a base-game core is picked up with nothing declared on your side:
@@ -83,12 +85,13 @@ A shell made off a base-game core is picked up with nothing declared on your sid
 - **SubmunitionCore**, MLRS bomblets
 - **ShellCore**, artillery and mortar
 - **RocketCore**, rocket artillery and RPGs
+- **BombCore**, dumb and guided bombs, only emplacements with `bombs = 1` fire at 'bombs'
 
-Anything inheriting `BulletCore`, `GrenadeCore`, `TimeBombCore`, `LaserBombCore`, `ShotDeployCore`,
+Anything inheriting `BulletCore`, `GrenadeCore`, `TimeBombCore`, `ShotDeployCore`,
 `FlareCore` or `SmokeShellCore` is ignored ALWAYS.
 
 A round also has to be going UP. `artilleryLock = 1` is what I check for that. it is on every base-game shell, bomblet and artillery rocket. ALSO again it is inherited, so mods building off those get it
-automatically.
+automatically. Missiles and bombs skip this check, a bomb leaves the plane flat.
 
 Drones come in through a separate class EH (eventhandler) on `Air` and need `unitIsUAV` true, so a scripted-AI aircraft that is not a real UAV is not a drone as far as this is able to detect it.
 

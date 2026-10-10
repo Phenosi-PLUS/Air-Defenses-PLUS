@@ -9,7 +9,7 @@ PHEN_ADP_fnc_debugOnProjectile = {
     private _cat = (typeOf _projectile) call PHEN_ADP_fnc_classifyAmmo;
     if (_cat isEqualTo PHEN_ADP_CAT_IGNORE) exitWith {};
 
-    private _isArcing = _cat isEqualTo PHEN_ADP_CAT_MISSILE || {_projectile call PHEN_ADP_fnc_isArcing};
+    private _isArcing = ((_cat in [PHEN_ADP_CAT_MISSILE, PHEN_ADP_CAT_BOMB]) || { (_projectile call PHEN_ADP_fnc_isArcing) });
     if (!_isArcing) exitWith {};
 
     private _parents = getShotParents _projectile;
