@@ -95,6 +95,27 @@ automatically. Missiles and bombs skip this check, a bomb leaves the plane flat.
 
 Drones come in through a separate class EH (eventhandler) on `Air` and need `unitIsUAV` true, so a scripted-AI aircraft that is not a real UAV is not a drone as far as this is able to detect it.
 
+## Eden and Zeus
+Every air defense with a `PHEN_ADP` block (`enabled = 1`) gets an **Air Defenses PLUS** category in its Eden attributes:
+- **Air defense on?**, untick to start it in Off mode. It stays registered, so it can be turned on later
+- **Starting Mode**, Random, Closest or Highest threat. Default goes off the CBA setting
+- **Incoming alarm?**, untick to start with the siren OFF
+
+With ZEN loaded Zeus gets an **Air Defenses PLUS** module. Drop it on a turret to set its mode and alarm, or on the ground to set every air defense in a radius at once ('Leave as is' skips that value).
+
+The same three values work from an init box or a server-side script, which is the way to go for a turret from the extra classes setting (section 3) since that one gets no Eden boxes. They get read ONCE when the turret registers, so set them in the init box or in the same frame as your `createVehicle`:
+```sqf
+// starts in Off mode
+this setVariable ["PHEN_ADP_edenOn", false];
+
+// 1 random, 2 closest threat, 3 highest threat, -1 CBA setting
+this setVariable ["PHEN_ADP_edenMode", 2]; 
+
+// no siren
+this setVariable ["PHEN_ADP_edenAlarm", false];
+```
+OR you can use `PHEN_ADP_setState` ofc.
+
 ## Changing an turrets's state from a mission script
 `PHEN_ADP_setState` only runs server side, so send it with `CBA_fnc_serverEvent`. It takes those two
 values and IGNORES all else related stuff.

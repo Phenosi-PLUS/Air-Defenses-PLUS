@@ -16,19 +16,53 @@ _configClasses = (uiNamespace getVariable ["PHEN_ADP_configClasses", PHEN_ADP_BA
         params ["_turret"];
         if (isServer) then {[_turret] call PHEN_ADP_fnc_registerTurret};
         [_turret] call PHEN_ADP_fnc_addActions;
+
+        _canRespawn = (_turret getRespawnVehicleInfo 9);
+        if (_canRespawn) then {
+            _turret addEventHandler ["Respawn", { ["PHEN_ADP_respawned", _this] call CBA_fnc_serverEvent; }];
+        };
     }, true, [], true] call CBA_fnc_addClassEventHandler;
 } forEach (_configClasses + PHEN_ADP_extraClassList);
 
 if (isServer) then {
     ["Air", "initPost", {
-        params ["_craft"];
-        [_craft] call PHEN_ADP_fnc_registerDrone;
+        params ["_plane"];
+        [_plane] call PHEN_ADP_fnc_registerDrone;
     }, true, [], true] call CBA_fnc_addClassEventHandler;
 
     ["PHEN_ADP_setState", PHEN_ADP_fnc_setState] call CBA_fnc_addEventHandler;
+    ["PHEN_ADP_respawned", PHEN_ADP_fnc_onRespawn] call CBA_fnc_addEventHandler;
 };
 
 ["PHEN_ADP_alarm", PHEN_ADP_fnc_playAlarm] call CBA_fnc_addEventHandler;
+["PHEN_ADP_addActions", PHEN_ADP_fnc_addActions] call CBA_fnc_addEventHandler;
+
+if ((hasInterface) && { (isClass (configFile >> "CfgPatches" >> "zen_custom_modules")) }) then {
+    ["Air Defenses PLUS", (localize "STR_PHEN_ADP_Zeus_Module"), {
+        params [["_position", [0, 0, 0], [[]]], ["_attached", objNull, [objNull]]];
+
+        _onTurret = !(isNull _attached);
+        if ((_onTurret) && { !(_attached getVariable ["PHEN_ADP_registered", false]) }) exitWith {
+            ["STR_PHEN_ADP_Zeus_NotAirDefense"] call zen_common_fnc_showMessage;
+        };
+
+        _leaveAsIs = (localize "STR_PHEN_ADP_Zeus_LeaveAsIs");
+        _rows = [
+            ["COMBO", (localize "STR_PHEN_ADP_Action_AirDefense"), [[-1, 0, 1, 2, 3], ([_leaveAsIs] + PHEN_ADP_MODE_NAMES), 0]],
+            ["COMBO", (localize "STR_PHEN_ADP_Action_Alarm"), [[-1, true, false], [_leaveAsIs, (localize "STR_PHEN_ADP_State_On"), (localize "STR_PHEN_ADP_State_Off")], 0]],
+            ["SLIDER:RADIUS", [(localize "STR_PHEN_ADP_Zeus_Radius"), (localize "STR_PHEN_ADP_Zeus_Radius_Desc")], [25, 10000, 500, 0, (ASLToAGL _position), [0.44, 0.74, 0.86, 0.7]]]
+        ];
+
+        if (_onTurret) then {
+            _rows = [
+                ["COMBO", (localize "STR_PHEN_ADP_Action_AirDefense"), [[0, 1, 2, 3], PHEN_ADP_MODE_NAMES, (_attached getVariable ["PHEN_ADP_mode", 0])], true],
+                ["CHECKBOX", (localize "STR_PHEN_ADP_AlarmEnabled"), [(_attached getVariable ["PHEN_ADP_alarm", true])], true]
+            ];
+        };
+
+        [(localize "STR_PHEN_ADP_Zeus_Module"), _rows, PHEN_ADP_fnc_zeusApply, {}, [_position, _attached]] call zen_dialog_fnc_create;
+    }, "\PHEN_ADP\data\ADP_logoSmall_256.paa"] call zen_custom_modules_fnc_register;
+};
 
 ["PHEN_ADP_stateChanged", {
     params ["_turret"];

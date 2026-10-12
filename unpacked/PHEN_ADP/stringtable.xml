@@ -779,5 +779,139 @@
 				<German>Air Defenses PLUS Ziel-Proxy</German>
 			</Key>
 		</Container>
+		<Container name="Eden">
+			<Key ID="STR_PHEN_ADP_Eden_On">
+				<English>Air defense on?</English>
+				<Czech>Protivzdušná obrana zapnutá?</Czech>
+				<French>Défense antiaérienne active ?</French>
+				<Spanish>¿Defensa antiaérea activa?</Spanish>
+				<Italian>Difesa antiaerea attiva?</Italian>
+				<Polish>Obrona przeciwlotnicza włączona?</Polish>
+				<Russian>ПВО включена?</Russian>
+				<German>Flugabwehr an?</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Eden_On_Desc">
+				<English>Untick and this one starts on Off, whatever the Starting Mode says. Still an air defense, a player or Zeus can switch it back on.</English>
+				<Czech>Odškrtni a začne na Vypnuto, ať je Počáteční režim jakýkoli. Pořád je to protivzdušná obrana, hráč nebo Zeus ji může znovu zapnout.</Czech>
+				<French>Décoche et celle-ci démarre sur Désactivé, peu importe le Mode de départ. Elle reste une défense antiaérienne, un joueur ou Zeus peut la rallumer.</French>
+				<Spanish>Desmárcalo y esta empieza en Apagado, diga lo que diga el Modo inicial. Sigue siendo defensa antiaérea, un jugador o Zeus puede volver a encenderla.</Spanish>
+				<Italian>Togli la spunta e parte su Spento, qualunque sia la Modalità iniziale. Resta una difesa antiaerea, un giocatore o Zeus può riaccenderla.</Italian>
+				<Polish>Odznacz, a zacznie na Wyłączony, niezależnie od Trybu początkowego. Nadal jest obroną przeciwlotniczą, gracz lub Zeus może ją z powrotem włączyć.</Polish>
+				<Russian>Сними галочку, и она стартует в режиме Выкл, что бы ни стояло в Начальном режиме. Это всё ещё ПВО, игрок или Зевс может включить её обратно.</Russian>
+				<German>Häkchen entfernen und sie startet auf Aus, egal was im Startmodus steht. Bleibt eine Flugabwehr, ein Spieler oder Zeus kann sie wieder einschalten.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Eden_Mode">
+				<English>Starting Mode</English>
+				<Czech>Počáteční režim</Czech>
+				<French>Mode de départ</French>
+				<Spanish>Modo inicial</Spanish>
+				<Italian>Modalità iniziale</Italian>
+				<Polish>Tryb początkowy</Polish>
+				<Russian>Начальный режим</Russian>
+				<German>Startmodus</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Eden_Mode_Desc">
+				<English>Targeting mode it starts on. Settings default goes by the gun or missile default in the mod settings.</English>
+				<Czech>Režim zaměřování, se kterým začne. Výchozí z nastavení se řídí výchozím režimem pro kanony nebo rakety v nastavení modu.</Czech>
+				<French>Mode de ciblage au démarrage. Par défaut des paramètres suit le mode par défaut canons ou missiles des paramètres du mod.</French>
+				<Spanish>Modo de puntería con el que empieza. Por defecto de ajustes usa el modo por defecto de cañones o misiles de los ajustes del mod.</Spanish>
+				<Italian>Modalità di puntamento con cui parte. Predefinita delle impostazioni segue la modalità predefinita per cannoni o missili nelle impostazioni della mod.</Italian>
+				<Polish>Tryb celowania na start. Domyślny z ustawień bierze domyślny tryb dla dział lub rakiet z ustawień moda.</Polish>
+				<Russian>Режим наведения на старте. По умолчанию из настроек берёт режим по умолчанию для пушек или ракет из настроек мода.</Russian>
+				<German>Zielmodus beim Start. Standard aus Einstellungen nimmt den Standardmodus für Kanonen oder Raketen aus den Mod-Einstellungen.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Eden_ModeDefault">
+				<English>Settings default</English>
+				<Czech>Výchozí z nastavení</Czech>
+				<French>Par défaut des paramètres</French>
+				<Spanish>Por defecto de ajustes</Spanish>
+				<Italian>Predefinita delle impostazioni</Italian>
+				<Polish>Domyślny z ustawień</Polish>
+				<Russian>По умолчанию из настроек</Russian>
+				<German>Standard aus Einstellungen</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Eden_Alarm_Desc">
+				<English>Untick to start with the siren OFF.</English>
+				<Czech>Odškrtni a siréna začne VYPNUTÁ.</Czech>
+				<French>Décoche pour démarrer avec la sirène COUPÉE.</French>
+				<Spanish>Desmárcalo para empezar con la sirena APAGADA.</Spanish>
+				<Italian>Togli la spunta per partire con la sirena SPENTA.</Italian>
+				<Polish>Odznacz, aby zacząć z WYŁĄCZONĄ syreną.</Polish>
+				<Russian>Сними галочку, чтобы сирена стартовала ВЫКЛЮЧЕННОЙ.</Russian>
+				<German>Häkchen entfernen, um mit AUSGESCHALTETER Sirene zu starten.</German>
+			</Key>
+		</Container>
+		<Container name="Zeus">
+			<Key ID="STR_PHEN_ADP_Zeus_Module">
+				<English>Air Defense Settings</English>
+				<Czech>Nastavení protivzdušné obrany</Czech>
+				<French>Réglages de défense antiaérienne</French>
+				<Spanish>Ajustes de defensa antiaérea</Spanish>
+				<Italian>Impostazioni difesa antiaerea</Italian>
+				<Polish>Ustawienia obrony przeciwlotniczej</Polish>
+				<Russian>Настройки ПВО</Russian>
+				<German>Flugabwehr-Einstellungen</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Zeus_LeaveAsIs">
+				<English>Leave as is</English>
+				<Czech>Ponechat</Czech>
+				<French>Ne pas changer</French>
+				<Spanish>Dejar como está</Spanish>
+				<Italian>Lascia com'è</Italian>
+				<Polish>Bez zmian</Polish>
+				<Russian>Не менять</Russian>
+				<German>So lassen</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Zeus_Radius">
+				<English>Radius (m)</English>
+				<Czech>Poloměr (m)</Czech>
+				<French>Rayon (m)</French>
+				<Spanish>Radio (m)</Spanish>
+				<Italian>Raggio (m)</Italian>
+				<Polish>Promień (m)</Polish>
+				<Russian>Радиус (м)</Russian>
+				<German>Radius (m)</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Zeus_Radius_Desc">
+				<English>Every air defense inside the circle gets it.</English>
+				<Czech>Dostane to každá protivzdušná obrana uvnitř kruhu.</Czech>
+				<French>Toutes les défenses antiaériennes dans le cercle sont modifiées.</French>
+				<Spanish>Toda defensa antiaérea dentro del círculo recibe el cambio.</Spanish>
+				<Italian>Ogni difesa antiaerea dentro il cerchio riceve la modifica.</Italian>
+				<Polish>Każda obrona przeciwlotnicza w okręgu dostanie zmianę.</Polish>
+				<Russian>Изменение получит каждая ПВО внутри круга.</Russian>
+				<German>Jede Flugabwehr im Kreis bekommt die Änderung.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Zeus_NotAirDefense">
+				<English>Not an air defense! Place it on one, or on the ground for every air defense around it.</English>
+				<Czech>Tohle není protivzdušná obrana! Polož to na ni, nebo na zem pro všechny protivzdušné obrany kolem.</Czech>
+				<French>Ce n'est pas une défense antiaérienne ! Place-le dessus, ou au sol pour toutes celles autour.</French>
+				<Spanish>¡No es una defensa antiaérea! Ponlo encima de una, o en el suelo para todas las de alrededor.</Spanish>
+				<Italian>Non è una difesa antiaerea! Mettilo su una, o a terra per tutte quelle intorno.</Italian>
+				<Polish>To nie jest obrona przeciwlotnicza! Postaw to na niej albo na ziemi dla wszystkich dookoła.</Polish>
+				<Russian>Это не ПВО! Поставь модуль на неё или на землю, чтобы задеть все вокруг.</Russian>
+				<German>Keine Flugabwehr! Auf eine setzen, oder auf den Boden für alle in der Nähe.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Zeus_NoneFound">
+				<English>No air defenses in range</English>
+				<Czech>Žádná protivzdušná obrana v dosahu</Czech>
+				<French>Aucune défense antiaérienne à portée</French>
+				<Spanish>No hay defensas antiaéreas en rango</Spanish>
+				<Italian>Nessuna difesa antiaerea nel raggio</Italian>
+				<Polish>Brak obrony przeciwlotniczej w zasięgu</Polish>
+				<Russian>Нет ПВО в радиусе</Russian>
+				<German>Keine Flugabwehr in Reichweite</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Zeus_Done">
+				<English>%1 air defenses set</English>
+				<Czech>Nastaveno protivzdušných obran: %1</Czech>
+				<French>%1 défenses antiaériennes réglées</French>
+				<Spanish>%1 defensas antiaéreas ajustadas</Spanish>
+				<Italian>%1 difese antiaeree impostate</Italian>
+				<Polish>Ustawiono obron przeciwlotniczych: %1</Polish>
+				<Russian>Настроено ПВО: %1</Russian>
+				<German>%1 Flugabwehren eingestellt</German>
+			</Key>
+		</Container>
 	</Package>
 </Project>

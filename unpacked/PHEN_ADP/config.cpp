@@ -14,9 +14,12 @@ class CfgPatches {
 			"cba_settings",
 			"cba_xeh",
 			"cba_ai",
+			"3DEN",
 			"A3_Static_F_Jets_AAA_System_01",
 			"A3_Static_F_Jets_SAM_System_01",
-			"A3_Static_F_Jets_SAM_System_02"
+			"A3_Static_F_Jets_SAM_System_02",
+			"A3_Static_F_Sams_SAM_System_03",
+			"A3_Static_F_Sams_SAM_System_04"
 		};
 
 		units[] = {
@@ -45,4 +48,5 @@ class CfgSettings {
 #include "CfgEventHandlers.hpp"
 #include "CfgAmmo.hpp"
 #include "CfgSounds.hpp"
+#include "Attributes.hpp"
 #include "CfgVehicles.hpp"

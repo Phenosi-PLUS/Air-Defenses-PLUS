@@ -33,44 +33,10 @@ class CfgVehicles {
 					displayName = "$STR_PHEN_ADP_ACE_Root";
 					icon = "\A3\Static_F_Jets\AAA_system_01\Data\UI\AAA_system_01_icon_CA.paa";
 					condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-					statement = "";
+					// statement = "true";
 					exceptions[] = {"isNotSwimming"};
 					priority = 2.5;
-					class PHEN_ADP_ModeOff {
-						displayName = "$STR_PHEN_ADP_ACE_ModeOff";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 0]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 5;
-					};
-					class PHEN_ADP_ModeRandom {
-						displayName = "$STR_PHEN_ADP_ACE_ModeRandom";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 1]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 4;
-					};
-					class PHEN_ADP_ModeClosest {
-						displayName = "$STR_PHEN_ADP_ACE_ModeClosest";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 2]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 3;
-					};
-					class PHEN_ADP_ModeHighest {
-						displayName = "$STR_PHEN_ADP_ACE_ModeHighest";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 3]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 2;
-					};
-					class PHEN_ADP_AlarmToggle {
-						displayName = "$STR_PHEN_ADP_ACE_AlarmToggle";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_alarm', !(_target getVariable ['PHEN_ADP_alarm', true])]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 1;
-					};
+					#include "ACE_Actions.hpp"
 				};
 			};
 		};
@@ -83,44 +49,10 @@ class CfgVehicles {
 					displayName = "$STR_PHEN_ADP_ACE_Root";
 					icon = "\A3\Static_F_Jets\SAM_System_01\Data\UI\SAM_System_01_icon_CA.paa";
 					condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-					statement = "";
+					// statement = "";
 					exceptions[] = {"isNotSwimming"};
 					priority = 2.5;
-					class PHEN_ADP_ModeOff {
-						displayName = "$STR_PHEN_ADP_ACE_ModeOff";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 0]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 5;
-					};
-					class PHEN_ADP_ModeRandom {
-						displayName = "$STR_PHEN_ADP_ACE_ModeRandom";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 1]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 4;
-					};
-					class PHEN_ADP_ModeClosest {
-						displayName = "$STR_PHEN_ADP_ACE_ModeClosest";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 2]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 3;
-					};
-					class PHEN_ADP_ModeHighest {
-						displayName = "$STR_PHEN_ADP_ACE_ModeHighest";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 3]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 2;
-					};
-					class PHEN_ADP_AlarmToggle {
-						displayName = "$STR_PHEN_ADP_ACE_AlarmToggle";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_alarm', !(_target getVariable ['PHEN_ADP_alarm', true])]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 1;
-					};
+					#include "ACE_Actions.hpp"
 				};
 			};
 		};
@@ -133,44 +65,10 @@ class CfgVehicles {
 					displayName = "$STR_PHEN_ADP_ACE_Root";
 					icon = "\A3\Static_F_Jets\SAM_System_02\Data\UI\SAM_System_02_icon_CA.paa";
 					condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-					statement = "";
+					// statement = "";
 					exceptions[] = {"isNotSwimming"};
 					priority = 2.5;
-					class PHEN_ADP_ModeOff {
-						displayName = "$STR_PHEN_ADP_ACE_ModeOff";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 0]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 5;
-					};
-					class PHEN_ADP_ModeRandom {
-						displayName = "$STR_PHEN_ADP_ACE_ModeRandom";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 1]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 4;
-					};
-					class PHEN_ADP_ModeClosest {
-						displayName = "$STR_PHEN_ADP_ACE_ModeClosest";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 2]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 3;
-					};
-					class PHEN_ADP_ModeHighest {
-						displayName = "$STR_PHEN_ADP_ACE_ModeHighest";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 3]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 2;
-					};
-					class PHEN_ADP_AlarmToggle {
-						displayName = "$STR_PHEN_ADP_ACE_AlarmToggle";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_alarm', !(_target getVariable ['PHEN_ADP_alarm', true])]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 1;
-					};
+					#include "ACE_Actions.hpp"
 				};
 			};
 		};
@@ -183,44 +81,10 @@ class CfgVehicles {
 					displayName = "$STR_PHEN_ADP_ACE_Root";
 					icon = "\A3\Static_F_Sams\SAM_System_03\Data\UI\SAM_System_03_icon_CA.paa";
 					condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-					statement = "";
+					// statement = "";
 					exceptions[] = {"isNotSwimming"};
 					priority = 2.5;
-					class PHEN_ADP_ModeOff {
-						displayName = "$STR_PHEN_ADP_ACE_ModeOff";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 0]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 5;
-					};
-					class PHEN_ADP_ModeRandom {
-						displayName = "$STR_PHEN_ADP_ACE_ModeRandom";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 1]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 4;
-					};
-					class PHEN_ADP_ModeClosest {
-						displayName = "$STR_PHEN_ADP_ACE_ModeClosest";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 2]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 3;
-					};
-					class PHEN_ADP_ModeHighest {
-						displayName = "$STR_PHEN_ADP_ACE_ModeHighest";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 3]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 2;
-					};
-					class PHEN_ADP_AlarmToggle {
-						displayName = "$STR_PHEN_ADP_ACE_AlarmToggle";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_alarm', !(_target getVariable ['PHEN_ADP_alarm', true])]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 1;
-					};
+					#include "ACE_Actions.hpp"
 				};
 			};
 		};
@@ -233,44 +97,10 @@ class CfgVehicles {
 					displayName = "$STR_PHEN_ADP_ACE_Root";
 					icon = "\A3\Static_F_Sams\SAM_System_04\Data\UI\SAM_System_04_icon_CA.paa";
 					condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-					statement = "";
+					// statement = "";
 					exceptions[] = {"isNotSwimming"};
 					priority = 2.5;
-					class PHEN_ADP_ModeOff {
-						displayName = "$STR_PHEN_ADP_ACE_ModeOff";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 0]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 5;
-					};
-					class PHEN_ADP_ModeRandom {
-						displayName = "$STR_PHEN_ADP_ACE_ModeRandom";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 1]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 4;
-					};
-					class PHEN_ADP_ModeClosest {
-						displayName = "$STR_PHEN_ADP_ACE_ModeClosest";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 2]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 3;
-					};
-					class PHEN_ADP_ModeHighest {
-						displayName = "$STR_PHEN_ADP_ACE_ModeHighest";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_mode', 3]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 2;
-					};
-					class PHEN_ADP_AlarmToggle {
-						displayName = "$STR_PHEN_ADP_ACE_AlarmToggle";
-						condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]}";
-						statement = "['PHEN_ADP_setState', [_target, 'PHEN_ADP_alarm', !(_target getVariable ['PHEN_ADP_alarm', true])]] call CBA_fnc_serverEvent;";
-						exceptions[] = {"isNotSwimming"};
-						priority = 1;
-					};
+					#include "ACE_Actions.hpp"
 				};
 			};
 		};

@@ -153,6 +153,21 @@ PHEN_ADP_fnc_isArcing = {
     _speed > 1 && {(asin ((_velocity select 2) / _speed)) >= 15}
 };
 
+PHEN_ADP_fnc_edenValue = {
+    params [["_turret", objNull, [objNull]], ["_property", "", [""]], ["_fallback", true]];
+
+    private _value = (_turret getVariable _property);
+    if (!isNil "_value") exitWith { _value };
+
+    private _default = (configFile >> "Cfg3DEN" >> "Object" >> "AttributeCategories" >> "PHEN_ADP" >> "Attributes" >> _property >> "defaultValue");
+    //return
+    if (isText _default) then {
+        (call compile (getText _default))
+    } else {
+        if (isNumber _default) then { (getNumber _default) } else { _fallback }
+    };
+};
+
 // server ON/OFF switch registering
 PHEN_ADP_fnc_registerTurret = {
     params [["_turret", objNull, [objNull]]];
@@ -160,19 +175,29 @@ PHEN_ADP_fnc_registerTurret = {
     if (!isServer) exitWith {};
     if (isNull _turret) exitWith {};
     if (!PHEN_ADP_enabled) exitWith {};
-    if (_turret getVariable ["PHEN_ADP_registered", false]) exitWith {};
+    if (_turret in PHEN_ADP_batteries) exitWith {};
 
     private _configSetup = (typeOf _turret) call PHEN_ADP_fnc_getConfigSetup;
     if !(_configSetup getOrDefault ["enabled", false]) exitWith {};
 
-    private _startMode = PHEN_ADP_defaultModeGun;
-    if ((_configSetup getOrDefault ["mode", "gun"]) isEqualTo "missile") then {_startMode = PHEN_ADP_defaultModeMissile};
+    private _startMode = ([_turret, "PHEN_ADP_edenMode", -1] call PHEN_ADP_fnc_edenValue);
+    if (_startMode < 0) then {
+        _startMode = PHEN_ADP_defaultModeGun;
+        if ((_configSetup getOrDefault ["mode", "gun"]) isEqualTo "missile") then {_startMode = PHEN_ADP_defaultModeMissile};
+    };
+    if !([_turret, "PHEN_ADP_edenOn", true] call PHEN_ADP_fnc_edenValue) then { _startMode = 0 };
+    _alarmOn = ([_turret, "PHEN_ADP_edenAlarm", true] call PHEN_ADP_fnc_edenValue);
 
     _turret setVariable ["PHEN_ADP_registered", true, true];
     _turret setVariable ["PHEN_ADP_mode", _startMode, true];
-    _turret setVariable ["PHEN_ADP_alarm", true, true];
+    _turret setVariable ["PHEN_ADP_alarm", _alarmOn, true];
     _turret setVariable ["PHEN_ADP_configSetup", _configSetup];
     _turret setVariable ["PHEN_ADP_busyUntil", 0];
+    //BI vehicle respawn module copies EVERY var off the dead turret, engagement included
+    _turret setVariable ["PHEN_ADP_engaging", false];
+    _turret setVariable ["PHEN_ADP_engageTarget", objNull];
+    _turret setVariable ["PHEN_ADP_currentTarget", objNull];
+    _turret setVariable ["PHEN_ADP_proxy", objNull];
 
     _turret setVehicleReportRemoteTargets true;
     _turret setVehicleReportOwnPosition true;
@@ -1153,7 +1178,8 @@ PHEN_ADP_fnc_addActions = {
     if (!hasInterface) exitWith {};
     if (!PHEN_ADP_scrollActions) exitWith {};
     if (isNull _turret) exitWith {};
-    if (!isNil {_turret getVariable "PHEN_ADP_actionIds"}) exitWith {};
+    //not the ids, BI vehicle respawn copies those off the dead turret on the host
+    if ((_turret getVariable ["PHEN_ADP_actionsOn", objNull]) isEqualTo _turret) exitWith {};
 
     private _condition = "alive _target && {_target getVariable ['PHEN_ADP_registered', false]} && {!(_this in _target)}";
 
@@ -1178,6 +1204,44 @@ PHEN_ADP_fnc_addActions = {
     ];
 
     _turret setVariable ["PHEN_ADP_actionIds", [_modeId, _alarmId]];
+    _turret setVariable ["PHEN_ADP_actionsOn", _turret];
 
     [{["PHEN_ADP_stateChanged", _this] call CBA_fnc_localEvent}, [_turret], 2] call CBA_fnc_waitAndExecute;
 };
+//zeus dialog OK, -1 leaves that one as is
+PHEN_ADP_fnc_zeusApply = {
+    params ["_values", "_args"];
+    _values params ["_mode", "_alarm", ["_radius", 0]];
+    _args params ["_center", "_turret"];
+
+    _isArea = (isNull _turret);
+    _turrets = [_turret];
+    if (_isArea) then {
+        _turrets = vehicles select { ((_x getVariable ["PHEN_ADP_registered", false]) && { ((_x distance2D _center) <= _radius) }) };
+    };
+    if (_turrets isEqualTo []) exitWith { ["STR_PHEN_ADP_Zeus_NoneFound"] call zen_common_fnc_showMessage };
+
+    {
+        if (_mode >= 0) then { ["PHEN_ADP_setState", [_x, "PHEN_ADP_mode", _mode]] call CBA_fnc_serverEvent };
+        if (_alarm isEqualType true) then { ["PHEN_ADP_setState", [_x, "PHEN_ADP_alarm", _alarm]] call CBA_fnc_serverEvent };
+    } forEach _turrets;
+
+    if (_isArea) then { ["STR_PHEN_ADP_Zeus_Done", (count _turrets)] call zen_common_fnc_showMessage };
+};
+PHEN_ADP_fnc_onRespawn = {
+    params [["_turret", objNull, [objNull]], ["_wreck", objNull, [objNull]]];
+
+    if (!isServer) exitWith {};
+    if (isNull _turret) exitWith {};
+
+    if (!isNull _wreck) then {
+        {
+            _saved = (_wreck getVariable _x);
+            if (!isNil "_saved") then { _turret setVariable [_x, _saved] };
+        } forEach ["PHEN_ADP_edenOn", "PHEN_ADP_edenMode", "PHEN_ADP_edenAlarm"];
+    };
+
+    [_turret] call PHEN_ADP_fnc_registerTurret;
+    ["PHEN_ADP_addActions", [_turret]] call CBA_fnc_globalEvent;
+}; //vehicle respawn compat
+
