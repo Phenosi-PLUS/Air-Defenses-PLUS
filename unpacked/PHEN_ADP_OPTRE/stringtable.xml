@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="Air Defenses PLUS">
+	<Package name="PHEN_ADP_OPTRE">
+		<Container name="Settings">
+			<Key ID="STR_PHEN_ADP_TrackPods">
+				<English>Shoot at ODST drop pods?</English>
+				<Czech>Střílet na výsadkové moduly ODST?</Czech>
+				<French>Tirer sur les capsules ODST ?</French>
+				<Spanish>¿Disparar a las cápsulas ODST?</Spanish>
+				<Italian>Sparare ai pod ODST?</Italian>
+				<Polish>Strzelać do kapsuł desantowych ODST?</Polish>
+				<Russian>Стрелять по капсулам ODST?</Russian>
+				<German>Auf ODST-Landekapseln schießen?</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_TrackPods_Desc">
+				<English>Hostile HEV pods get shot at on the way down, just for the show. Fire is aimed AROUND the pod, it never brings one down.</English>
+				<Czech>Na nepřátelské moduly HEV se střílí cestou dolů, jen pro efekt. Palba míří KOLEM modulu, nikdy žádný nesestřelí.</Czech>
+				<French>Les capsules HEV hostiles se font tirer dessus pendant la descente, juste pour le spectacle. Les tirs visent AUTOUR de la capsule, elle n'est jamais abattue.</French>
+				<Spanish>Las cápsulas HEV hostiles reciben fuego durante la caída, solo por el espectáculo. Se dispara ALREDEDOR de la cápsula, nunca derriba ninguna.</Spanish>
+				<Italian>I pod HEV ostili vengono presi di mira durante la discesa, solo per lo spettacolo. Il fuoco è mirato ATTORNO al pod, non ne abbatte mai uno.</Italian>
+				<Polish>Do wrogich kapsuł HEV strzela się w trakcie opadania, tylko dla efektu. Ogień idzie WOKÓŁ kapsuły, nigdy żadnej nie zestrzeli.</Polish>
+				<Russian>По вражеским капсулам HEV стреляют во время спуска, только ради зрелища. Огонь идёт ВОКРУГ капсулы, сбить её нельзя.</Russian>
+				<German>Auf feindliche HEV-Kapseln wird beim Abstieg geschossen, nur für die Show. Gezielt wird UM die Kapsel herum, abgeschossen wird nie eine.</German>
+			</Key>
+		</Container>
+	</Package>
+</Project>

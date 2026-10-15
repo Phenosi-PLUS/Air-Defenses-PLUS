@@ -12,6 +12,18 @@ class CfgPatches {
 	};
 };
 
+class Extended_PreInit_EventHandlers {
+	class PHEN_ADP_OPTRE_PreInit {
+		init = "call compile preprocessFileLineNumbers '\PHEN_ADP_OPTRE\bootstrap\XEH_preInit.sqf'";
+	};
+};
+
+class Extended_PostInit_EventHandlers {
+	class PHEN_ADP_OPTRE_PostInit {
+		init = "call compile preprocessFileLineNumbers '\PHEN_ADP_OPTRE\bootstrap\XEH_postInit.sqf'";
+	};
+};
+
 class CfgVehicles {
 	class StaticMGWeapon;
 	class AAA_System_01_base_F: StaticMGWeapon {

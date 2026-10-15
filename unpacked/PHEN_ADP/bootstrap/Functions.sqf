@@ -103,6 +103,7 @@ PHEN_ADP_CAT_MISSILE = 3;   // MissileCore, cruise and AT
 PHEN_ADP_CAT_ROCKET = 4;  // RocketCore, rocket artillery and RPGs
 PHEN_ADP_CAT_DRONE = 5;      // not ammo, comes in through the Air class eventhandler
 PHEN_ADP_CAT_BOMB = 6;    // BombCore, dumb and guided bombs
+PHEN_ADP_CAT_CINEMATIC = 7;  // never killed, only shot at for the ''cinematic effect' (OPTRE drop pods only atm!)
 
 // sorts an ammo classname into a PHEN_ADP_CAT_ category and caches it
 // ONLY once per classname per session
@@ -426,6 +427,9 @@ PHEN_ADP_fnc_pickForTurret = {
     };
     if (_candidates isEqualTo []) exitWith {objNull};
 
+    _real = (_candidates select { ((_x getVariable ["PHEN_ADP_cat", 0]) isNotEqualTo PHEN_ADP_CAT_CINEMATIC) });
+    if (_real isNotEqualTo []) then { _candidates = _real }; //cinematic targets last!
+
     private _target = [_candidates, _turret, _mode] call PHEN_ADP_fnc_pickTarget;
     if (isNull _target) exitWith {objNull};
 
@@ -445,7 +449,9 @@ PHEN_ADP_fnc_trackerTick = {
             if (_cat isEqualTo PHEN_ADP_CAT_DRONE) then {
                 private _airborne = !(isTouchingGround _x) && {((getPosATL _x) select 2) > 20};
                 _airborne || {CBA_missionTime < (_x getVariable ["PHEN_ADP_droneWait", 0])}
-            } else {true}
+            } else {
+                if (_cat isEqualTo PHEN_ADP_CAT_CINEMATIC) then { (((getPos _x) select 2) > PHEN_ADP_CINEMATIC_MIN_ALT) } else { true }
+            }
         }
     }; //no exitWithhere, #select returns the exitWith value instead of array
 
@@ -471,7 +477,8 @@ PHEN_ADP_fnc_trackerTick = {
             private _lost = isNull _engaged
                 || {!alive _engaged}
                 || {(PHEN_ADP_threats find _engaged) isEqualTo -1}
-                || {(_engaged distance _turret) > _range};
+                || {(_engaged distance _turret) > _range}
+                || { (_now > (_turret getVariable ["PHEN_ADP_engageUntil", 1e10])) };
 
             if (!_lost) then {
                 //ensure two turrets dont waste on a single target
@@ -480,6 +487,8 @@ PHEN_ADP_fnc_trackerTick = {
                 if (_now > (_turret getVariable ["PHEN_ADP_orderAt", 0])) then {
                     _turret setVariable ["PHEN_ADP_orderAt", _now + 1];
                     private _proxy = _turret getVariable ["PHEN_ADP_proxy", objNull];
+                    _jitter = ((!_isMissile) && { ((_engaged getVariable ["PHEN_ADP_cat", 0]) isEqualTo PHEN_ADP_CAT_CINEMATIC) } && { ((random 1) < PHEN_ADP_CINEMATIC_JITTER_CHANCE) });
+                    if (_jitter) then { _proxy attachTo [_engaged, (call PHEN_ADP_fnc_cinematicOffset)] };
                     [_turret, _proxy] call PHEN_ADP_fnc_shareProxy;
                     if (!_isMissile) then {[_turret, _proxy] call PHEN_ADP_fnc_setTargetbehaviour};
                 };
@@ -565,6 +574,14 @@ PHEN_ADP_fnc_pickTarget = {
     _best
 };
 
+PHEN_ADP_fnc_cinematicOffset = {
+    PHEN_ADP_CINEMATIC_OFFSET params ["_minDistance", "_maxDistance"];
+    private _distance = (_minDistance + (random (_maxDistance - _minDistance)));
+    private _azimuth = (random 360);
+    private _elevation = ((random 120) - 60);
+    ([((sin _azimuth) * (cos _elevation)), ((cos _azimuth) * (cos _elevation)), (sin _elevation)] vectorMultiply _distance)
+};
+
 PHEN_ADP_fnc_engage = {
     params [["_turret", objNull, [objNull]], ["_target", objNull, [objNull]], ["_configSetup", createHashMap, [createHashMap]]];
 
@@ -600,8 +617,17 @@ PHEN_ADP_fnc_engageGun = {
     _turret setVariable ["PHEN_ADP_engageShotAt", 0];
     _turret setVariable ["PHEN_ADP_orderAt", CBA_missionTime + 1];
 
+    _offset = [0, 5, 0];
+    _engageUntil = 1e10;
+
+    if ((_target getVariable ["PHEN_ADP_cat", 0]) isEqualTo PHEN_ADP_CAT_CINEMATIC) then {
+        _offset = (call PHEN_ADP_fnc_cinematicOffset);
+        _engageUntil = (CBA_missionTime + (random PHEN_ADP_CINEMATIC_BURST));
+    };
+    _turret setVariable ["PHEN_ADP_engageUntil", _engageUntil];
+
     detach _proxy;
-    _proxy attachTo [_target, [0, 5, 0]];
+    _proxy attachTo [_target, _offset];
     [_turret, _proxy] call PHEN_ADP_fnc_shareProxy;
 
     //a gunner in a safe or yellow group will not shoot at anything, so we fix that
@@ -632,8 +658,10 @@ PHEN_ADP_fnc_engageMissile = {
     private _proxy = _turret call PHEN_ADP_fnc_getProxy;
     if (!isNull _proxy) then {
         _proxy call PHEN_ADP_fnc_crewProxy;
+        _offset = [0, 5, 0];
+        if ((_target getVariable ["PHEN_ADP_cat", 0]) isEqualTo PHEN_ADP_CAT_CINEMATIC) then { _offset = (call PHEN_ADP_fnc_cinematicOffset) };
         detach _proxy;
-        _proxy attachTo [_target, [0, 5, 0]];
+        _proxy attachTo [_target, _offset];
         [_turret, _proxy] call PHEN_ADP_fnc_shareProxy;
     };
 
@@ -871,6 +899,10 @@ PHEN_ADP_fnc_guideMissile = {
     private _engine = _canTurn && {!isNull _proxy};
     if (_engine) then {_missile setMissileTarget [_proxy, true]};
 
+    //cinematic
+    _aimAt = _target;
+    if ((_target getVariable ["PHEN_ADP_cat", 0]) isEqualTo PHEN_ADP_CAT_CINEMATIC) then { _aimAt = _proxy };
+
     private _top = getNumber (_ammoCfg >> "maxSpeed");
     if (_top <= 0) then {_top = 250};
 
@@ -880,7 +912,7 @@ PHEN_ADP_fnc_guideMissile = {
         ["held", false],
         ["fails", 0],
         ["top", _top],
-        ["closest", _missile distance _target],
+        ["closest", (_missile distance _aimAt)],
         ["deadline", CBA_missionTime + 45],   //self destructs max time cap
         ["armed", CBA_missionTime + 3],
         ["fuze", _configSetup getOrDefault ["fuzeRadius", 12]],
@@ -890,12 +922,14 @@ PHEN_ADP_fnc_guideMissile = {
 
     [{
         params ["_args", "_handle"];
-        _args params ["_missile", "_target", "_state", "_turret", "_engageId"];
+        _args params ["_missile", "_target", "_state", "_turret", "_engageId", "_aimAt"];
 
         private _dead = isNull _missile
             || {!alive _missile}
             || {isNull _target}
             || {!alive _target}
+            || { (isNull _aimAt) }
+            || { ((PHEN_ADP_threats find _target) isEqualTo -1) }
             || {CBA_missionTime > (_state get "deadline")};
 
         if (_dead) exitWith {
@@ -905,7 +939,7 @@ PHEN_ADP_fnc_guideMissile = {
         };
 
         private _missilePos = getPosASL _missile;
-        private _targetPos = getPosASL _target;
+        private _targetPos = (getPosASL _aimAt);
         private _lineOfSight = _targetPos vectorDiff _missilePos;
         private _distance = vectorMagnitude _lineOfSight;
 
@@ -973,7 +1007,7 @@ PHEN_ADP_fnc_guideMissile = {
 
         _missile setVectorDirAndUp [_steer, vectorNormalized _up];
         _missile setVelocity (_steer vectorMultiply _speed);
-    }, 0.01, [_missile, _target, _state, _turret, _engageId]] call CBA_fnc_addPerFrameHandler;
+    }, 0.01, [_missile, _target, _state, _turret, _engageId, _aimAt]] call CBA_fnc_addPerFrameHandler;
 };
 
 // resolve one intercept; if failed accuracy rollchance EXITwith
@@ -989,6 +1023,14 @@ PHEN_ADP_fnc_intercept = {
 
         private _flyOn = !isNull _interceptor && {alive _interceptor};
         if (_flyOn) then {_interceptor setMissileTarget [objNull, true]};
+    };
+
+    //cinematic, no kill; looks like flak
+    if ((_threat getVariable ["PHEN_ADP_cat", 0]) isEqualTo PHEN_ADP_CAT_CINEMATIC) exitWith {
+        if ((!isNull _interceptor) && { (alive _interceptor) }) exitWith { triggerAmmo _interceptor };
+        _burstPos = ((getPosASL _threat) vectorAdd (call PHEN_ADP_fnc_cinematicOffset));
+        _burst = (createVehicle [(selectRandom PHEN_ADP_BURST_CLASSES), (ASLToAGL _burstPos), [], 0, "CAN_COLLIDE"]);
+        triggerAmmo _burst;
     };
 
     private _position = getPosASL _threat;
