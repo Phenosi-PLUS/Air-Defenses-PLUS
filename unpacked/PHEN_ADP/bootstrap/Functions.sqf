@@ -575,11 +575,8 @@ PHEN_ADP_fnc_pickTarget = {
 };
 
 PHEN_ADP_fnc_cinematicOffset = {
-    PHEN_ADP_CINEMATIC_OFFSET params ["_minDistance", "_maxDistance"];
-    private _distance = (_minDistance + (random (_maxDistance - _minDistance)));
-    private _azimuth = (random 360);
-    private _elevation = ((random 120) - 60);
-    ([((sin _azimuth) * (cos _elevation)), ((cos _azimuth) * (cos _elevation)), (sin _elevation)] vectorMultiply _distance)
+    _direction = (vectorNormalized [((random 2) - 1), ((random 2) - 1), ((random 1.4) - 0.7)]);
+    (_direction vectorMultiply (random PHEN_ADP_CINEMATIC_OFFSET))
 };
 
 PHEN_ADP_fnc_engage = {

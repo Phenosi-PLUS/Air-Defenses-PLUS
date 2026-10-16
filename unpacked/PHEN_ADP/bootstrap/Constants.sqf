@@ -89,7 +89,7 @@ PHEN_ADP_projectileEH = -1;
 PHEN_ADP_alarmsSounding = [];
 
 //cinematic targets (example: OPTRE drop pods), shot at for the looks and NEVER killed
-PHEN_ADP_CINEMATIC_OFFSET        = [40, 100];
+PHEN_ADP_CINEMATIC_OFFSET        = [40, 70, 100];
 PHEN_ADP_CINEMATIC_BURST         = [3, 5, 8];
 PHEN_ADP_CINEMATIC_JITTER_CHANCE = 0.5;
 PHEN_ADP_CINEMATIC_MIN_ALT       = 300;
