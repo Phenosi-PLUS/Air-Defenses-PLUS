@@ -68,6 +68,9 @@ PHEN_ADP_fnc_getConfigSetup = {
         ["shotDelay", 2],
         ["fuzeRadius", 12],
         ["bombs", false],
+        ["interceptAmmo", ""],
+        ["clusterAmmo", ""],
+        ["clusterCount", 4],
         ["muzzleSpeed", _muzzleSpeed],
         ["weapon", _weapon],
         ["ammo", _ammo],
@@ -84,6 +87,11 @@ PHEN_ADP_fnc_getConfigSetup = {
         if (isNumber (_block >> "fuzeRadius")) then {_configSetup set ["fuzeRadius", getNumber (_block >> "fuzeRadius")]};
         if (isNumber (_block >> "bombs")) then { _configSetup set ["bombs", ((getNumber (_block >> "bombs")) > 0)] };
         if (isText (_block >> "icon")) then {_configSetup set ["icon", getText (_block >> "icon")]};
+        _swapAmmo = (getText (_block >> "interceptAmmo"));
+        if ((_swapAmmo isNotEqualTo "") && { (isClass (configFile >> "CfgAmmo" >> _swapAmmo)) }) then { _configSetup set ["interceptAmmo", _swapAmmo] };
+        _ClusterBoom = (getText (_block >> "clusterAmmo"));
+        if ((_ClusterBoom isNotEqualTo "") && { (isClass (configFile >> "CfgAmmo" >> _ClusterBoom)) }) then { _configSetup set ["clusterAmmo", _ClusterBoom] };
+        if (isNumber (_block >> "clusterCount")) then { _configSetup set ["clusterCount", ((floor (getNumber (_block >> "clusterCount"))) max 1)] };
     } else {
         private _extra = PHEN_ADP_extraClassList findIf {_type isKindOf _x};
         if (_extra isEqualTo -1) then {_configSetup set ["enabled", false]};
@@ -217,7 +225,21 @@ PHEN_ADP_fnc_registerTurret = {
             if (isNull _target) exitWith {};
 
             _turret setVariable ["PHEN_ADP_currentTarget", objNull];
-            [_projectile, _target, _turret getVariable ["PHEN_ADP_configSetup", createHashMap], _turret] call PHEN_ADP_fnc_guideMissile;
+            _configSetup = (_turret getVariable ["PHEN_ADP_configSetup", createHashMap]);
+
+            //cluster munitions, but really just the OPTRE C9 cluster atm need a compat specifcially for that
+            _swapAmmo = (_configSetup getOrDefault ["interceptAmmo", ""]);
+            if ((_swapAmmo isNotEqualTo "") && { ((typeOf _projectile) isNotEqualTo _swapAmmo) }) then {
+                _posASL = (getPosASL _projectile);
+                _dir = (vectorDir _projectile);
+                _up = (vectorUp _projectile);
+                _velocity = (velocity _projectile);
+                deleteVehicle _projectile;
+
+                _projectile = ([_swapAmmo, _posASL, _dir, _up, _velocity, _turret] call PHEN_ADP_fnc_spawnInterceptor);
+            };
+
+            [_projectile, _target, _configSetup, _turret] call PHEN_ADP_fnc_guideMissile;
         }];
     } else {
         _turret addEventHandler ["Fired", {
@@ -330,6 +352,9 @@ PHEN_ADP_fnc_onProjectile = {
         if (!isNull _instigator) then {_side = side _instigator};
     };
 
+    _shooter = (_parents select 0);
+    if (!isNull _shooter) then { _projectile setVariable ["PHEN_ADP_launchPos", (getPosASL _shooter)] };
+
     [_projectile, _cat, _side] call PHEN_ADP_fnc_addThreat;
 };
 
@@ -397,7 +422,33 @@ PHEN_ADP_fnc_endEngage = {
     [_turret, _turret getVariable ["PHEN_ADP_proxy", objNull]] call PHEN_ADP_fnc_pauseProxy;
 };
 
-//target picker, objnull when not
+PHEN_ADP_fnc_threatsNear = {
+    params [["_turret", objNull, [objNull]], ["_center", objNull, [objNull]], ["_radius", 0, [0]]];
+
+    private _now = CBA_missionTime;
+    private _turretSide = side _turret;
+    _takesBombs = ((_turret getVariable ["PHEN_ADP_configSetup", createHashMap]) getOrDefault ["bombs", false]);
+
+    PHEN_ADP_threats select {
+        ((_x distance _center) <= _radius)
+        && { ((_takesBombs) || { ((_x getVariable ["PHEN_ADP_cat", 0]) isNotEqualTo PHEN_ADP_CAT_BOMB) }) }
+        && {(_x getVariable ["PHEN_ADP_lockedUntil", 0]) <= _now}
+        && {
+            _launchPos = (_x getVariable ["PHEN_ADP_launchPos", []]);
+            ((_launchPos isEqualTo []) || { (((getPosASL _x) vectorDistance _launchPos) > PHEN_ADP_LAUNCH_SAFE_DIST) })
+        }
+        && {
+            PHEN_ADP_friendlyFire
+            || {
+                private _threatSide = _x getVariable ["PHEN_ADP_side", sideUnknown];
+                _threatSide isEqualTo sideUnknown
+                || {[_threatSide, _turretSide] call BIS_fnc_sideIsEnemy}
+            }
+        }
+    }
+};
+
+//target picker; returns objnull when not
 PHEN_ADP_fnc_pickForTurret = {
     params [["_turret", objNull, [objNull]], ["_range", 0, [0]]];
 
@@ -409,22 +460,8 @@ PHEN_ADP_fnc_pickForTurret = {
     if (_crewed) exitWith {objNull};
 
     private _now = CBA_missionTime;
-    private _turretSide = side _turret;
-    _takesBombs = ((_turret getVariable ["PHEN_ADP_configSetup", createHashMap]) getOrDefault ["bombs", false]);
 
-    private _candidates = PHEN_ADP_threats select {
-        (_x distance _turret) <= _range
-        && { ((_takesBombs) || { ((_x getVariable ["PHEN_ADP_cat", 0]) isNotEqualTo PHEN_ADP_CAT_BOMB) }) }
-        && {(_x getVariable ["PHEN_ADP_lockedUntil", 0]) <= _now}
-        && {
-            PHEN_ADP_friendlyFire
-            || {
-                private _threatSide = _x getVariable ["PHEN_ADP_side", sideUnknown];
-                _threatSide isEqualTo sideUnknown
-                || {[_threatSide, _turretSide] call BIS_fnc_sideIsEnemy}
-            }
-        }
-    };
+    private _candidates = ([_turret, _turret, _range] call PHEN_ADP_fnc_threatsNear);
     if (_candidates isEqualTo []) exitWith {objNull};
 
     _real = (_candidates select { ((_x getVariable ["PHEN_ADP_cat", 0]) isNotEqualTo PHEN_ADP_CAT_CINEMATIC) });
@@ -484,11 +521,23 @@ PHEN_ADP_fnc_trackerTick = {
                 //ensure two turrets dont waste on a single target
                 _engaged setVariable ["PHEN_ADP_lockedUntil", _now + 5];
 
+                private _proxy = _turret getVariable ["PHEN_ADP_proxy", objNull];
+                _offset = (_turret getVariable ["PHEN_ADP_proxyOffset", [0, 5, 0]]);
+                _leash = ((vectorMagnitude _offset) + 50);
+                _leftBehind = ((!isNull _proxy) && { (((attachedTo _proxy) isNotEqualTo _engaged) || { ((_proxy distance _engaged) > _leash) }) });
+                if (_leftBehind) then {
+                    detach _proxy;
+                    _proxy attachTo [_engaged, _offset];
+                };
+
                 if (_now > (_turret getVariable ["PHEN_ADP_orderAt", 0])) then {
                     _turret setVariable ["PHEN_ADP_orderAt", _now + 1];
-                    private _proxy = _turret getVariable ["PHEN_ADP_proxy", objNull];
                     _jitter = ((!_isMissile) && { ((_engaged getVariable ["PHEN_ADP_cat", 0]) isEqualTo PHEN_ADP_CAT_CINEMATIC) } && { ((random 1) < PHEN_ADP_CINEMATIC_JITTER_CHANCE) });
-                    if (_jitter) then { _proxy attachTo [_engaged, (call PHEN_ADP_fnc_cinematicOffset)] };
+                    if (_jitter) then {
+                        _offset = (call PHEN_ADP_fnc_cinematicOffset);
+                        _proxy attachTo [_engaged, _offset];
+                        _turret setVariable ["PHEN_ADP_proxyOffset", _offset];
+                    };
                     [_turret, _proxy] call PHEN_ADP_fnc_shareProxy;
                     if (!_isMissile) then {[_turret, _proxy] call PHEN_ADP_fnc_setTargetbehaviour};
                 };
@@ -625,6 +674,7 @@ PHEN_ADP_fnc_engageGun = {
 
     detach _proxy;
     _proxy attachTo [_target, _offset];
+    _turret setVariable ["PHEN_ADP_proxyOffset", _offset];
     [_turret, _proxy] call PHEN_ADP_fnc_shareProxy;
 
     //a gunner in a safe or yellow group will not shoot at anything, so we fix that
@@ -659,6 +709,7 @@ PHEN_ADP_fnc_engageMissile = {
         if ((_target getVariable ["PHEN_ADP_cat", 0]) isEqualTo PHEN_ADP_CAT_CINEMATIC) then { _offset = (call PHEN_ADP_fnc_cinematicOffset) };
         detach _proxy;
         _proxy attachTo [_target, _offset];
+        _turret setVariable ["PHEN_ADP_proxyOffset", _offset];
         [_turret, _proxy] call PHEN_ADP_fnc_shareProxy;
     };
 
@@ -758,8 +809,9 @@ PHEN_ADP_ZeusEditableObject = {
 
     private _apply = {
         params ["_object","_action"];
+        _fnc = (["removeCuratorEditableObjects", "addCuratorEditableObjects"] select _action);
         {
-            [_x, [[_object], (_action isEqualTo 1)]] remoteExecCall ["addCuratorEditableObjects", 0, _object];
+            [_x, [[_object], true]] remoteExecCall [_fnc, 0, _object];
         } forEach allCurators;
     };
 
@@ -804,6 +856,10 @@ PHEN_ADP_fnc_crewProxy = {
 
     private _units = crew _proxy;
     if (_units isEqualTo []) exitWith {};
+    {
+        _x setVariable ["zen_common_autoAddObject", false];
+        _x setVariable ["ace_zeus_addObject", false];
+    } forEach _units;
 
     private _spawnedIn = group (_units select 0);
     private _shared = [side (_units select 0)] call PHEN_ADP_fnc_getProxyGroup;
@@ -838,9 +894,11 @@ PHEN_ADP_fnc_getProxy = {
     if (_pick isNotEqualTo -1) then {_class = (PHEN_ADP_PROXY_BY_SIDE select _pick) select 1};
 
     _proxy = createVehicle [_class, [0, 0, 500], [], 0, "CAN_COLLIDE"];
+    _proxy setVariable ["zen_common_autoAddObject", false]; // ZEN autoadd compat
+    _proxy setVariable ["ace_zeus_addObject", false];
     [_proxy, 2] remoteExec ["setFeatureType", 0];
     [_proxy, 2] remoteExec ["setFeatureType", 0];
-    [{ params ["_proxy"];[_proxy, 0] remoteExecCall ["PHEN_ADP_ZeusEditableObject", 2, _proxy]; }, [_proxy], 1] call CBA_fnc_waitAndExecute;
+    [{ params ["_proxy"];[_proxy, 0] remoteExecCall ["PHEN_ADP_ZeusEditableObject", 2]; }, [_proxy], 1] call CBA_fnc_waitAndExecute;
 
     _proxy allowDamage false;
     _proxy attachTo [_turret, [0, 0, -12001]];
@@ -881,7 +939,7 @@ PHEN_ADP_fnc_pauseProxy = {
 
 // setMissileTarget is the main way, unguided/ACE missileguide overwrite wont work with base-game so scripted fallback
 PHEN_ADP_fnc_guideMissile = {
-    params [["_missile", objNull, [objNull]], ["_target", objNull, [objNull]], ["_configSetup", createHashMap, [createHashMap]], ["_turret", objNull, [objNull]]];
+    params [["_missile", objNull, [objNull]], ["_target", objNull, [objNull]], ["_configSetup", createHashMap, [createHashMap]], ["_turret", objNull, [objNull]], ["_isPart", false, [false]]];
 
     private _engageId = _turret getVariable ["PHEN_ADP_engageId", 0];
     if (isNull _missile || {isNull _target}) exitWith {[_turret, true, _engageId] call PHEN_ADP_fnc_endEngage};
@@ -892,13 +950,15 @@ PHEN_ADP_fnc_guideMissile = {
     private _canTurn = (getNumber (_ammoCfg >> "maneuvrability")) > 0;
 
     //the proxy is attached to the artyshell
-    private _proxy = _turret getVariable ["PHEN_ADP_proxy", objNull];
+    private _proxy = if (_isPart) then { objNull } else { (_turret getVariable ["PHEN_ADP_proxy", objNull]) };
     private _engine = _canTurn && {!isNull _proxy};
     if (_engine) then {_missile setMissileTarget [_proxy, true]};
 
     //cinematic
     _aimAt = _target;
     if ((_target getVariable ["PHEN_ADP_cat", 0]) isEqualTo PHEN_ADP_CAT_CINEMATIC) then { _aimAt = _proxy };
+
+    _splits = ((!_isPart) && { ((_configSetup getOrDefault ["clusterAmmo", ""]) isNotEqualTo "") } && { ((_target getVariable ["PHEN_ADP_cat", 0]) isNotEqualTo PHEN_ADP_CAT_CINEMATIC) });
 
     private _top = getNumber (_ammoCfg >> "maxSpeed");
     if (_top <= 0) then {_top = 250};
@@ -914,7 +974,9 @@ PHEN_ADP_fnc_guideMissile = {
         ["armed", CBA_missionTime + 3],
         ["fuze", _configSetup getOrDefault ["fuzeRadius", 12]],
         ["lastTick", CBA_missionTime],
-        ["commanded", vectorMagnitude (velocity _missile)]
+        ["commanded", vectorMagnitude (velocity _missile)],
+        ["split", _splits],
+        ["setup", _configSetup]
     ];
 
     [{
@@ -939,6 +1001,11 @@ PHEN_ADP_fnc_guideMissile = {
         private _targetPos = (getPosASL _aimAt);
         private _lineOfSight = _targetPos vectorDiff _missilePos;
         private _distance = vectorMagnitude _lineOfSight;
+
+        if ((_state get "split") && { (_distance <= 300) }) exitWith {
+            _handle call CBA_fnc_removePerFrameHandler;
+            [_missile, _target, (_state get "setup"), _turret, _engageId] call PHEN_ADP_fnc_splitInterceptor;
+        };
 
         if (_distance <= (_state get "fuze")) exitWith {
             _handle call CBA_fnc_removePerFrameHandler;
@@ -1005,6 +1072,56 @@ PHEN_ADP_fnc_guideMissile = {
         _missile setVectorDirAndUp [_steer, vectorNormalized _up];
         _missile setVelocity (_steer vectorMultiply _speed);
     }, 0.01, [_missile, _target, _state, _turret, _engageId, _aimAt]] call CBA_fnc_addPerFrameHandler;
+};
+
+PHEN_ADP_fnc_spawnInterceptor = {
+    params [["_ammo", "", [""]], ["_posASL", [0, 0, 0], [[]]], ["_dir", [0, 1, 0], [[]]], ["_up", [0, 0, 1], [[]]], ["_velocity", [0, 0, 0], [[]]], ["_turret", objNull, [objNull]]];
+
+    _interceptor = (createVehicle [_ammo, (ASLToAGL _posASL), [], 0, "CAN_COLLIDE"]);
+    _interceptor setPosASL _posASL;
+    _interceptor setVectorDirAndUp [_dir, _up];
+    _interceptor setVelocity _velocity;
+    _interceptor setShotParents [_turret, (gunner _turret)];
+
+    //ProjectileCreated can run before setShotParents and list our own round as a threat
+    _index = (PHEN_ADP_threats find _interceptor);
+    if (_index isNotEqualTo -1) then { PHEN_ADP_threats deleteAt _index };
+
+    _interceptor
+};
+
+PHEN_ADP_fnc_splitInterceptor = {
+    params [["_missile", objNull, [objNull]], ["_target", objNull, [objNull]], ["_configSetup", createHashMap, [createHashMap]], ["_turret", objNull, [objNull]], ["_engageId", -1, [0]]];
+
+    [_turret, true, _engageId] call PHEN_ADP_fnc_endEngage;
+    if (isNull _missile) exitWith {};
+    if (!alive _turret) exitWith { triggerAmmo _missile };
+
+    _splitPos = (getPosASL _missile);
+    _carrierVelocity = (velocity _missile);
+    _carrierUp = (vectorUp _missile);
+    _splitSpeed = (vectorMagnitude _carrierVelocity);
+    deleteVehicle _missile;
+
+    _ClusterBoom = (_configSetup getOrDefault ["clusterAmmo", ""]);
+    _splitCount = (_configSetup getOrDefault ["clusterCount", 4]);
+
+    _nearby = (([_turret, _target, 600] call PHEN_ADP_fnc_threatsNear) select {
+        ((_x isNotEqualTo _target)
+        && { ((_x getVariable ["PHEN_ADP_cat", 0]) isNotEqualTo PHEN_ADP_CAT_CINEMATIC) }
+        && { ((_carrierVelocity vectorCos (_splitPos vectorFromTo (getPosASL _x))) > 0) })
+    });
+    _nearby = ([_nearby, [_target], { (_input0 distance _x) }, "ASCEND"] call BIS_fnc_sortBy);
+    _splitTargets = ([_target] + (_nearby select [0, (_splitCount - 1)]));
+
+    for "_splitIndex" from 0 to (_splitCount - 1) do {
+        _splitTarget = (_splitTargets param [_splitIndex, _target]);
+        _splitTarget setVariable ["PHEN_ADP_lockedUntil", (CBA_missionTime + 5)];
+
+        _direction = (_splitPos vectorFromTo (getPosASL _splitTarget));
+        _split = ([_ClusterBoom, _splitPos, _direction, _carrierUp, (_direction vectorMultiply _splitSpeed), _turret] call PHEN_ADP_fnc_spawnInterceptor);
+        [_split, _splitTarget, _configSetup, _turret, true] call PHEN_ADP_fnc_guideMissile;
+    };
 };
 
 // resolve one intercept; if failed accuracy rollchance EXITwith

@@ -57,6 +57,9 @@ class CfgVehicles {
 			range = 4000;
 			fuzeRadius = 20;
 			bombs = 1;
+			interceptAmmo = "OPTRE_ammo_ASR_GAM_10X";
+			clusterAmmo = "OPTRE_ammo_ASR_GAM_10X_Cluster_Submunition";
+			clusterCount = 4;
 		};
 	};
 

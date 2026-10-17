@@ -37,6 +37,7 @@ PHEN_ADP_PROXY_BY_SIDE = [
     [resistance,  "PHEN_ADP_TargetProxy_I"]
 ];
 PHEN_ADP_PROXY_FALLBACK = "PHEN_ADP_TargetProxy_O";
+PHEN_ADP_LAUNCH_SAFE_DIST = 100; //skip rounds this close to their own launcher, the proxy would hang right over it
 
 PHEN_ADP_SPEAKER_CLASSES = ["Land_Loudspeakers_F", "Land_PortableSpeakers_01_F"]; //loudspeakers the alarm goes to first
 
