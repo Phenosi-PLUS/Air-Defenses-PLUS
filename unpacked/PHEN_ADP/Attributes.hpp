@@ -56,6 +56,83 @@ class Cfg3DEN {
 						conditionScript = "((getNumber (configOf _this >> 'PHEN_ADP' >> 'enabled')) isEqualTo 1)";
 						typeName = "BOOL";
 					};
+					class PHEN_ADP_edenBallistic {
+						displayName = "$STR_PHEN_ADP_TrackBallistic";
+						tooltip = "$STR_PHEN_ADP_Eden_Threat_Desc";
+						property = "PHEN_ADP_edenBallistic";
+						control = "Checkbox";
+						expression = "_this setVariable ['%s', _value];";
+						defaultValue = "!('artillery' in ((getArray (configOf _this >> 'PHEN_ADP' >> 'ignore')) apply { toLower _x }))";
+						condition = "objectVehicle * script";
+						conditionScript = "((getNumber (configOf _this >> 'PHEN_ADP' >> 'enabled')) isEqualTo 1)";
+						typeName = "BOOL";
+					};
+					class PHEN_ADP_edenSubmunition {
+						displayName = "$STR_PHEN_ADP_TrackSubmunition";
+						tooltip = "$STR_PHEN_ADP_Eden_Threat_Desc";
+						property = "PHEN_ADP_edenSubmunition";
+						control = "Checkbox";
+						expression = "_this setVariable ['%s', _value];";
+						defaultValue = "!('submunitions' in ((getArray (configOf _this >> 'PHEN_ADP' >> 'ignore')) apply { toLower _x }))";
+						condition = "objectVehicle * script";
+						conditionScript = "((getNumber (configOf _this >> 'PHEN_ADP' >> 'enabled')) isEqualTo 1)";
+						typeName = "BOOL";
+					};
+					class PHEN_ADP_edenMissile {
+						displayName = "$STR_PHEN_ADP_TrackMissile";
+						tooltip = "$STR_PHEN_ADP_Eden_Threat_Desc";
+						property = "PHEN_ADP_edenMissile";
+						control = "Checkbox";
+						expression = "_this setVariable ['%s', _value];";
+						defaultValue = "!('missiles' in ((getArray (configOf _this >> 'PHEN_ADP' >> 'ignore')) apply { toLower _x }))";
+						condition = "objectVehicle * script";
+						conditionScript = "((getNumber (configOf _this >> 'PHEN_ADP' >> 'enabled')) isEqualTo 1)";
+						typeName = "BOOL";
+					};
+					class PHEN_ADP_edenRocket {
+						displayName = "$STR_PHEN_ADP_TrackRocket";
+						tooltip = "$STR_PHEN_ADP_Eden_Threat_Desc";
+						property = "PHEN_ADP_edenRocket";
+						control = "Checkbox";
+						expression = "_this setVariable ['%s', _value];";
+						defaultValue = "!('rockets' in ((getArray (configOf _this >> 'PHEN_ADP' >> 'ignore')) apply { toLower _x }))";
+						condition = "objectVehicle * script";
+						conditionScript = "((getNumber (configOf _this >> 'PHEN_ADP' >> 'enabled')) isEqualTo 1)";
+						typeName = "BOOL";
+					};
+					class PHEN_ADP_edenBombs {
+						displayName = "$STR_PHEN_ADP_TrackBombs";
+						tooltip = "$STR_PHEN_ADP_Eden_Threat_Desc";
+						property = "PHEN_ADP_edenBombs";
+						control = "Checkbox";
+						expression = "_this setVariable ['%s', _value];";
+						defaultValue = "((isArray (configOf _this >> 'PHEN_ADP' >> 'ignore')) && { !('bombs' in ((getArray (configOf _this >> 'PHEN_ADP' >> 'ignore')) apply { toLower _x })) })";
+						condition = "objectVehicle * script";
+						conditionScript = "((getNumber (configOf _this >> 'PHEN_ADP' >> 'enabled')) isEqualTo 1)";
+						typeName = "BOOL";
+					};
+					class PHEN_ADP_edenDrones {
+						displayName = "$STR_PHEN_ADP_TrackDrones";
+						tooltip = "$STR_PHEN_ADP_Eden_Threat_Desc";
+						property = "PHEN_ADP_edenDrones";
+						control = "Checkbox";
+						expression = "_this setVariable ['%s', _value];";
+						defaultValue = "!('drones' in ((getArray (configOf _this >> 'PHEN_ADP' >> 'ignore')) apply { toLower _x }))";
+						condition = "objectVehicle * script";
+						conditionScript = "((getNumber (configOf _this >> 'PHEN_ADP' >> 'enabled')) isEqualTo 1)";
+						typeName = "BOOL";
+					};
+					class PHEN_ADP_edenCinematic {
+						displayName = "$STR_PHEN_ADP_ShootCinematic";
+						tooltip = "$STR_PHEN_ADP_Eden_Threat_Desc";
+						property = "PHEN_ADP_edenCinematic";
+						control = "Checkbox";
+						expression = "_this setVariable ['%s', _value];";
+						defaultValue = "!('cinematic' in ((getArray (configOf _this >> 'PHEN_ADP' >> 'ignore')) apply { toLower _x }))";
+						condition = "objectVehicle * script";
+						conditionScript = "((getNumber (configOf _this >> 'PHEN_ADP' >> 'enabled')) isEqualTo 1)";
+						typeName = "BOOL";
+					};
 				};
 			};
 		};

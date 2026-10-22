@@ -20,13 +20,16 @@ class CfgVehicles {
             needsAiming = 1;  // 1 when the launcher has to be aiming in the correct direction before it fires
             shotDelay = 3;        // seconds between shots
             fuzeRadius = 15;   // proximity/distance fuze radius in meters(M)
-            bombs = 0;         // 1 when it also goes after bombs dropped by aircraft
             icon = "\MyMod\data\ui\mySAM_icon_ca.paa";  // scroll action and ACE menu icon
+            interceptAmmo = "MOD_ammo_plain";  // optional, ammo fired instead when the mod makes it shoot
+            clusterAmmo = "MOD_ammo_part";  // optional, ammo the missile splits into near the target
+            clusterCount = 4;  // optional, how many parts
+            ignore[] = {"bombs", "drones"};  // optional, threat types it starts off ignoring, left out = bombs only
         };
     };
 };
 ```
-Those are all eight config values, there are no others. `enabled = 0` opts a vehicle out, which is how you kill one variant that would otherwise inherit it.
+Those are all eleven config values, there are no others. `enabled = 0` opts a vehicle out, which is how you kill one variant that would otherwise inherit it.
 
 ### Tweaking exisiting config values
 If your vehicle inherits from something that already has a `PHEN_ADP` block, the missing keys come from that block, normal config inheritance. 
@@ -37,10 +40,28 @@ If it does not, like the `StaticMGWeapon` example above, they get worked out fro
 - **needsAiming**, true when the weapon's `minRange` is 500 or higher
 - **shotDelay**, 2
 - **fuzeRadius**, 12
-- **bombs**, 0, the short and mid range base-game ones have it on, the Defender/Rhea for example do not.
+- **ignore**, bombs only
 
 ### icon
 The only cosmetic key and you almost never need it. Leave it out and the scroll action uses the vehicle's own `icon` from CfgVehicles, so the emplacement shows its map silhouette. A `CfgVehicleIcons` shorthand like `iconStaticAA` works as well as a full path.
+
+### interceptAmmo
+For a launcher whose own missile can't do an intercept (it splits right after launch, or runs its own script). When the mod makes it fire, the round is swapped for this class. A classname that isn't in CfgAmmo is ignored.
+
+### clusterAmmo and clusterCount
+For a missile that splits near its target. About 300 m out it gets deleted and `clusterCount` (default 4) rounds of `clusterAmmo` spawn instead, each going for a different nearby threat, or the main one if there aren't enough. Works with or without `interceptAmmo`; the OPTRE C9 SAM (4km) uses both.
+
+### ignore
+Threat types it starts off ignoring. Eden and Zeus can still turn them back on per emplacement.
+- **artillery**, artillery and mortars
+- **submunitions**, MLRS bomblets
+- **missiles**
+- **rockets**
+- **bombs**
+- **drones**
+- **cinematic**, the Cinematic Targets setting
+
+Leave it out and it only ignores bombs. The short and mid range base-game ones have `ignore[] = {};` so they go after everything, the Defender and Rhea ignore artillery, submunitions, bombs, drones and cinematic since they only carry 4 missiles. It inherits like every other key.
 
 ### General Explainer on 'guiding' projectiles
 The 'intercepting' projectile gets given its target with `setMissileTarget` and the base-game engine mechanics fly it from there. This is the main method and the best one to use, HOWEVER when you ACE3 _(they enforce their missileguidance PBO with their own PfH)_ or ya got unguided munitions this breaks/won't ever work.
@@ -85,7 +106,7 @@ A shell made off a base-game core is picked up with nothing declared on your sid
 - **SubmunitionCore**, MLRS bomblets
 - **ShellCore**, artillery and mortar
 - **RocketCore**, rocket artillery and RPGs
-- **BombCore**, dumb and guided bombs, only emplacements with `bombs = 1` fire at 'bombs'
+- **BombCore**, dumb and guided bombs, only emplacements without `"bombs"` in `ignore[]` fire at 'bombs'
 
 Anything inheriting `BulletCore`, `GrenadeCore`, `TimeBombCore`, `ShotDeployCore`,
 `FlareCore` or `SmokeShellCore` is ignored ALWAYS.
@@ -100,10 +121,11 @@ Every air defense with a `PHEN_ADP` block (`enabled = 1`) gets an **Air Defenses
 - **Air defense on?**, untick to start it in Off mode. It stays registered, so it can be turned on later
 - **Starting Mode**, Random, Closest or Highest threat. Default goes off the CBA setting
 - **Incoming alarm?**, untick to start with the siren OFF
+- **Intercept ...?**, one box per threat type, untick and this one leaves it alone. Starts from the class's `ignore[]`
 
-With ZEN loaded Zeus gets an **Air Defenses PLUS** module. Drop it on a turret to set its mode and alarm, or on the ground to set every air defense in a radius at once ('Leave as is' skips that value).
+With ZEN loaded Zeus gets an **Air Defenses PLUS** module. Drop it on a turret to set its mode, alarm and threat types, or on the ground to set every air defense in a radius at once ('Leave as is' skips that value).
 
-The same three values work from an init box or a server-side script, which is the way to go for a turret from the extra classes setting (section 3) since that one gets no Eden boxes. They get read ONCE when the turret registers, so set them in the init box or in the same frame as your `createVehicle`:
+The same values work from an init box or a server-side script, which is the way to go for a turret from the extra classes setting (section 3) since that one gets no Eden boxes. They get read ONCE when the turret registers, so set them in the init box or in the same frame as your `createVehicle`:
 ```sqf
 // starts in Off mode
 this setVariable ["PHEN_ADP_edenOn", false];
@@ -113,20 +135,26 @@ this setVariable ["PHEN_ADP_edenMode", 2];
 
 // no siren
 this setVariable ["PHEN_ADP_edenAlarm", false];
+
+// leaves drones alone (also edenBallistic, edenSubmunition, edenMissile, edenRocket, edenBombs, edenCinematic)
+this setVariable ["PHEN_ADP_edenDrones", false];
 ```
 OR you can use `PHEN_ADP_setState` ofc.
 
 ## Changing an turrets's state from a mission script
-`PHEN_ADP_setState` only runs server side, so send it with `CBA_fnc_serverEvent`. It takes those two
+`PHEN_ADP_setState` only runs server side, so send it with `CBA_fnc_serverEvent`. It takes those three
 values and IGNORES all else related stuff.
 
 ```sqf
 // 0 off, 1 random, 2 closest threat, 3 highest threat
 ["PHEN_ADP_setState", [_turret, "PHEN_ADP_mode", 3]] call CBA_fnc_serverEvent;
 ["PHEN_ADP_setState", [_turret, "PHEN_ADP_alarm", false]] call CBA_fnc_serverEvent;
+
+// threat types it leaves alone, [] for none (PHEN_ADP_CAT_ BALLISTIC, SUB, MISSILE, ROCKET, BOMB, DRONE, CINEMATIC)
+["PHEN_ADP_setState", [_turret, "PHEN_ADP_ignore", [PHEN_ADP_CAT_DRONE]]] call CBA_fnc_serverEvent;
 ```
 
-Both get broadcast global, so returning their values back works on any machine:
+All three get broadcast global, so returning their values back works on any machine:
 ```sqf
 private _mode = _turret getVariable ["PHEN_ADP_mode", 0];
 ```

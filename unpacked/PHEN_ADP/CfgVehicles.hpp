@@ -110,7 +110,7 @@ class CfgVehicles {
 		needsAiming       1 when the launcher has to be pointed before it will fire
 		shotDelay         seconds between shots
 		fuzeRadius        proximity fuze radius in meters
-		bombs             1 when it also goes after bombs dropped by aircraft
+		ignore[]          threat types it starts off ignoring, left out = bombs only
 
 		an 'interceptor' gets given its target with setMissileTarget and the engine flies it on its own
 		Ammo that does not take a lock gets moved via script
@@ -121,7 +121,7 @@ class CfgVehicles {
 			mode = "gun";
 			range = 2800;
 			shotDelay = 3;
-			bombs = 1;
+			ignore[] = {};
 		};
 	};
 
@@ -133,7 +133,7 @@ class CfgVehicles {
 			needsAiming = 0;
 			shotDelay = 0.85;
 			fuzeRadius = 9;
-			bombs = 1;
+			ignore[] = {};
 		};
 	};
 
@@ -145,7 +145,7 @@ class CfgVehicles {
 			needsAiming = 1;
 			shotDelay = 3;
 			fuzeRadius = 15;
-			bombs = 1;
+			ignore[] = {};
 		};
 	};
 
@@ -157,6 +157,7 @@ class CfgVehicles {
 			needsAiming = 1;
 			shotDelay = 4;
 			fuzeRadius = 30;
+			ignore[] = {"artillery", "submunitions", "bombs", "drones", "cinematic"};
 		};
 	};
 
@@ -168,6 +169,7 @@ class CfgVehicles {
 			needsAiming = 1;
 			shotDelay = 4;
 			fuzeRadius = 30;
+			ignore[] = {"artillery", "submunitions", "bombs", "drones", "cinematic"};
 		};
 	};
 };

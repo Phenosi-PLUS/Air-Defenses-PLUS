@@ -67,7 +67,6 @@ PHEN_ADP_fnc_getConfigSetup = {
         ["needsAiming", _minRange >= 500],
         ["shotDelay", 2],
         ["fuzeRadius", 12],
-        ["bombs", false],
         ["interceptAmmo", ""],
         ["clusterAmmo", ""],
         ["clusterCount", 4],
@@ -85,7 +84,6 @@ PHEN_ADP_fnc_getConfigSetup = {
         if (isNumber (_block >> "needsAiming")) then {_configSetup set ["needsAiming", (getNumber (_block >> "needsAiming")) > 0]};
         if (isNumber (_block >> "shotDelay")) then {_configSetup set ["shotDelay", getNumber (_block >> "shotDelay")]};
         if (isNumber (_block >> "fuzeRadius")) then {_configSetup set ["fuzeRadius", getNumber (_block >> "fuzeRadius")]};
-        if (isNumber (_block >> "bombs")) then { _configSetup set ["bombs", ((getNumber (_block >> "bombs")) > 0)] };
         if (isText (_block >> "icon")) then {_configSetup set ["icon", getText (_block >> "icon")]};
         _swapAmmo = (getText (_block >> "interceptAmmo"));
         if ((_swapAmmo isNotEqualTo "") && { (isClass (configFile >> "CfgAmmo" >> _swapAmmo)) }) then { _configSetup set ["interceptAmmo", _swapAmmo] };
@@ -111,7 +109,18 @@ PHEN_ADP_CAT_MISSILE = 3;   // MissileCore, cruise and AT
 PHEN_ADP_CAT_ROCKET = 4;  // RocketCore, rocket artillery and RPGs
 PHEN_ADP_CAT_DRONE = 5;      // not ammo, comes in through the Air class eventhandler
 PHEN_ADP_CAT_BOMB = 6;    // BombCore, dumb and guided bombs
-PHEN_ADP_CAT_CINEMATIC = 7;  // never killed, only shot at for the ''cinematic effect' (OPTRE drop pods only atm!)
+PHEN_ADP_CAT_CINEMATIC = 7;  // never killed, only shot at for the ''cinematic effect' (list in the Cinematic Targets setting)
+
+//[cat, eden property, label, server-wide toggle] per ignorable type, Attributes.hpp has one checkbox per row
+PHEN_ADP_THREAT_TYPES = [
+    [PHEN_ADP_CAT_BALLISTIC, "PHEN_ADP_edenBallistic", "STR_PHEN_ADP_TrackBallistic", { PHEN_ADP_trackBallistic }],
+    [PHEN_ADP_CAT_SUB, "PHEN_ADP_edenSubmunition", "STR_PHEN_ADP_TrackSubmunition", { PHEN_ADP_trackSubmunition }],
+    [PHEN_ADP_CAT_MISSILE, "PHEN_ADP_edenMissile", "STR_PHEN_ADP_TrackMissile", { PHEN_ADP_trackMissile }],
+    [PHEN_ADP_CAT_ROCKET, "PHEN_ADP_edenRocket", "STR_PHEN_ADP_TrackRocket", { PHEN_ADP_trackRocket }],
+    [PHEN_ADP_CAT_BOMB, "PHEN_ADP_edenBombs", "STR_PHEN_ADP_TrackBombs", { PHEN_ADP_trackBombs }],
+    [PHEN_ADP_CAT_DRONE, "PHEN_ADP_edenDrones", "STR_PHEN_ADP_TrackDrones", { PHEN_ADP_trackDrones }],
+    [PHEN_ADP_CAT_CINEMATIC, "PHEN_ADP_edenCinematic", "STR_PHEN_ADP_ShootCinematic", { ((PHEN_ADP_cinematicVehicles isNotEqualTo []) || { (PHEN_ADP_cinematicAmmo isNotEqualTo []) }) }]
+];
 
 // sorts an ammo classname into a PHEN_ADP_CAT_ category and caches it
 // ONLY once per classname per session
@@ -125,8 +134,10 @@ PHEN_ADP_fnc_classifyAmmo = {
     private _cat = PHEN_ADP_CAT_IGNORE;
 
     private _blacklisted = PHEN_ADP_AMMO_BLACKLIST findIf {_ammo isKindOf [_x, _root]};
+    private _isCinematicAmmo = ((PHEN_ADP_cinematicAmmo findIf { (_ammo isKindOf [_x, _root]) }) isNotEqualTo -1);
     if (_blacklisted isEqualTo -1) then {
         switch (true) do {
+            case (_isCinematicAmmo): { _cat = PHEN_ADP_CAT_CINEMATIC };
             case (_ammo isKindOf ["MissileCore", _root]): {_cat = PHEN_ADP_CAT_MISSILE};
             case (_ammo isKindOf ["SubmunitionCore", _root]): {_cat = PHEN_ADP_CAT_SUB};
             case (_ammo isKindOf ["ShellCore", _root]): {_cat = PHEN_ADP_CAT_BALLISTIC};
@@ -171,7 +182,7 @@ PHEN_ADP_fnc_edenValue = {
     private _default = (configFile >> "Cfg3DEN" >> "Object" >> "AttributeCategories" >> "PHEN_ADP" >> "Attributes" >> _property >> "defaultValue");
     //return
     if (isText _default) then {
-        (call compile (getText _default))
+        (_turret call (compile (getText _default)))
     } else {
         if (isNumber _default) then { (getNumber _default) } else { _fallback }
     };
@@ -196,10 +207,15 @@ PHEN_ADP_fnc_registerTurret = {
     };
     if !([_turret, "PHEN_ADP_edenOn", true] call PHEN_ADP_fnc_edenValue) then { _startMode = 0 };
     _alarmOn = ([_turret, "PHEN_ADP_edenAlarm", true] call PHEN_ADP_fnc_edenValue);
+    _ignore = [];
+    {
+        if !([_turret, (_x select 1), true] call PHEN_ADP_fnc_edenValue) then { _ignore pushBack (_x select 0) };
+    } forEach PHEN_ADP_THREAT_TYPES;
 
     _turret setVariable ["PHEN_ADP_registered", true, true];
     _turret setVariable ["PHEN_ADP_mode", _startMode, true];
     _turret setVariable ["PHEN_ADP_alarm", _alarmOn, true];
+    _turret setVariable ["PHEN_ADP_ignore", _ignore, true];
     _turret setVariable ["PHEN_ADP_configSetup", _configSetup];
     _turret setVariable ["PHEN_ADP_busyUntil", 0];
     //BI vehicle respawn module copies EVERY var off the dead turret, engagement included
@@ -262,6 +278,11 @@ PHEN_ADP_fnc_registerTurret = {
     if (PHEN_ADP_projectileEH isEqualTo -1) then {
         PHEN_ADP_projectileEH = addMissionEventHandler ["ProjectileCreated", {_this call PHEN_ADP_fnc_onProjectile}];
     };
+
+    if ((PHEN_ADP_entityEH isEqualTo -1) && { (PHEN_ADP_cinematicVehicles isNotEqualTo []) }) then {
+        PHEN_ADP_entityEH = addMissionEventHandler ["EntityCreated", { _this call PHEN_ADP_fnc_onEntity }];
+        { [_x] call PHEN_ADP_fnc_watchCinematic } forEach (vehicles select { ([_x] call PHEN_ADP_fnc_isCinematic) });
+    };
 };
 
 // OPPOSITE of above fnc
@@ -290,6 +311,10 @@ PHEN_ADP_fnc_unregisterTurret = {
     if (PHEN_ADP_projectileEH isNotEqualTo -1) then {
         removeMissionEventHandler ["ProjectileCreated", PHEN_ADP_projectileEH];
         PHEN_ADP_projectileEH = -1;
+    };
+    if (PHEN_ADP_entityEH isNotEqualTo -1) then {
+        removeMissionEventHandler ["EntityCreated", PHEN_ADP_entityEH];
+        PHEN_ADP_entityEH = -1;
     };
     call PHEN_ADP_fnc_stopTracker;
 };
@@ -338,11 +363,12 @@ PHEN_ADP_fnc_onProjectile = {
         case PHEN_ADP_CAT_BALLISTIC: {PHEN_ADP_trackBallistic};
         case PHEN_ADP_CAT_ROCKET: {PHEN_ADP_trackRocket};
         case PHEN_ADP_CAT_BOMB: { PHEN_ADP_trackBombs };
+        case PHEN_ADP_CAT_CINEMATIC: { true };
         default {false};
     };
     if (!_wanted) exitWith {};
 
-    private _isArcing = ((_cat in [PHEN_ADP_CAT_MISSILE, PHEN_ADP_CAT_BOMB]) || { (_projectile call PHEN_ADP_fnc_isArcing) });
+    private _isArcing = ((_cat in [PHEN_ADP_CAT_MISSILE, PHEN_ADP_CAT_BOMB, PHEN_ADP_CAT_CINEMATIC]) || { (_projectile call PHEN_ADP_fnc_isArcing) });
     if (!_isArcing) exitWith {}; //a missile moves itself around, so where it is pointed at launch means nothing
 
     private _side = sideUnknown;
@@ -358,6 +384,76 @@ PHEN_ADP_fnc_onProjectile = {
     [_projectile, _cat, _side] call PHEN_ADP_fnc_addThreat;
 };
 
+//cinematic vehicle check, cached per classname
+PHEN_ADP_fnc_isCinematic = {
+    params [["_vehicle", objNull, [objNull]]];
+
+    if (isNull _vehicle) exitWith { false };
+
+    private _type = (typeOf _vehicle);
+    private _cached = (PHEN_ADP_cinematicCache get _type);
+    if (!isNil "_cached") exitWith { _cached };
+
+    private _isCinematic = ((PHEN_ADP_cinematicVehicles findIf { (_type isKindOf _x) }) isNotEqualTo -1);
+    PHEN_ADP_cinematicCache set [_type, _isCinematic];
+    _isCinematic
+};
+
+// gate/condi check for EntityCreated
+PHEN_ADP_fnc_onEntity = {
+    params [["_entity", objNull, [objNull]]];
+
+    if (PHEN_ADP_batteries isEqualTo []) exitWith {
+        if (PHEN_ADP_entityEH isNotEqualTo -1) then {
+            removeMissionEventHandler ["EntityCreated", PHEN_ADP_entityEH];
+            PHEN_ADP_entityEH = -1;
+        };
+    };
+
+    _isCinematic = ([_entity] call PHEN_ADP_fnc_isCinematic);
+    if (_isCinematic) then { [_entity] call PHEN_ADP_fnc_watchCinematic };
+};
+
+//cinematic vehicle onto the watch list, starts the watcher
+PHEN_ADP_fnc_watchCinematic = {
+    params [["_vehicle", objNull, [objNull]]];
+
+    if (!isServer) exitWith {};
+    if (isNull _vehicle) exitWith {};
+    if (_vehicle in PHEN_ADP_cinematicWatch) exitWith {};
+
+    PHEN_ADP_cinematicWatch pushBack _vehicle;
+    if (PHEN_ADP_cinematicWatcher isNotEqualTo -1) exitWith {};
+
+    PHEN_ADP_cinematicWatcher = [PHEN_ADP_fnc_cinematicTick, 0.5, []] call CBA_fnc_addPerFrameHandler;
+};
+
+//runs while a cinematic vehicle and an air defense are both on the map
+PHEN_ADP_fnc_cinematicTick = {
+    params ["_args", "_handle"];
+
+    PHEN_ADP_cinematicWatch = PHEN_ADP_cinematicWatch select { (alive _x) };
+
+    if ((PHEN_ADP_cinematicWatch isEqualTo []) || { (PHEN_ADP_batteries isEqualTo []) }) exitWith {
+        _handle call CBA_fnc_removePerFrameHandler;
+        PHEN_ADP_cinematicWatcher = -1;
+        PHEN_ADP_cinematicWatch = [];
+    };
+
+    {
+        _vehicle = _x;
+        _live = ((((getPos _vehicle) select 2) > PHEN_ADP_CINEMATIC_MIN_ALT)
+            && { (isNull (attachedTo _vehicle)) }
+            && { !(_vehicle in PHEN_ADP_threats) });
+        if (!_live) then { continue };
+
+        _crew = ((crew _vehicle) select { (alive _x) });
+        if (_crew isEqualTo []) then { continue };
+
+        [_vehicle, PHEN_ADP_CAT_CINEMATIC, (side (group (_crew select 0)))] call PHEN_ADP_fnc_addThreat;
+    } forEach PHEN_ADP_cinematicWatch;
+};
+
 // adds incoming proj to tracking list and start tracker
 PHEN_ADP_fnc_addThreat = {
     params [["_threat", objNull, [objNull]], ["_cat", PHEN_ADP_CAT_MISSILE, [0]], ["_side", sideUnknown, [sideUnknown]]];
@@ -370,7 +466,7 @@ PHEN_ADP_fnc_addThreat = {
     private _inReach = PHEN_ADP_batteries findIf {
         private _configSetup = _x getVariable ["PHEN_ADP_configSetup", createHashMap];
         private _range = (_configSetup getOrDefault ["range", 0]) * PHEN_ADP_rangeMultiplier;
-        _takesIt = ((_cat isNotEqualTo PHEN_ADP_CAT_BOMB) || { (_configSetup getOrDefault ["bombs", false]) });
+        _takesIt = ((_cat isNotEqualTo PHEN_ADP_CAT_BOMB) || { !(PHEN_ADP_CAT_BOMB in (_x getVariable ["PHEN_ADP_ignore", []])) });
         ((_takesIt) && { ((_x distance2D _threat) < (_range + 3000)) })
     };
     if (_inReach isEqualTo -1) exitWith {};
@@ -427,11 +523,11 @@ PHEN_ADP_fnc_threatsNear = {
 
     private _now = CBA_missionTime;
     private _turretSide = side _turret;
-    _takesBombs = ((_turret getVariable ["PHEN_ADP_configSetup", createHashMap]) getOrDefault ["bombs", false]);
+    _ignored = (_turret getVariable ["PHEN_ADP_ignore", []]);
 
     PHEN_ADP_threats select {
         ((_x distance _center) <= _radius)
-        && { ((_takesBombs) || { ((_x getVariable ["PHEN_ADP_cat", 0]) isNotEqualTo PHEN_ADP_CAT_BOMB) }) }
+        && { !((_x getVariable ["PHEN_ADP_cat", 0]) in _ignored) }
         && {(_x getVariable ["PHEN_ADP_lockedUntil", 0]) <= _now}
         && {
             _launchPos = (_x getVariable ["PHEN_ADP_launchPos", []]);
@@ -1289,7 +1385,10 @@ PHEN_ADP_fnc_setState = {
 
     if (!isServer) exitWith {};
     if (isNull _turret) exitWith {};
-    if !(_key in ["PHEN_ADP_mode", "PHEN_ADP_alarm"]) exitWith {};
+    if !(_key in ["PHEN_ADP_mode", "PHEN_ADP_alarm", "PHEN_ADP_ignore"]) exitWith {};
+    _isIgnore = (_key isEqualTo "PHEN_ADP_ignore");
+    if ((_isIgnore) && { !(_value isEqualType []) }) exitWith {};
+    if (_isIgnore) then { _value = (_value select { (_x isEqualType 0) }) };
 
     _turret setVariable [_key, _value, true];
 
@@ -1367,8 +1466,10 @@ PHEN_ADP_fnc_addActions = {
 //zeus dialog OK, -1 leaves that one as is
 PHEN_ADP_fnc_zeusApply = {
     params ["_values", "_args"];
-    _values params ["_mode", "_alarm", ["_radius", 0]];
-    _args params ["_center", "_turret"];
+    _args params ["_center", "_turret", ["_cats", []]];
+    _values params ["_mode", "_alarm"];
+    _typeValues = (_values select [2, (count _cats)]);
+    _radius = (_values param [(2 + (count _cats)), 0]);
 
     _isArea = (isNull _turret);
     _turrets = [_turret];
@@ -1380,6 +1481,18 @@ PHEN_ADP_fnc_zeusApply = {
     {
         if (_mode >= 0) then { ["PHEN_ADP_setState", [_x, "PHEN_ADP_mode", _mode]] call CBA_fnc_serverEvent };
         if (_alarm isEqualType true) then { ["PHEN_ADP_setState", [_x, "PHEN_ADP_alarm", _alarm]] call CBA_fnc_serverEvent };
+
+        _airDefense = _x;
+        _ignore = (_airDefense getVariable ["PHEN_ADP_ignore", []]);
+        _newIgnore = +_ignore;
+        {
+            if (_x isEqualType true) then {
+                _cat = (_cats select _forEachIndex);
+                _newIgnore = (_newIgnore - [_cat]);
+                if (!_x) then { _newIgnore pushBack _cat };
+            };
+        } forEach _typeValues;
+        if (_newIgnore isNotEqualTo _ignore) then { ["PHEN_ADP_setState", [_airDefense, "PHEN_ADP_ignore", _newIgnore]] call CBA_fnc_serverEvent };
     } forEach _turrets;
 
     if (_isArea) then { ["STR_PHEN_ADP_Zeus_Done", (count _turrets)] call zen_common_fnc_showMessage };
@@ -1394,7 +1507,7 @@ PHEN_ADP_fnc_onRespawn = {
         {
             _saved = (_wreck getVariable _x);
             if (!isNil "_saved") then { _turret setVariable [_x, _saved] };
-        } forEach ["PHEN_ADP_edenOn", "PHEN_ADP_edenMode", "PHEN_ADP_edenAlarm"];
+        } forEach (["PHEN_ADP_edenOn", "PHEN_ADP_edenMode", "PHEN_ADP_edenAlarm"] + (PHEN_ADP_THREAT_TYPES apply { (_x select 1) }));
     };
 
     [_turret] call PHEN_ADP_fnc_registerTurret;

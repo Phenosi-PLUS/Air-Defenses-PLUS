@@ -26,7 +26,7 @@ class CfgVehicles {
 			mode = "gun";
 			range = 2500;
 			shotDelay = 2;
-			bombs = 1;
+			ignore[] = {};
 		};
 	};
 
@@ -45,7 +45,7 @@ class CfgVehicles {
 			needsAiming = 1;
 			shotDelay = 4;
 			fuzeRadius = 30;
-			bombs = 0;
+			ignore[] = {"bombs"};
 		};
 	};
 

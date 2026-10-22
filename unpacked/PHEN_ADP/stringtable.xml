@@ -294,6 +294,36 @@
 				<Russian>Вражеские БПЛА обстреливаются как любая другая воздушная цель. Союзные и севшие пропускаются.</Russian>
 				<German>Feindliche UAVs werden wie jedes andere Luftziel bekämpft. Verbündete und gelandete werden übersprungen.</German>
 			</Key>
+			<Key ID="STR_PHEN_ADP_CinematicTargets">
+				<English>Cinematic Targets</English>
+				<Czech>Cíle pro efekt</Czech>
+				<French>Cibles de spectacle</French>
+				<Spanish>Objetivos de espectáculo</Spanish>
+				<Italian>Bersagli scenici</Italian>
+				<Polish>Cele pokazowe</Polish>
+				<Russian>Зрелищные цели</Russian>
+				<German>Show-Ziele</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_CinematicTargets_Desc">
+				<English>Classnames air defenses shoot at just for the show, the fire lands AROUND them and never kill one. Vehicles (with a crew, over 300 m up) or ammo. Comes with the OPTRE, UNSC Foundries, TKE and TCP pods, remove a class to stop it. Array of strings (e.g. ["MOD_DropPod_F"]) &lt;- keep the quotes!</English>
+				<Czech>Classnames, na které protivzdušná obrana střílí jen pro efekt, palba míří KOLEM nich a nikdy žádný nesestřelí. Vozidla (s posádkou, výš než 300 m) nebo munice. Obsahuje moduly z OPTRE, UNSC Foundries, TKE a TCP, odebráním classname ho vypnete. Pole stringů (např. ["MOD_DropPod_F"]) &lt;- uvozovky nechte!</Czech>
+				<French>Classnames sur lesquels la défense antiaérienne tire juste pour le spectacle, les tirs visent AUTOUR et n'en abattent jamais un. Véhicules (avec équipage, à plus de 300 m) ou munitions. Contient les capsules d'OPTRE, UNSC Foundries, TKE et TCP, retirez un classname pour l'arrêter. Tableau de chaînes (p. ex. ["MOD_DropPod_F"]) &lt;- gardez les guillemets !</French>
+				<Spanish>Classnames a los que la defensa antiaérea dispara solo por el espectáculo, el fuego va ALREDEDOR y nunca derriba ninguno. Vehículos (con tripulación, a más de 300 m) o munición. Incluye las cápsulas de OPTRE, UNSC Foundries, TKE y TCP, quita un classname para pararlo. Array de cadenas (p. ej. ["MOD_DropPod_F"]) &lt;- ¡deja las comillas!</Spanish>
+				<Italian>Classname a cui la difesa antiaerea spara solo per lo spettacolo, il fuoco va ATTORNO e non ne abbatte mai uno. Veicoli (con equipaggio, sopra i 300 m) o munizioni. Include i pod di OPTRE, UNSC Foundries, TKE e TCP, togli un classname per fermarlo. Array di stringhe (es. ["MOD_DropPod_F"]) &lt;- lascia le virgolette!</Italian>
+				<Polish>Classname, do których obrona przeciwlotnicza strzela tylko dla efektu, ogień idzie WOKÓŁ nich i nigdy żadnego nie zestrzeli. Pojazdy (z załogą, powyżej 300 m) albo amunicja. Zawiera kapsuły z OPTRE, UNSC Foundries, TKE i TCP, usuń classname, żeby to wyłączyć. Tablica stringów (np. ["MOD_DropPod_F"]) &lt;- zostaw cudzysłowy!</Polish>
+				<Russian>Classname, по которым ПВО стреляет только ради зрелища, огонь идёт ВОКРУГ них и никогда их не сбивает. Техника (с экипажем, выше 300 м) или боеприпасы. Уже содержит капсулы OPTRE, UNSC Foundries, TKE и TCP, удалите classname, чтобы отключить. Массив строк (напр. ["MOD_DropPod_F"]) &lt;- кавычки оставьте!</Russian>
+				<German>Classnames, auf die die Flugabwehr nur für die Show schießt, gezielt wird UM sie herum, abgeschossen wird nie einer. Fahrzeuge (mit Besatzung, über 300 m) oder Munition. Enthält die Kapseln von OPTRE, UNSC Foundries, TKE und TCP, Classname rausnehmen, um ihn abzuschalten. Array aus Strings (z. B. ["MOD_DropPod_F"]) &lt;- Anführungszeichen drinlassen!</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_ShootCinematic">
+				<English>Shoot at cinematic targets?</English>
+				<Czech>Střílet na cíle pro efekt?</Czech>
+				<French>Tirer sur les cibles de spectacle ?</French>
+				<Spanish>¿Disparar a los objetivos de espectáculo?</Spanish>
+				<Italian>Sparare ai bersagli scenici?</Italian>
+				<Polish>Strzelać do celów pokazowych?</Polish>
+				<Russian>Стрелять по зрелищным целям?</Russian>
+				<German>Auf Show-Ziele schießen?</German>
+			</Key>
 			<Key ID="STR_PHEN_ADP_RangeMultiplier">
 				<English>Engagement Range Multiplier</English>
 				<Czech>Násobič dostřelu</Czech>
@@ -839,6 +869,16 @@
 				<Polish>Odznacz, aby zacząć z WYŁĄCZONĄ syreną.</Polish>
 				<Russian>Сними галочку, чтобы сирена стартовала ВЫКЛЮЧЕННОЙ.</Russian>
 				<German>Häkchen entfernen, um mit AUSGESCHALTETER Sirene zu starten.</German>
+			</Key>
+			<Key ID="STR_PHEN_ADP_Eden_Threat_Desc">
+				<English>Off and this one leaves that kind alone, other air defenses still go after it. The Defender and Rhea start with artillery, rocket artillery, drones and cinematic targets off, they only carry 4 missiles!</English>
+				<Czech>Vypnuto a tahle si toho druhu nevšímá, ostatní protivzdušné obrany po něm pořád jdou. Defender a Rhea začínají s vypnutou artilerií, raketomety, drony a cíli pro efekt, mají jen 4 střely!</Czech>
+				<French>Désactivé et celle-ci laisse ce type tranquille, les autres défenses antiaériennes s'en occupent toujours. Le Defender et le Rhea démarrent avec l'artillerie, l'artillerie à roquettes, les drones et les cibles de spectacle désactivés, ils n'ont que 4 missiles !</French>
+				<Spanish>Apagado y esta deja ese tipo en paz, las demás defensas antiaéreas siguen yendo a por él. El Defender y el Rhea empiezan con la artillería, la artillería de cohetes, los drones y los objetivos de espectáculo apagados, ¡solo llevan 4 misiles!</Spanish>
+				<Italian>Spento e questa lascia stare quel tipo, le altre difese antiaeree continuano a ingaggiarlo. Il Defender e il Rhea partono con artiglieria, artiglieria a razzo, droni e bersagli scenici spenti, hanno solo 4 missili!</Italian>
+				<Polish>Wyłączone i ta zostawia ten rodzaj w spokoju, inne obrony przeciwlotnicze nadal go zwalczają. Defender i Rhea zaczynają z wyłączoną artylerią, artylerią rakietową, dronami i celami pokazowymi, mają tylko 4 pociski!</Polish>
+				<Russian>Выкл, и эта ПВО не трогает такие цели, другие ПВО всё равно по ним работают. Defender и Rhea стартуют с выключенными артиллерией, реактивной артиллерией, дронами и зрелищными целями, у них всего 4 ракеты!</Russian>
+				<German>Aus heißt, diese Flugabwehr lässt die Sorte in Ruhe, andere bekämpfen sie weiter. Defender und Rhea starten mit Artillerie, Raketenartillerie, Drohnen und Show-Zielen auf Aus, sie haben nur 4 Raketen!</German>
 			</Key>
 		</Container>
 		<Container name="Zeus">

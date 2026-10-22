@@ -126,6 +126,17 @@
 ] call CBA_fnc_addSetting;
 
 [
+    "PHEN_ADP_cinematicTargets",
+    "EDITBOX",
+    [localize "STR_PHEN_ADP_CinematicTargets", localize "STR_PHEN_ADP_CinematicTargets_Desc"],
+    ["Air Defenses PLUS", localize "STR_PHEN_ADP_Cat_Threats"],
+    '["OPTRE_HEV", "DMNS_SOEIV", "TKE_Drop_Pod_Base", "TCP_Pod_01"]',
+    1,
+    {},
+    true
+] call CBA_fnc_addSetting;
+
+[
     "PHEN_ADP_rangeMultiplier",
     "SLIDER",
     [localize "STR_PHEN_ADP_RangeMultiplier", localize "STR_PHEN_ADP_RangeMultiplier_Desc"],

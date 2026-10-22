@@ -75,6 +75,7 @@ PHEN_ADP_DEBUG_COLOR_FRIENDLY = [0.3, 0.6, 1, 1];
 //classifier caches, one entry per classname, ONCE per like 'mission'/server session
 PHEN_ADP_ammoCache = createHashMap;
 PHEN_ADP_arcCache = createHashMap;
+PHEN_ADP_cinematicCache = createHashMap;
 //one shared proxy group per side; keyed by str side. see PHEN_ADP_fnc_getProxyGroup aswell
 PHEN_ADP_proxyGroups = createHashMap;
 PHEN_ADP_configSetupCache = createHashMap;
@@ -85,6 +86,11 @@ PHEN_ADP_batteries = [];
 PHEN_ADP_threats = [];
 PHEN_ADP_trackerHandle = -1;
 PHEN_ADP_projectileEH = -1;
+PHEN_ADP_entityEH = -1;
+PHEN_ADP_cinematicVehicles = [];
+PHEN_ADP_cinematicAmmo = [];
+PHEN_ADP_cinematicWatch = [];
+PHEN_ADP_cinematicWatcher = -1;
 
 //[posASL, Expiration] per siren still on cooldown, pruned on every alarm request
 PHEN_ADP_alarmsSounding = [];

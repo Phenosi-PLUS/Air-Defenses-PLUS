@@ -12,18 +12,6 @@ class CfgPatches {
 	};
 };
 
-class Extended_PreInit_EventHandlers {
-	class PHEN_ADP_OPTRE_PreInit {
-		init = "call compile preprocessFileLineNumbers '\PHEN_ADP_OPTRE\bootstrap\XEH_preInit.sqf'";
-	};
-};
-
-class Extended_PostInit_EventHandlers {
-	class PHEN_ADP_OPTRE_PostInit {
-		init = "call compile preprocessFileLineNumbers '\PHEN_ADP_OPTRE\bootstrap\XEH_postInit.sqf'";
-	};
-};
-
 class CfgVehicles {
 	class StaticMGWeapon;
 	class AAA_System_01_base_F: StaticMGWeapon {
@@ -56,7 +44,7 @@ class CfgVehicles {
 		class PHEN_ADP: PHEN_ADP {
 			range = 4000;
 			fuzeRadius = 20;
-			bombs = 1;
+			ignore[] = {};
 			interceptAmmo = "OPTRE_ammo_ASR_GAM_10X";
 			clusterAmmo = "OPTRE_ammo_ASR_GAM_10X_Cluster_Submunition";
 			clusterCount = 4;
