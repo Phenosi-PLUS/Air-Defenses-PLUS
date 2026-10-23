@@ -185,14 +185,14 @@
 				<German>Artillerie und Mörser abfangen?</German>
 			</Key>
 			<Key ID="STR_PHEN_ADP_TrackBallistic_Desc">
-				<English>Anything on ShellCore that is actually arcing, so flat tank rounds never enter the tracker.</English>
-				<Czech>Cokoli na ShellCore, co opravdu letí obloukem, takže ploché tankové granáty se do trackeru nikdy nedostanou.</Czech>
-				<French>Tout ce qui est basé sur ShellCore et suit réellement une trajectoire courbe, les obus de char tendus n'entrent donc jamais dans le tracker.</French>
-				<Spanish>Cualquier cosa sobre ShellCore que realmente describa un arco, así los proyectiles tensos de carro nunca entran al tracker.</Spanish>
-				<Italian>Qualsiasi cosa su ShellCore che descrive davvero un arco, così i colpi tesi dei carri non entrano mai nel tracker.</Italian>
-				<Polish>Wszystko na ShellCore, co faktycznie leci łukiem, więc płaskie pociski czołgowe nigdy nie trafiają do trackera.</Polish>
-				<Russian>Всё на ShellCore, что действительно идёт по дуге, поэтому настильные танковые снаряды в трекер не попадают.</Russian>
-				<German>Alles auf ShellCore, das tatsächlich einen Bogen fliegt, flache Panzergranaten landen also nie im Tracker.</German>
+				<English>Shells and mortar rounds that are actually arcing, cluster and guided ones too, so flat tank rounds never enter the tracker.</English>
+				<Czech>Granáty a minometné střely, které opravdu letí obloukem, i kazetové a naváděné, takže ploché tankové granáty se do trackeru nikdy nedostanou.</Czech>
+				<French>Les obus et obus de mortier qui suivent réellement une trajectoire courbe, à sous-munitions et guidés compris, les obus de char tendus n'entrent donc jamais dans le tracker.</French>
+				<Spanish>Proyectiles y granadas de mortero que realmente describan un arco, también los de racimo y guiados, así los proyectiles tensos de carro nunca entran al tracker.</Spanish>
+				<Italian>Proiettili e colpi di mortaio che descrivono davvero un arco, anche quelli a grappolo e guidati, così i colpi tesi dei carri non entrano mai nel tracker.</Italian>
+				<Polish>Pociski artyleryjskie i moździerzowe, które faktycznie lecą łukiem, także kasetowe i kierowane, więc płaskie pociski czołgowe nigdy nie trafiają do trackera.</Polish>
+				<Russian>Снаряды и мины, которые действительно идут по дуге, кассетные и управляемые тоже, поэтому настильные танковые снаряды в трекер не попадают.</Russian>
+				<German>Granaten und Mörsergranaten, die tatsächlich einen Bogen fliegen, auch Streu- und Lenkgranaten, flache Panzergranaten landen also nie im Tracker.</German>
 			</Key>
 			<Key ID="STR_PHEN_ADP_TrackSubmunition">
 				<English>Intercept rocket artillery?</English>
@@ -205,14 +205,14 @@
 				<German>Raketenartillerie abfangen?</German>
 			</Key>
 			<Key ID="STR_PHEN_ADP_TrackSubmunition_Desc">
-				<English>MLRS submunitions, they come in BIG salvos. First one to turn off if your server is struggling.</English>
-				<Czech>Submunice MLRS, chodí ve VELKÝCH salvách. První, co vypnout, když váš server nestíhá.</Czech>
-				<French>Sous-munitions MLRS, elles arrivent par GROSSES salves. La première à couper si votre serveur peine.</French>
-				<Spanish>Submuniciones MLRS, llegan en salvas GRANDES. La primera que apagar si tu servidor sufre.</Spanish>
-				<Italian>Submunizioni MLRS, arrivano in salve GROSSE. La prima da spegnere se il tuo server arranca.</Italian>
-				<Polish>Submunicja MLRS, leci WIELKIMI salwami. Pierwsze do wyłączenia, jeśli twój serwer nie wyrabia.</Polish>
-				<Russian>Суббоеприпасы MLRS, летят БОЛЬШИМИ залпами. Первое, что стоит выключить, если ваш сервер не тянет.</Russian>
-				<German>MLRS-Submunition, kommt in GROSSEN Salven. Das Erste, was Sie abschalten, wenn Ihr Server schwächelt.</German>
+				<English>MLRS rockets, they come in BIG salvos. First one to turn off if your server is struggling.</English>
+				<Czech>Rakety MLRS, chodí ve VELKÝCH salvách. První, co vypnout, když váš server nestíhá.</Czech>
+				<French>Roquettes MLRS, elles arrivent par GROSSES salves. La première à couper si votre serveur peine.</French>
+				<Spanish>Cohetes MLRS, llegan en salvas GRANDES. Lo primero que apagar si tu servidor sufre.</Spanish>
+				<Italian>Razzi MLRS, arrivano in salve GROSSE. La prima cosa da spegnere se il tuo server arranca.</Italian>
+				<Polish>Rakiety MLRS, lecą WIELKIMI salwami. Pierwsze do wyłączenia, jeśli twój serwer nie wyrabia.</Polish>
+				<Russian>Ракеты MLRS, летят БОЛЬШИМИ залпами. Первое, что стоит выключить, если ваш сервер не тянет.</Russian>
+				<German>MLRS-Raketen, kommen in GROSSEN Salven. Das Erste, was Sie abschalten, wenn Ihr Server schwächelt.</German>
 			</Key>
 			<Key ID="STR_PHEN_ADP_TrackMissile">
 				<English>Intercept missiles?</English>
@@ -871,14 +871,14 @@
 				<German>Häkchen entfernen, um mit AUSGESCHALTETER Sirene zu starten.</German>
 			</Key>
 			<Key ID="STR_PHEN_ADP_Eden_Threat_Desc">
-				<English>Off and this one leaves that kind alone, other air defenses still go after it. The Defender and Rhea start with artillery, rocket artillery, drones and cinematic targets off, they only carry 4 missiles!</English>
-				<Czech>Vypnuto a tahle si toho druhu nevšímá, ostatní protivzdušné obrany po něm pořád jdou. Defender a Rhea začínají s vypnutou artilerií, raketomety, drony a cíli pro efekt, mají jen 4 střely!</Czech>
-				<French>Désactivé et celle-ci laisse ce type tranquille, les autres défenses antiaériennes s'en occupent toujours. Le Defender et le Rhea démarrent avec l'artillerie, l'artillerie à roquettes, les drones et les cibles de spectacle désactivés, ils n'ont que 4 missiles !</French>
-				<Spanish>Apagado y esta deja ese tipo en paz, las demás defensas antiaéreas siguen yendo a por él. El Defender y el Rhea empiezan con la artillería, la artillería de cohetes, los drones y los objetivos de espectáculo apagados, ¡solo llevan 4 misiles!</Spanish>
-				<Italian>Spento e questa lascia stare quel tipo, le altre difese antiaeree continuano a ingaggiarlo. Il Defender e il Rhea partono con artiglieria, artiglieria a razzo, droni e bersagli scenici spenti, hanno solo 4 missili!</Italian>
-				<Polish>Wyłączone i ta zostawia ten rodzaj w spokoju, inne obrony przeciwlotnicze nadal go zwalczają. Defender i Rhea zaczynają z wyłączoną artylerią, artylerią rakietową, dronami i celami pokazowymi, mają tylko 4 pociski!</Polish>
-				<Russian>Выкл, и эта ПВО не трогает такие цели, другие ПВО всё равно по ним работают. Defender и Rhea стартуют с выключенными артиллерией, реактивной артиллерией, дронами и зрелищными целями, у них всего 4 ракеты!</Russian>
-				<German>Aus heißt, diese Flugabwehr lässt die Sorte in Ruhe, andere bekämpfen sie weiter. Defender und Rhea starten mit Artillerie, Raketenartillerie, Drohnen und Show-Zielen auf Aus, sie haben nur 4 Raketen!</German>
+				<English>Off and this one leaves that kind alone, other air defenses still go after it. The Defender and Rhea start with artillery, bombs, drones and cinematic targets off, they only carry 4 missiles!</English>
+				<Czech>Vypnuto a tahle si toho druhu nevšímá, ostatní protivzdušné obrany po něm pořád jdou. Defender a Rhea začínají s vypnutou artilerií, bombami, drony a cíli pro efekt, mají jen 4 střely!</Czech>
+				<French>Désactivé et celle-ci laisse ce type tranquille, les autres défenses antiaériennes s'en occupent toujours. Le Defender et le Rhea démarrent avec l'artillerie, les bombes, les drones et les cibles de spectacle désactivés, ils n'ont que 4 missiles !</French>
+				<Spanish>Apagado y esta deja ese tipo en paz, las demás defensas antiaéreas siguen yendo a por él. El Defender y el Rhea empiezan con la artillería, las bombas, los drones y los objetivos de espectáculo apagados, ¡solo llevan 4 misiles!</Spanish>
+				<Italian>Spento e questa lascia stare quel tipo, le altre difese antiaeree continuano a ingaggiarlo. Il Defender e il Rhea partono con artiglieria, bombe, droni e bersagli scenici spenti, hanno solo 4 missili!</Italian>
+				<Polish>Wyłączone i ta zostawia ten rodzaj w spokoju, inne obrony przeciwlotnicze nadal go zwalczają. Defender i Rhea zaczynają z wyłączoną artylerią, bombami, dronami i celami pokazowymi, mają tylko 4 pociski!</Polish>
+				<Russian>Выкл, и эта ПВО не трогает такие цели, другие ПВО всё равно по ним работают. Defender и Rhea стартуют с выключенными артиллерией, бомбами, дронами и зрелищными целями, у них всего 4 ракеты!</Russian>
+				<German>Aus heißt, diese Flugabwehr lässt die Sorte in Ruhe, andere bekämpfen sie weiter. Defender und Rhea starten mit Artillerie, Bomben, Drohnen und Show-Zielen auf Aus, sie haben nur 4 Raketen!</German>
 			</Key>
 		</Container>
 		<Container name="Zeus">

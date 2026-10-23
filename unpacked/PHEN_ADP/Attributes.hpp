@@ -73,7 +73,7 @@ class Cfg3DEN {
 						property = "PHEN_ADP_edenSubmunition";
 						control = "Checkbox";
 						expression = "_this setVariable ['%s', _value];";
-						defaultValue = "!('submunitions' in ((getArray (configOf _this >> 'PHEN_ADP' >> 'ignore')) apply { toLower _x }))";
+						defaultValue = "!('rocketarty' in ((getArray (configOf _this >> 'PHEN_ADP' >> 'ignore')) apply { toLower _x }))";
 						condition = "objectVehicle * script";
 						conditionScript = "((getNumber (configOf _this >> 'PHEN_ADP' >> 'enabled')) isEqualTo 1)";
 						typeName = "BOOL";

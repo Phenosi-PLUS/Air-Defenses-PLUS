@@ -103,8 +103,8 @@ PHEN_ADP_fnc_getConfigSetup = {
 
 //threat categories, number is what PHEN_ADP_fnc_classifyAmmo caches per ammoclassname
 PHEN_ADP_CAT_IGNORE = 0;
-PHEN_ADP_CAT_BALLISTIC = 1;  // ShellCore, artillery and mortar
-PHEN_ADP_CAT_SUB = 2;     // SubmunitionCore, MLRS bomblets
+PHEN_ADP_CAT_BALLISTIC = 1;  // ShellCore + SubmunitionCore, artillery and mortar
+PHEN_ADP_CAT_SUB = 2;     //rocket arty, whatever a 'RocketPods' weapon returns in XEH_preStart
 PHEN_ADP_CAT_MISSILE = 3;   // MissileCore, cruise and AT
 PHEN_ADP_CAT_ROCKET = 4;  // RocketCore, rocket artillery and RPGs
 PHEN_ADP_CAT_DRONE = 5;      // not ammo, comes in through the Air class eventhandler
@@ -135,11 +135,14 @@ PHEN_ADP_fnc_classifyAmmo = {
 
     private _blacklisted = PHEN_ADP_AMMO_BLACKLIST findIf {_ammo isKindOf [_x, _root]};
     private _isCinematicAmmo = ((PHEN_ADP_cinematicAmmo findIf { (_ammo isKindOf [_x, _root]) }) isNotEqualTo -1);
+    _rocketArty = (uiNamespace getVariable ["PHEN_ADP_rocketArtyAmmo", ["R_230mm_HE", "R_230mm_fly"]]);
+    _isRocketArty = ((_rocketArty findIf { (_ammo isKindOf [_x, _root]) }) isNotEqualTo -1);
     if (_blacklisted isEqualTo -1) then {
         switch (true) do {
             case (_isCinematicAmmo): { _cat = PHEN_ADP_CAT_CINEMATIC };
             case (_ammo isKindOf ["MissileCore", _root]): {_cat = PHEN_ADP_CAT_MISSILE};
-            case (_ammo isKindOf ["SubmunitionCore", _root]): {_cat = PHEN_ADP_CAT_SUB};
+            case (_isRocketArty): { _cat = PHEN_ADP_CAT_SUB };
+            case (_ammo isKindOf ["SubmunitionCore", _root]): { _cat = PHEN_ADP_CAT_BALLISTIC };
             case (_ammo isKindOf ["ShellCore", _root]): {_cat = PHEN_ADP_CAT_BALLISTIC};
             case (_ammo isKindOf ["RocketCore", _root]): {_cat = PHEN_ADP_CAT_ROCKET};
             case (_ammo isKindOf ["BombCore", _root]): { _cat = PHEN_ADP_CAT_BOMB };

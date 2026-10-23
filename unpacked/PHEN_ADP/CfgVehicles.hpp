@@ -157,7 +157,7 @@ class CfgVehicles {
 			needsAiming = 1;
 			shotDelay = 4;
 			fuzeRadius = 30;
-			ignore[] = {"artillery", "submunitions", "bombs", "drones", "cinematic"};
+			ignore[] = {"artillery", "bombs", "drones", "cinematic"};
 		};
 	};
 
@@ -169,7 +169,7 @@ class CfgVehicles {
 			needsAiming = 1;
 			shotDelay = 4;
 			fuzeRadius = 30;
-			ignore[] = {"artillery", "submunitions", "bombs", "drones", "cinematic"};
+			ignore[] = {"artillery", "bombs", "drones", "cinematic"};
 		};
 	};
 };

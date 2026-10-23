@@ -54,14 +54,14 @@ For a missile that splits near its target. About 300 m out it gets deleted and `
 ### ignore
 Threat types it starts off ignoring. Eden and Zeus can still turn them back on per emplacement.
 - **artillery**, artillery and mortars
-- **submunitions**, MLRS bomblets
+- **rocketArty**, MLRS rockets
 - **missiles**
 - **rockets**
 - **bombs**
 - **drones**
 - **cinematic**, the Cinematic Targets setting
 
-Leave it out and it only ignores bombs. The short and mid range base-game ones have `ignore[] = {};` so they go after everything, the Defender and Rhea ignore artillery, submunitions, bombs, drones and cinematic since they only carry 4 missiles. It inherits like every other key.
+Leave it out and it only ignores bombs. The short and mid range base-game ones have `ignore[] = {};` so they go after everything, the Defender and Rhea ignore artillery, bombs, drones and cinematic since they only carry 4 missiles. It inherits like every other key.
 
 ### General Explainer on 'guiding' projectiles
 The 'intercepting' projectile gets given its target with `setMissileTarget` and the base-game engine mechanics fly it from there. This is the main method and the best one to use, HOWEVER when you ACE3 _(they enforce their missileguidance PBO with their own PfH)_ or ya got unguided munitions this breaks/won't ever work.
@@ -103,8 +103,7 @@ The check is `isKindOf`, so a parent classname covers everything under it. Regis
 Threats are sorted by what the ammo inherits from (again; only checked once at game start!).
 A shell made off a base-game core is picked up with nothing declared on your side:
 - **MissileCore**, cruise and AT missiles
-- **SubmunitionCore**, MLRS bomblets
-- **ShellCore**, artillery and mortar
+- **ShellCore** and **SubmunitionCore**, artillery and mortar. Fired from a `RocketPods` weapon (like the MLRS) it counts as rocket artillery instead
 - **RocketCore**, rocket artillery and RPGs
 - **BombCore**, dumb and guided bombs, only emplacements without `"bombs"` in `ignore[]` fire at 'bombs'
 
