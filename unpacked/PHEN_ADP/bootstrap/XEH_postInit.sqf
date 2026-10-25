@@ -43,6 +43,7 @@ if (isServer) then {
 
 ["PHEN_ADP_alarm", PHEN_ADP_fnc_playAlarm] call CBA_fnc_addEventHandler;
 ["PHEN_ADP_addActions", PHEN_ADP_fnc_addActions] call CBA_fnc_addEventHandler;
+["PHEN_ADP_triggerAmmo", { triggerAmmo _this }] call CBA_fnc_addEventHandler;
 
 if ((hasInterface) && { (isClass (configFile >> "CfgPatches" >> "zen_custom_modules")) }) then {
     ["Air Defenses PLUS", (localize "STR_PHEN_ADP_Zeus_Module"), {

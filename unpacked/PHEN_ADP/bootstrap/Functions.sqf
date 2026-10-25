@@ -1262,10 +1262,13 @@ PHEN_ADP_fnc_intercept = {
     if (_index isNotEqualTo -1) then {PHEN_ADP_threats deleteAt _index};
 
     private _isDrone = (_threat getVariable ["PHEN_ADP_cat", 0]) isEqualTo PHEN_ADP_CAT_DRONE;
-    if (_isDrone) then {
-        _threat setDamage 0.99;
-    } else {
-        deleteVehicle _threat;
+    _isCarrier = ((getText (configFile >> "CfgAmmo" >> (typeOf _threat) >> "simulation")) isEqualTo "shotSubmunitions");
+    switch (true) do {
+        case (_isDrone): { _threat setDamage 0.99 };
+        //deleted so the carrier never spills bomblets
+        case (_isCarrier): { deleteVehicle _threat };
+        //triggerAmmo only works where the round is LOCAL
+        default { ["PHEN_ADP_triggerAmmo", _threat, _threat] call CBA_fnc_targetEvent };
     };
 
     private _burst = createVehicle [selectRandom PHEN_ADP_BURST_CLASSES, ASLToAGL _position, [], 0, "CAN_COLLIDE"];
