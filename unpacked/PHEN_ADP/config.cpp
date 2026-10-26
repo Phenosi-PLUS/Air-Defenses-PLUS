@@ -6,9 +6,9 @@ class CfgPatches {
 		url = "https://discord.gg/UnQAQMKGdS";
 		requiredVersion = 2.10;
 
-		version = 1.3.0;
-		versionStr = "1.3.0";
-		versionAr[] = {1,3,0};
+		version = 1.3.1;
+		versionStr = "1.3.1";
+		versionAr[] = {1,3,1};
 
 		requiredAddons[] = {
 			"cba_settings",
